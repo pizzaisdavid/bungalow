@@ -1,6 +1,6 @@
 # There goes the Neighborhood
 
-## houses
+## Houses
 * movement (mult-input)
   - slow to backup
   - turn rotates
