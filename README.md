@@ -15,3 +15,6 @@
 ## Other requirements
 * timer
 * leaderboard
+
+## Due date
+* December 1st 10pm
