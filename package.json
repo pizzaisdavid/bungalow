@@ -1,0 +1,26 @@
+{
+  "name": "bungalow",
+  "version": "1.0.0",
+  "description": "* movement (mult-input)\r   - slow to backup\r   - turn rotates\r * collision\r * smash",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pizzaisdavid/bungalow.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pizzaisdavid/bungalow/issues"
+  },
+  "homepage": "https://github.com/pizzaisdavid/bungalow#readme",
+  "devDependencies": {
+    "nodemon": "^1.12.1"
+  },
+  "dependencies": {
+    "express": "^4.16.2",
+    "mongoose": "^4.13.0"
+  }
+}
