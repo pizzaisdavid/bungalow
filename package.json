@@ -3,15 +3,14 @@
   "version": "0.0.0",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node ./bin/www",
-    "devstart": "nodemon ./bin/www"
+    "start": "node ./app",
+    "devstart": "nodemon ./app"
   },
   "dependencies": {
     "body-parser": "~1.18.2",
     "express": "^4.16.2",
-    "mongoose": "^4.13.0",
     "morgan": "~1.9.0",
-    "pug": "^2.0.0-rc.4"
+    "socket.io": "^2.0.4"
   },
   "devDependencies": {
     "nodemon": "^1.12.1"
