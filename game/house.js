@@ -14,6 +14,8 @@ class House {
   constructor(position, color) {
     this.position = position;
     this.color = color;
+    this.WIDTH = 20;
+    this.HEIGHT = 20;
   }
 }
 

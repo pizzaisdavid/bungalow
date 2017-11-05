@@ -5,8 +5,8 @@ class Game {
 
   constructor() {
     console.log('Hi, Clickty-Clack.');
-    this.WIDTH = 500;
-    this.HEIGHT = 500;
+    this.WIDTH = 302;
+    this.HEIGHT = 152;
     this.houses = [];
   }
 
