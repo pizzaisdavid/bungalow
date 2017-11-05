@@ -14,9 +14,10 @@ app.use(express.static('public'));
 var socketio = require('socket.io');
 var io = socketio(server);
 
-var Game = require('./game');
+var Game = require('./game/game');
 
 var game = new Game();
+game.createDefaultHouses();
 
 io.on('connection', function(socket) {
   console.log('suh bruh');
