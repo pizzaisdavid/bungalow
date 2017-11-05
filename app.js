@@ -21,6 +21,8 @@ game.createDefaultHouses();
 
 io.on('connection', function(socket) {
   console.log('suh bruh');
+
+  socket.emit('setup', game.houses);
 });
 
 server.listen(3000, () => {
