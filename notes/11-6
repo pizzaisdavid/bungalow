@@ -1,0 +1,9 @@
+server tick{
+	move
+	update
+}
+
+Every time a the client's map gets updatated, there is a callback function which sends the server 
+	an array with the currently pressed commands
+
+Client-specific framerate? 
