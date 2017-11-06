@@ -3,15 +3,16 @@ const House = require('./house');
 
 class Game {
 
-  constructor() {
+  constructor(width = 302, height = 152, houseCount = 6) {
     console.log('Hi, Clickty-Clack.');
-    this.WIDTH = 302;
-    this.HEIGHT = 152;
+    this.WIDTH = width;
+    this.HEIGHT = height;
+    this.houseCount = houseCount;
     this.houses = [];
   }
 
   createDefaultHouses() {
-    const COUNT = 6;
+    const COUNT = this.houseCount;
     for (var i = 0; i < COUNT; i++) {
       var house = House.generateRandom(this.WIDTH, this.HEIGHT);
       this.houses.push(house);
