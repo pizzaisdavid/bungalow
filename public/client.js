@@ -3,11 +3,16 @@ $(document).ready(() => {
   var socket = io();
   var canvas = $('#screen')[0];
   var context = canvas.getContext('2d');
+  var commands = new Set();
 
   socket.on('setup', (houses) => {
     clearCanvas();
     drawHouses(houses);
   })
+
+  socket.on('poll', () => {
+    console.log(pollInput());
+  });
 
   function drawHouses(houses) {
     console.log(houses);
@@ -27,5 +32,35 @@ $(document).ready(() => {
     var position = house.position;
     context.fillRect(position.x, position.y, house.WIDTH, house.HEIGHT);
   }
+
+  function pollInput() {
+    return commands;
+  }
+
+  document.addEventListener('keydown', (event) => {
+    var command = processCommand(event.keyCode);
+    commands.add(command);
+  });
+
+  document.addEventListener('keyup', (event) => {
+    var command = processCommand(event.keyCode);    
+    commands.delete(command);
+  });
+
+  function processCommand(code) {
+    const KEYBOARD_CODES = {
+      32: 'SPACE_BAR',
+      37: 'LEFT',
+      38: 'UP',
+      39: 'RIGHT',
+      40: 'DOWN'
+    };
+    try {
+      return KEYBOARD_CODES[code];
+    } catch (e) {
+      return '';
+    }
+  }
+
   
 });
