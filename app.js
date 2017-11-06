@@ -25,6 +25,10 @@ io.on('connection', function(socket) {
   socket.emit('setup', game.houses);
 });
 
+setInterval(() => {
+  io.emit('poll');
+}, 3000);
+
 server.listen(3000, () => {
   console.log('Game is running...');
 });
