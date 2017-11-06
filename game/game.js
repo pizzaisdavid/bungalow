@@ -7,17 +7,16 @@ class Game {
     console.log('Hi, Clickty-Clack.');
     this.WIDTH = width;
     this.HEIGHT = height;
-    this.houseCount = houseCount;
+    this.HOUSE_COUNT = houseCount;
     this.houses = [];
   }
 
   createDefaultHouses() {
-    const COUNT = this.houseCount;
-    for (var i = 0; i < COUNT; i++) {
+    for (var i = 0; i < this.HOUSE_COUNT; i++) {
       var house = House.generateRandom(this.WIDTH, this.HEIGHT);
       this.houses.push(house);
     }
-    console.log(`${COUNT} houses generated.`);
+    console.log(`${this.HOUSE_COUNT} houses generated.`);
     console.log(this.houses);
   }
 }
