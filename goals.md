@@ -1,4 +1,4 @@
-- [ ] Update @Clickity-Clack 's node to 8.x
+- [X] Update @Clickity-Clack 's node to 8.x
 * Client and server with canvas
     * (S)Server hold positions + speeds of movement 
         - [ ] Array of house objects, each of which posess a position variable-object(use class keyword + require) $3
