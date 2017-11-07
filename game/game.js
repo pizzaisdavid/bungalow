@@ -3,7 +3,7 @@ const House = require('./house');
 
 class Game {
 
-  constructor(width = 302, height = 152, houseCount = 6) {
+  constructor(width = 300, height = 150, houseCount = 6) {
     console.log('Hi, Clickty-Clack.');
     this.WIDTH = width;
     this.HEIGHT = height;
