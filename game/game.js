@@ -41,6 +41,10 @@ class Game {
       }
     }
   }
+
+  deregisterPlayer(id) {
+    // added so the corresponding unit test fails properly.
+  }
 }
 
 module.exports = Game;
