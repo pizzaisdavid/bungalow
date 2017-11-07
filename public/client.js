@@ -39,12 +39,16 @@ $(document).ready(() => {
 
   document.addEventListener('keydown', (event) => {
     var command = processCommand(event.keyCode);
-    commands.add(command);
+    if (command) {
+      commands.add(command);      
+    }
   });
 
   document.addEventListener('keyup', (event) => {
-    var command = processCommand(event.keyCode);    
-    commands.delete(command);
+    var command = processCommand(event.keyCode);
+    if (command) {
+      commands.delete(command); 
+    }
   });
 
   function processCommand(code) {
