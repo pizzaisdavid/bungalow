@@ -16,6 +16,19 @@ class House {
     this.color = color;
     this.WIDTH = 20;
     this.HEIGHT = 20;
+    this.playerId = '';
+  }
+
+  isVancant() {
+    return this.playerId === '';
+  }
+
+  setPlayerId(id) {
+    this.playerId = id;
+  }
+
+  toString() {
+    return `playerId=${this.playerId}`;
   }
 }
 
