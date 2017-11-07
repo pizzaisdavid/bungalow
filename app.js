@@ -25,7 +25,7 @@ io.on('connection', function(socket) {
   socket.emit('setup', game.houses);
 });
 
-setInterval(() => {
+setInterval(() => { // this just allows me to test the client side input polling
   io.emit('poll');
 }, 3000);
 
