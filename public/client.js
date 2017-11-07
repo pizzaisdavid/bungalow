@@ -4,9 +4,12 @@ $(document).ready(() => {
   var canvas = $('#screen')[0];
   var context = canvas.getContext('2d');
   var commands = new Set();
+  var id = '';
 
-  socket.on('setup', (houses) => {
+  socket.on('initialize', (state) => {
     clearCanvas();
+    id = state.id;
+    var houses = state.houses;
     drawHouses(houses);
   })
 
@@ -27,9 +30,14 @@ $(document).ready(() => {
   }
 
   function drawHouse(house) {
+    var position = house.position;
+    if (house.playerId === id) {
+      console.log('hi');
+      context.fillStyle = 'black';
+      context.strokeRect(position.x, position.y, house.WIDTH + 5, house.HEIGHT + 5);
+    }
     context.beginPath();
     context.fillStyle = house.color;
-    var position = house.position;
     context.fillRect(position.x, position.y, house.WIDTH, house.HEIGHT);
   }
 
