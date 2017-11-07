@@ -20,9 +20,13 @@ var game = new Game();
 game.createDefaultHouses();
 
 io.on('connection', function(socket) {
-  console.log('suh bruh');
+  game.registerPlayer(socket.id);
 
-  socket.emit('setup', game.houses);
+  socket.emit('initialize', {
+    id: socket.id,
+    houses: game.houses
+  });
+  
 });
 
 setInterval(() => { // this just allows me to test the client side input polling

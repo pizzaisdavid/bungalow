@@ -19,6 +19,18 @@ class Game {
     console.log(`${this.HOUSE_COUNT} houses generated.`);
     console.log(this.houses);
   }
+
+  registerPlayer(id) {
+    console.log(`${id} has joined.`);
+    for (var i = 0; i < this.HOUSE_COUNT; i++) {
+      var house = this.houses[i];
+      if (house.isVancant()) {
+        house.setPlayerId(id);
+        console.log(`house modified: ${this.houses[i].toString()}`);
+        break;
+      }
+    }
+  }
 }
 
 module.exports = Game;
