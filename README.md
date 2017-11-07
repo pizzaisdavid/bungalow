@@ -18,3 +18,6 @@
 
 ## Due date
 * December 1st 10pm
+ 
+## Sprints
+* 4 Week-long sprints
