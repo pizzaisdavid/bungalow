@@ -20,6 +20,16 @@ class Game {
     console.log(this.houses);
   }
 
+  setHouses(houses) {
+    this.houses = houses;
+  }
+
+  get state() {
+    return {
+      houses: this.houses
+    };
+  }
+
   registerPlayer(id) {
     console.log(`${id} has joined.`);
     for (var i = 0; i < this.HOUSE_COUNT; i++) {
