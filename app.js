@@ -27,6 +27,10 @@ io.on('connection', function(socket) {
     houses: game.houses
   });
   
+
+  socket.on('disconnection', function(){
+    game.houses
+  })
 });
 
 setInterval(() => { // this just allows me to test the client side input polling

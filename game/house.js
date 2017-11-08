@@ -1,5 +1,6 @@
 const Position = require('./position');
 const MathHelper = require('./math-helper');
+const Player = require('./player');
 
 
 class House {
@@ -16,19 +17,19 @@ class House {
     this.color = color;
     this.WIDTH = 20;
     this.HEIGHT = 20;
-    this.playerId = '';
+    this.player = Player.Null;
   }
 
   isVancant() {
-    return this.playerId === '';
+    return this.player === Player.Null;
   }
 
-  setPlayerId(id) {
-    this.playerId = id;
+  setPlayer(aPlayer) {
+    this.player = aPlayer;
   }
 
   toString() {
-    return `playerId=${this.playerId}`;
+    return `playerId=${this.player.id}`;
   }
 }
 

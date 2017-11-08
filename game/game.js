@@ -1,5 +1,6 @@
 
 const House = require('./house');
+const Player = require('./player');
 
 class Game {
 
@@ -21,11 +22,12 @@ class Game {
   }
 
   registerPlayer(id) {
+    var aPlayer = new Player(id);
     console.log(`${id} has joined.`);
     for (var i = 0; i < this.HOUSE_COUNT; i++) {
       var house = this.houses[i];
       if (house.isVancant()) {
-        house.setPlayerId(id);
+        house.setPlayer(aPlayer);
         console.log(`house modified: ${this.houses[i].toString()}`);
         break;
       }
