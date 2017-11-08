@@ -24,7 +24,7 @@ describe('game', function() {
     var aPlayer = new Player(PLAYER_0_ID);
     var houses = game.state.houses;
     aPlayer.assignHouse(houses[0]);
-    assert.equal(houses[0].player.id, PLAYER_0_ID);
+    assert(houses[0].isOccupiedBy(aPlayer));
     assert(houses[1].isVancant());
     assert(houses[2].isVancant());
   });
@@ -35,7 +35,7 @@ describe('game', function() {
       aPlayer.assignHouse(houses[0]);
       aPlayer.assignHouse(houses[1]);
       assert(houses[0].isVancant());
-      assert.equal(houses[1].player.id, PLAYER_0_ID);
+      assert(houses[1].isOccupiedBy(aPlayer));
       assert(houses[2].isVancant());
     });
 });

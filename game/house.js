@@ -27,6 +27,10 @@ class House {
     this.player = aPlayer;
   }
 
+  isOccupiedBy(aPlayer) {
+    return this.player === aPlayer;
+  }
+
   abandon() {
     this.player = this.PLAYER.Null;
   }
