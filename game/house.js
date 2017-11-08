@@ -33,4 +33,6 @@ class House {
   }
 }
 
+House.Null = new House(0,0);
+
 module.exports = House;
