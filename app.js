@@ -29,7 +29,7 @@ io.on('connection', function(socket) {
   
 
   socket.on('disconnection', function(){
-    game.houses
+    game.deregisterPlayer(socket.id);
   })
 });
 

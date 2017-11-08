@@ -1,4 +1,3 @@
-
 const House = require('./house');
 const Player = require('./player');
 
@@ -45,7 +44,14 @@ class Game {
   }
 
   deregisterPlayer(id) {
-    // added so the corresponding unit test fails properly.
+    for (var i = 0; i < this.HOUSE_COUNT; i++) {
+      var house = this.houses[i];
+      if (!house.isVancant()) {
+        house.setPlayer(Player.Null);
+        console.log(`house modified: ${this.houses[i].toString()}`);
+        break;
+      }
+    }
   }
 }
 
