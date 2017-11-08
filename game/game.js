@@ -33,20 +33,35 @@ class Game {
   registerPlayer(id) {
     console.log(`${id} has joined.`);    
     var aPlayer = new Player(id);
+    var aHouse = this.findVancantHouse();
+    aPlayer.assignHouse(aHouse);
+    console.log(`house modified: ${aHouse.toString()}`);
+    this.add(aPlayer);
+  }
+
+  add(aPlayer) {
+    var id = aPlayer.id;
+    this.players[id] = aPlayer;    
+  }
+
+  findVancantHouse() {
     for (var i = 0; i < this.HOUSE_COUNT; i++) {
       var house = this.houses[i];
       if (house.isVancant()) {
-        aPlayer.assignHouse(house);
-        console.log(`house modified: ${this.houses[i].toString()}`);
-        break;
+        return house;
       }
     }
-    this.players[id] = aPlayer;
+    return House.Null;
   }
 
   deregisterPlayer(id) {
-    var player = this.players[id];
-    player.quit();
+    var aPlayer = this.players[id];
+    aPlayer.quit();
+    this.remove(aPlayer);
+  }
+
+  remove(aPlayer) {
+    var id = aPlayer.id;
     delete this.players[id];
   }
 }
