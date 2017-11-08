@@ -1,20 +1,20 @@
-const House = require('./house');
 
-class Player{
+class Player {
+  
     constructor(anId){
+        this.HOUSE = require('./house');      
         this.name = '';
         this.id = anId;
         this.self = this;        
-        this.house = House.Null;
+        this.house = this.HOUSE.Null;
         this.assignHouse = (aHouse) => {
-            if(this.house !== House.Null){
-                this.house.setPlayer(Player.Null)
-            }
+            this.house.abandon();          
             aHouse.setPlayer(this.self);
             this.house = aHouse;
         }
     }
 }
+
 Player.Null = new Player('');
 
 module.exports = Player;

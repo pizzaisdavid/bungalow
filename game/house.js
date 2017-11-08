@@ -1,7 +1,5 @@
 const Position = require('./position');
 const MathHelper = require('./math-helper');
-const Player = require('./player');
-
 
 class House {
 
@@ -13,19 +11,24 @@ class House {
   }
 
   constructor(position, color) {
+    this.PLAYER = require('./player');
     this.position = position;
     this.color = color;
     this.WIDTH = 20;
     this.HEIGHT = 20;
-    this.player = Player.Null;
+    this.player = this.PLAYER.Null;
   }
 
   isVancant() {
-    return this.player === Player.Null;
+    return this.player === this.PLAYER.Null;
   }
 
   setPlayer(aPlayer) {
     this.player = aPlayer;
+  }
+
+  abandon() {
+    this.player = this.PLAYER.Null;
   }
 
   toString() {
@@ -34,5 +37,9 @@ class House {
 }
 
 House.Null = new House(0,0);
+
+House.Null.toString = () => {
+  console.log('I am a Null house');
+}
 
 module.exports = House;
