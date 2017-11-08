@@ -14,7 +14,8 @@ $(document).ready(() => {
   })
 
   socket.on('poll', () => {
-    console.log(pollInput());
+    // TODO: update screen
+    socket.emit('commands', pollInput());
   });
 
   function drawHouses(houses) {
@@ -42,7 +43,7 @@ $(document).ready(() => {
   }
 
   function pollInput() {
-    return commands;
+    return Array.from(commands); // 'Set' cannot be sent over a socket.
   }
 
   document.addEventListener('keydown', (event) => {

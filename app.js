@@ -19,23 +19,28 @@ var Game = require('./game/game');
 var game = new Game();
 game.createDefaultHouses();
 
-io.on('connection', function(socket) {
+io.on('connection', (socket) => {
   game.registerPlayer(socket.id);
 
   socket.emit('initialize', {
     id: socket.id,
     houses: game.houses
   });
-  
 
-  socket.on('disconnection', function(){
+  socket.on('commands', (commands) => {
+    game.queue(socket.id, commands);
+  });
+
+  socket.on('disconnection', () => {
     game.deregisterPlayer(socket.id);
   })
 });
 
-setInterval(() => { // this just allows me to test the client side input polling
-  io.emit('poll');
-}, 3000);
+
+setInterval(() => {
+  game.tick();
+  io.emit('poll', game.state);
+}, 1000);
 
 server.listen(3000, () => {
   console.log('Game is running...');

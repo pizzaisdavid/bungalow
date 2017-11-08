@@ -10,6 +10,7 @@ class Game {
     this.HOUSE_COUNT = houseCount;
     this.houses = [];
     this.players = {};
+    this.commands = {};
   }
 
   createDefaultHouses() {
@@ -63,6 +64,19 @@ class Game {
   remove(aPlayer) {
     var id = aPlayer.id;
     delete this.players[id];
+  }
+
+  queue(id, commands) {
+    this.commands[id] = commands;   
+  }
+
+  tick() {
+    for (var id in this.commands) {
+      var player = this.players[id];
+      var commands = this.commands[id];
+      player.do(commands);
+    }
+    this.commands = {};    
   }
 }
 

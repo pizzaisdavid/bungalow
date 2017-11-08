@@ -18,6 +18,10 @@ class Player {
     quit() {
       this.house.abandon();
     }
+
+    do(commands) {
+      console.log(`Player[id='${this.id},commands=[${commands}]`);
+    }
 }
 
 module.exports = Player;
