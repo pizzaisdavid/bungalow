@@ -21,6 +21,16 @@ class Game {
     console.log(this.houses);
   }
 
+  setHouses(houses) {
+    this.houses = houses;
+  }
+
+  get state() {
+    return {
+      houses: this.houses
+    };
+  }
+
   registerPlayer(id) {
     var aPlayer = new Player(id);
     console.log(`${id} has joined.`);
@@ -32,6 +42,10 @@ class Game {
         break;
       }
     }
+  }
+
+  deregisterPlayer(id) {
+    // added so the corresponding unit test fails properly.
   }
 }
 

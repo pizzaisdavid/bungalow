@@ -9,7 +9,7 @@ class House {
     return new House(
       Position.generateRandom(width, height),
       MathHelper.selectRandom(['blue', 'red', 'green', 'yellow'])
-    )
+    );
   }
 
   constructor(position, color) {
