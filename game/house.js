@@ -11,39 +11,52 @@ class House {
   }
 
   constructor(position, color) {
-    this.PLAYER = require('./player');
     this.position = position;
     this.color = color;
     this.WIDTH = 20;
     this.HEIGHT = 20;
-    this.player = this.PLAYER.Null;
+    this.ownerId = '';
   }
 
   isVancant() {
-    return this.player === this.PLAYER.Null;
+    return this.ownerId === '';
   }
 
-  setPlayer(aPlayer) {
-    this.player = aPlayer;
+  set owner(newOwnerId) {
+    this.ownerId = newOwnerId;
   }
 
   isOccupiedBy(aPlayer) {
-    return this.player === aPlayer;
+    return this.ownerId === aPlayer.id;
   }
 
   abandon() {
-    this.player = this.PLAYER.Null;
+    this.ownerId = '';
   }
 
   toString() {
-    return `playerId=${this.player.id}`;
+    return `ownerId=${this.ownerId}`;
   }
 }
 
-House.Null = new House(0,0);
+class NullHouse {
 
-House.Null.toString = () => {
-  console.log('I am a Null house');
+  constructor() {
+
+  }
+
+  abandon() {
+
+  }
+
+  isVancant() {
+    return false;
+  }
+
+  toString() {
+    return 'NullHouse';
+  }
 }
 
+House.Null = new NullHouse();
 module.exports = House;

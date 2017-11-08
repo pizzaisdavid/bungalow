@@ -9,6 +9,7 @@ class Game {
     this.HEIGHT = height;
     this.HOUSE_COUNT = houseCount;
     this.houses = [];
+    this.players = {};
   }
 
   createDefaultHouses() {
@@ -17,7 +18,6 @@ class Game {
       this.houses.push(house);
     }
     console.log(`${this.HOUSE_COUNT} houses generated.`);
-    console.log(this.houses);
   }
 
   setHouses(houses) {
@@ -31,27 +31,23 @@ class Game {
   }
 
   registerPlayer(id) {
+    console.log(`${id} has joined.`);    
     var aPlayer = new Player(id);
-    console.log(`${id} has joined.`);
     for (var i = 0; i < this.HOUSE_COUNT; i++) {
       var house = this.houses[i];
       if (house.isVancant()) {
-        house.setPlayer(aPlayer);
+        aPlayer.assignHouse(house);
         console.log(`house modified: ${this.houses[i].toString()}`);
         break;
       }
     }
+    this.players[id] = aPlayer;
   }
 
   deregisterPlayer(id) {
-    for (var i = 0; i < this.HOUSE_COUNT; i++) {
-      var house = this.houses[i];
-      if (!house.isVancant() && house.player.id === id) {
-        house.setPlayer(Player.Null);
-        console.log(`house modified: ${this.houses[i].toString()}`);
-        break;
-      }
-    }
+    var player = this.players[id];
+    player.quit();
+    delete this.players[id];
   }
 }
 

@@ -31,7 +31,7 @@ $(document).ready(() => {
 
   function drawHouse(house) {
     var position = house.position;
-    if (house.player.id === id) {
+    if (house.ownerId === id) {
       console.log('hi');
       context.fillStyle = 'black';
       context.strokeRect(position.x, position.y, house.WIDTH + 5, house.HEIGHT + 5);
