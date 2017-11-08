@@ -1,2 +1,3 @@
 [Clickity-clack]: I foresee potential for a problem with 'Player.assignHouse'; 
     if the house passed in already has a player assigned, the assignments between the old player and the house will be a mismatch
+    This brings up another problem: should players be evicted from houses?
