@@ -46,7 +46,7 @@ class Game {
   deregisterPlayer(id) {
     for (var i = 0; i < this.HOUSE_COUNT; i++) {
       var house = this.houses[i];
-      if (!house.isVancant()) {
+      if (!house.isVancant() && house.player.id === id) {
         house.setPlayer(Player.Null);
         console.log(`house modified: ${this.houses[i].toString()}`);
         break;

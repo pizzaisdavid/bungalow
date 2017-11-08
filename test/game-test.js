@@ -22,7 +22,7 @@ describe('game', function() {
   it('Register one player', () => {
     game.registerPlayer(PLAYER_0_ID);
     var houses = game.state.houses;
-    assert(houses[0].player.id === PLAYER_0_ID);
+    assert.equal(houses[0].player.id, PLAYER_0_ID);
     assert(houses[1].isVancant());
     assert(houses[2].isVancant());
   });
@@ -30,19 +30,19 @@ describe('game', function() {
   it('Register multiple players', () => {
     game.registerPlayer(PLAYER_0_ID);
     var houses = game.state.houses;
-    assert(houses[0].player.id === PLAYER_0_ID);
+    assert.equal(houses[0].player.id, PLAYER_0_ID);
     assert(houses[1].isVancant());
     assert(houses[2].isVancant());
     game.registerPlayer(PLAYER_1_ID);
     var houses = game.state.houses;
-    assert(houses[0].player.id === PLAYER_0_ID);
-    assert(houses[1].player.id === PLAYER_1_ID);
+    assert.equal(houses[0].player.id, PLAYER_0_ID);
+    assert.equal(houses[1].player.id, PLAYER_1_ID);
     assert(houses[2].isVancant());
     game.registerPlayer(PLAYER_2_ID);
     var houses = game.state.houses;
-    assert(houses[0].player.id === PLAYER_0_ID);
-    assert(houses[1].player.id === PLAYER_1_ID);
-    assert(houses[2].player.id === PLAYER_2_ID);
+    assert.equal(houses[0].player.id, PLAYER_0_ID);
+    assert.equal(houses[1].player.id, PLAYER_1_ID);
+    assert.equal(houses[2].player.id, PLAYER_2_ID);
   });
 
   it('De-Register one player', () => {
@@ -61,13 +61,13 @@ describe('game', function() {
       game.deregisterPlayer(PLAYER_0_ID);
       var houses = game.state.houses;    
       assert(houses[0].isVancant());
-      assert(houses[1].player.id === PLAYER_1_ID);
-      assert(houses[2].player.id === PLAYER_2_ID);
+      assert.equal(houses[1].player.id, PLAYER_1_ID);
+      assert.equal(houses[2].player.id, PLAYER_2_ID);
       game.deregisterPlayer(PLAYER_1_ID);
       houses = game.state.houses;    
       assert(houses[0].isVancant());
       assert(houses[1].isVancant());
-      assert(houses[2].player.id === PLAYER_2_ID);
+      assert.equal(houses[2].player.id, PLAYER_2_ID);
       game.deregisterPlayer(PLAYER_2_ID);
     });
     
@@ -77,12 +77,12 @@ describe('game', function() {
       game.registerPlayer(PLAYER_2_ID);
       game.deregisterPlayer(PLAYER_2_ID);
       var houses = game.state.houses;    
-      assert(houses[0].player.id === PLAYER_0_ID);
-      assert(houses[1].player.id === PLAYER_1_ID);
+      assert.equal(houses[0].player.id, PLAYER_0_ID);
+      assert.equal(houses[1].player.id, PLAYER_1_ID);
       assert(houses[2].isVancant());
       game.deregisterPlayer(PLAYER_1_ID);
       houses = game.state.houses;    
-      assert(houses[0].player.id === PLAYER_2_ID);
+      assert.equal(houses[0].player.id, PLAYER_0_ID);
       assert(houses[1].isVancant());
       assert(houses[2].isVancant());
     });
@@ -99,11 +99,10 @@ describe('game', function() {
       game.registerPlayer(PLAYER_0_ID);
       game.registerPlayer(PLAYER_1_ID);
       game.registerPlayer(PLAYER_2_ID);
-      game.deregisterPlayer(PLAYER_2_ID);
       var houses = game.state.houses;    
-      assert(houses[0].player.id === PLAYER_0_ID);
-      assert(houses[1].player.id === PLAYER_1_ID);
-      assert(houses[2].player.id === PLAYER_2_ID);
+      assert.equal(houses[0].player.id, PLAYER_0_ID);
+      assert.equal(houses[1].player.id, PLAYER_1_ID);
+      assert.equal(houses[2].player.id, PLAYER_2_ID);
     });
 });
 
