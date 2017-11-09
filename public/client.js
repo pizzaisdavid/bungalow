@@ -37,11 +37,11 @@ $(document).ready(() => {
     if (house.ownerId === id) {
       console.log('hi');
       context.fillStyle = 'black';
-      context.strokeRect(position.x, position.y, house.WIDTH + 5, house.HEIGHT + 5);
+      context.strokeRect(position.x, position.y, house.position.width + 5, house.position.height + 5);
     }
     context.beginPath();
     context.fillStyle = house.color;
-    context.fillRect(position.x, position.y, house.WIDTH, house.HEIGHT);
+    context.fillRect(position.x, position.y, house.position.width, house.position.height);
   }
 
   function pollInput() {

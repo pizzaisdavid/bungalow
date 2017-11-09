@@ -15,10 +15,27 @@ class Game {
 
   createDefaultHouses() {
     for (var i = 0; i < this.HOUSE_COUNT; i++) {
-      var house = House.generateRandom(this.WIDTH, this.HEIGHT);
+      var house = this.spawnProperPlacedHouse();
       this.houses.push(house);
     }
     console.log(`${this.HOUSE_COUNT} houses generated.`);
+  }
+
+  spawnProperPlacedHouse() {
+    while (true) {
+      var house = House.generateRandom(this.WIDTH, this.HEIGHT);      
+      if (this.isTouchingAnyHouse(house) === false) {
+        return house;
+      }
+    }    
+  }
+
+  isTouchingAnyHouse(thingWithPosition) {
+    for (var i = 0; i < this.houses.length; i++) {
+      var h = this.houses[i];
+
+    }
+    return false;
   }
 
   setHouses(houses) {

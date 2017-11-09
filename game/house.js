@@ -1,11 +1,11 @@
-const Position = require('./position');
+const PlaneObject = require('./plane-object');
 const MathHelper = require('./math-helper');
 
 class House {
 
   static generateRandom(width, height) {
     return new House(
-      Position.generateRandom(width, height),
+      PlaneObject.generateRandom(width, height),
       MathHelper.selectRandom(['blue', 'red', 'green', 'yellow'])
     );
   }
@@ -13,8 +13,6 @@ class House {
   constructor(position, color) {
     this.position = position;
     this.color = color;
-    this.WIDTH = 20;
-    this.HEIGHT = 20;
     this.SPEED = 10;
     this.ownerId = '';
   }
