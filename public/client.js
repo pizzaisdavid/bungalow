@@ -13,8 +13,10 @@ $(document).ready(() => {
     drawHouses(houses);
   })
 
-  socket.on('poll', () => {
-    // TODO: update screen
+  socket.on('poll', (gameState) => {
+    clearCanvas();
+    drawHouses(gameState.houses);
+    console.log(gameState.houses);
     socket.emit('commands', pollInput());
   });
 

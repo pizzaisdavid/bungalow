@@ -15,6 +15,7 @@ class House {
     this.color = color;
     this.WIDTH = 20;
     this.HEIGHT = 20;
+    this.SPEED = 10;
     this.ownerId = '';
   }
 
@@ -36,6 +37,42 @@ class House {
 
   toString() {
     return `ownerId=${this.ownerId}`;
+  }
+
+  do(game, command) {
+    switch (command) {
+      case 'LEFT':
+        this.left(game)
+        break;
+      case 'UP':
+        this.up(game);
+        break;
+      case 'RIGHT':
+        this.right(game);
+        break;
+      case 'DOWN':
+        this.down(game);
+        break;
+      default:
+        console.log(`band command: ${command}`);
+        break;
+    }
+  }
+
+  left(game) {
+    this.position.x -= this.SPEED;
+  }
+ 
+  up(game) {
+    this.position.y -= this.SPEED;
+  }
+
+  right(game) {
+    this.position.x += this.SPEED;
+  }
+
+  down(game) {
+    this.position.y += this.SPEED;
   }
 }
 

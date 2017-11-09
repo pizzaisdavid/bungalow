@@ -74,9 +74,18 @@ class Game {
     for (var id in this.commands) {
       var player = this.players[id];
       var commands = this.commands[id];
-      player.do(commands);
+      this.processCommands(player, commands);
     }
     this.commands = {};    
+  }
+
+  processCommands(player, commands) {
+    for (var i = 0; i < commands.length; i++) {
+      var c = commands[i];
+      console.log(c);
+      player.do(this, c);
+    }
+
   }
 }
 

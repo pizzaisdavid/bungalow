@@ -19,8 +19,8 @@ class Player {
       this.house.abandon();
     }
 
-    do(commands) {
-      console.log(`Player[id='${this.id},commands=[${commands}]`);
+    do(game, command) {
+      this.house.do(game, command);
     }
 }
 

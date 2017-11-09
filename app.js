@@ -40,7 +40,7 @@ io.on('connection', (socket) => {
 setInterval(() => {
   game.tick();
   io.emit('poll', game.state);
-}, 1000);
+}, 33);
 
 server.listen(3000, () => {
   console.log('Game is running...');
