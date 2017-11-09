@@ -33,4 +33,16 @@ class PlaneObject {
   }
 }
 
+class NullPlaneObject {
+
+  constructor() {
+
+  }
+
+  isTouching() {
+    return false;
+  }
+}
+
+PlaneObject.Null = NullPlaneObject;
 module.exports = PlaneObject;

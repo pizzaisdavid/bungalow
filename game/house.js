@@ -11,6 +11,7 @@ class House {
   }
 
   constructor(position, color) {
+    this.self = this;
     this.position = position;
     this.color = color;
     this.SPEED = 10;
@@ -62,7 +63,8 @@ class House {
     var oldx = this.position.x;
 
     this.position.x -= this.SPEED;
-    if (game.isTouchingTouchingAnyHouseMinusMe(this)) {
+    console.log('iiiiiiiiiiiiiiiiiiiiiii');        
+    if (game.isTouchingTouchingAnyHouseMinusMe(this.self)) {
       console.log('hihihihih');
       this.position.x = oldx;
     }
@@ -84,7 +86,7 @@ class House {
 class NullHouse {
 
   constructor() {
-
+    this.position = PlaneObject.Null;
   }
 
   abandon() {
