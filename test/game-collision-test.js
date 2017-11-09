@@ -11,7 +11,7 @@ describe('game-collision', function() {
   var game;
 
   beforeEach(() => {
-    game = new Game(2000, 2000, 3);
+    game = new Game(2000, 2000, 2);
     game.setHouses([
       whyTestHouse(),
       makeTestHouseLeftOfTestHouse(),
@@ -20,25 +20,48 @@ describe('game-collision', function() {
   });
 
   it('able to move left', () => {
+    game = new Game(2000, 2000, 1);
+    game.setHouses([
+      makeTestFarAwayHouse()
+    ]);
     game.registerPlayer(PLAYER_0_ID);
-    game.registerPlayer(PLAYER_1_ID);
-    game.registerPlayer(PLAYER_2_ID);
-    console.log('pplayers:');
-    console.log(game.players[PLAYER_2_ID].house.position);
-    var startingX = game.players[PLAYER_2_ID].house.position.x;
-    var startingY = game.players[PLAYER_2_ID].house.position.y;
-    console.log(game.players[PLAYER_2_ID]);
-    game.queue(PLAYER_2_ID, ['LEFT']);
+    var startingX = game.players[PLAYER_0_ID].house.position.x;
+    var startingY = game.players[PLAYER_0_ID].house.position.y;
+    game.queue(PLAYER_0_ID, ['LEFT']);
     game.tick();
-    game.queue(PLAYER_2_ID, ['LEFT']);
+    game.queue(PLAYER_0_ID, ['LEFT']);
     game.tick();
-    game.queue(PLAYER_2_ID, ['LEFT']);
+    game.queue(PLAYER_0_ID, ['LEFT']);
     game.tick();
-    var currentX = game.players[PLAYER_2_ID].house.position.x;
-    var currentY = game.players[PLAYER_2_ID].house.position.y;
+    var currentX = game.players[PLAYER_0_ID].house.position.x;
+    var currentY = game.players[PLAYER_0_ID].house.position.y;
     assert.notEqual(startingX, currentX);
     assert.equal(startingY, currentY);
   });
+
+
+  it('cant move left', () => {
+    game = new Game(2000, 2000, 2);
+    game.setHouses([
+      whyTestHouse(),
+      makeTestHouseLeftOfTestHouse()
+    ]);
+    game.registerPlayer(PLAYER_0_ID);
+    game.registerPlayer(PLAYER_1_ID);
+    var startingX = game.players[PLAYER_1_ID].house.position.x;
+    var startingY = game.players[PLAYER_1_ID].house.position.y;
+    game.queue(PLAYER_1_ID, ['LEFT']);
+    game.tick();
+    game.queue(PLAYER_1_ID, ['LEFT']);
+    game.tick();
+    game.queue(PLAYER_1_ID, ['LEFT']);
+    game.tick();
+    var currentX = game.players[PLAYER_1_ID].house.position.x;
+    var currentY = game.players[PLAYER_1_ID].house.position.y;
+    assert.equal(startingX, currentX);
+    assert.equal(startingY, currentY);
+  });
+  
 
 });
 
