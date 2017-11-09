@@ -55,10 +55,17 @@ class House {
         console.log(`band command: ${command}`);
         break;
     }
+    
   }
 
   left(game) {
+    var oldx = this.position.x;
+
     this.position.x -= this.SPEED;
+    if (game.isTouchingTouchingAnyHouseMinusMe(this)) {
+      console.log('hihihihih');
+      this.position.x = oldx;
+    }
   }
  
   up(game) {

@@ -30,10 +30,24 @@ class Game {
     }    
   }
 
-  isTouchingAnyHouse(thingWithPosition) {
+  isTouchingTouchingAnyHouseMinusMe(anObjectWithPlaneObject) {
     for (var i = 0; i < this.houses.length; i++) {
       var h = this.houses[i];
+      if (h === anObjectWithPlaneObject) {
+        // do nothing
+      } else if (h.position.isTouching(anObjectWithPlaneObject.position)) {
+        return true;
+      }
+    }
+    return false;  
+  }
 
+  isTouchingAnyHouse(anObjectWithPlaneObject) {
+    for (var i = 0; i < this.houses.length; i++) {
+      var h = this.houses[i];
+      if (h.position.isTouching(anObjectWithPlaneObject.position)) {
+        return true;
+      }
     }
     return false;
   }
