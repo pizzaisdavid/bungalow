@@ -32,7 +32,7 @@ class PlaneObject {
   }
 
   isTouching(aPlaneObject) {
-    console.log(this);
+    //console.log(this);
     if (this.z !== aPlaneObject.z || this === aPlaneObject) {
       return false;
     }

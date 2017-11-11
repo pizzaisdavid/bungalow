@@ -11,7 +11,6 @@ class House {
   }
 
   constructor(position, color) {
-    this.self = this;
     this.position = position;
     this.color = color;
     this.SPEED = 10;
@@ -63,23 +62,35 @@ class House {
     var oldx = this.position.x;
 
     this.position.x -= this.SPEED;
-    console.log('iiiiiiiiiiiiiiiiiiiiiii');        
-    if (game.isTouchingTouchingAnyHouseMinusMe(this)) {
-      console.log('hihihihih');
+    // console.log('iiiiiiiiiiiiiiiiiiiiiii');        
+    if (game.isTouchingAnyHouse(this.position)) {
+      // console.log('hihihihih');
       this.position.x = oldx;
     }
   }
  
   up(game) {
-    this.position.y -= this.SPEED;
+    var oldy = this.position.x;
+    this.position.y -= this.SPEED;     
+    if (game.isTouchingAnyHouse(this.position)) {
+      this.position.y = oldy;
+    }
   }
 
   right(game) {
-    this.position.x += this.SPEED;
+    var oldx = this.position.x;
+    this.position.x += this.SPEED;       
+    if (game.isTouchingAnyHouse(this.position)) {
+      this.position.x = oldx;
+    }
   }
 
   down(game) {
-    this.position.y += this.SPEED;
+    var oldy = this.position.x;
+    this.position.y += this.SPEED;     
+    if (game.isTouchingAnyHouse(this.position)) {
+      this.position.y = oldy;
+    }
   }
 }
 
