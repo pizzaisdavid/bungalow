@@ -31,21 +31,12 @@ class Game {
   }
 
   isTouchingTouchingAnyHouseMinusMe(anObjectWithPlaneObject) {
-    for (var i = 0; i < this.houses.length; i++) {
-      var h = this.houses[i];
-      console.log('hhhhhhhhhhiiiiiiiiiiiiiiii');
-      console.log(h);
-      if (h === anObjectWithPlaneObject) {
-        // do nothing
-      } else if (h.position.isTouching(anObjectWithPlaneObject.position)) {
-        console.log('touuuuching');
-        return true;
-      }
-    }
-    return false;  
+    return this.isTouchingAnyHouse(anObjectWithPlaneObject);
   }
 
   isTouchingAnyHouse(anObjectWithPlaneObject) {
+    // var planeObjects = this.houses.map((house) => {return house.position});
+    // aPlaneObject.isTouching()
     for (var i = 0; i < this.houses.length; i++) {
       var h = this.houses[i];
       if (h.position.isTouching(anObjectWithPlaneObject.position)) {

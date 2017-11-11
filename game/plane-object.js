@@ -1,7 +1,6 @@
 const MathHelper = require('./math-helper');
 
 class PlaneObject {
-
   static generateRandom(width, height) {
     return new PlaneObject(
       MathHelper.randomBetween(0, width),
@@ -14,6 +13,7 @@ class PlaneObject {
   }
 
   constructor(x, y, z, height, width, angle) {
+//this.self = this;
     this.x = x;
     this.y = y;
     this.z = z;
@@ -22,8 +22,18 @@ class PlaneObject {
     this.angle = angle;
   }
 
+  isTouchingAny(planeObjects){
+    for(var i = 0; i < planeObjects.length; i++){
+      if (planeObjects[i].isTouching(this)){
+        return true
+      }
+    }
+    return false;
+  }
+
   isTouching(aPlaneObject) {
-    if (this.z !== aPlaneObject.z) {
+    console.log(this);
+    if (this.z !== aPlaneObject.z || this === aPlaneObject) {
       return false;
     }
     return (this.x < aPlaneObject.x + aPlaneObject.width &&

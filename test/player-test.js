@@ -3,7 +3,7 @@ const Game = require('../game/game');
 const House = require('../game/house');
 const Player = require('../game/player');
 
-describe('game', function() {
+describe('player', function() {
   const PLAYER_0_ID = 'qw12';
   const PLAYER_1_ID = 'xnr13';
   const PLAYER_2_ID = 'xLB94';

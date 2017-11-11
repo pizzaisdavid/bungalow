@@ -27,4 +27,9 @@ describe('plane-object', function(){
     it('Collision', () => {
         assert(regularOlPlane1.isTouching(regularOlPlane2));
     });
+
+    it('collideMany', () => {
+        assert(!farAwayPlane.isTouchingAny([regularOlPlane1, regularOlPlane2, regularOlPlane3]))
+        //assert(farAwayPlane.isTouching(['a','b','c']));
+    })
 });

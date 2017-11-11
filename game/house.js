@@ -64,7 +64,7 @@ class House {
 
     this.position.x -= this.SPEED;
     console.log('iiiiiiiiiiiiiiiiiiiiiii');        
-    if (game.isTouchingTouchingAnyHouseMinusMe(this.self)) {
+    if (game.isTouchingTouchingAnyHouseMinusMe(this)) {
       console.log('hihihihih');
       this.position.x = oldx;
     }

@@ -1,0 +1,6 @@
+pass controls from players to thingControlled
+add player as spectator
+player chooses team, register with house
+add player as 
+
+send list of players + giants as well as houses
