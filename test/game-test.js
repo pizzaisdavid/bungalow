@@ -86,30 +86,7 @@ describe('game', function () {
     assert(houses[2].isVancant())
   })
 
-<<<<<<< HEAD
-function makeTestHouse() {
-  return new House(new PlaneObject(0, 0, 0), 'red');
+  function makeTestHouse() {
+    return new House(new PlaneObject(0, 0, 0), 'red');
 }
-=======
-  it('Re-Register multiple players', () => {
-    game.registerPlayer(PLAYER_0_ID)
-    game.registerPlayer(PLAYER_1_ID)
-    game.registerPlayer(PLAYER_2_ID)
-    game.deregisterPlayer(PLAYER_0_ID)
-    game.deregisterPlayer(PLAYER_1_ID)
-    game.deregisterPlayer(PLAYER_2_ID)
-
-    game.registerPlayer(PLAYER_0_ID)
-    game.registerPlayer(PLAYER_1_ID)
-    game.registerPlayer(PLAYER_2_ID)
-    var houses = game.state.houses
-    assert.equal(houses[0].ownerId, PLAYER_0_ID)
-    assert.equal(houses[1].ownerId, PLAYER_1_ID)
-    assert.equal(houses[2].ownerId, PLAYER_2_ID)
-  })
-})
-
-function makeTestHouse () {
-  return new House(new Position(0, 0, 0), 'red')
-}
->>>>>>> f2d0da254cbf8363e17a26f82d57fb489d156d65
+});
