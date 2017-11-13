@@ -17,8 +17,6 @@ describe('game-collision', function () {
     ])
   })
 
-  collision - test
-
   it('Stops when colliding left', () => {
     game = new Game(2000, 2000, 2)
     game.setHouses([
