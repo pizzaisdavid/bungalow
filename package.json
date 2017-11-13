@@ -2,7 +2,7 @@
   "name": "bungalow",
   "version": "0.0.0",
   "scripts": {
-    "test": "mocha",
+    "test": "standard && mocha",
     "start": "node ./app",
     "devstart": "nodemon ./app"
   },
@@ -15,6 +15,12 @@
     "socket.io": "^2.0.4"
   },
   "devDependencies": {
-    "nodemon": "^1.12.1"
+    "nodemon": "^1.12.1",
+    "standard": "^10.0.3"
+  },
+  "standard": {
+    "ignore": [
+      "jquery.js"
+    ]
   }
 }
