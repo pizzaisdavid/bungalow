@@ -9,14 +9,13 @@ class Player {
         this.house = House.Null; 
 
         this.assignHouse = (aHouse) => {
-            this.house.abandon();
-            aHouse.owner = this.id;         
+            aHouse.ownerId = this.id;         
             this.house = aHouse;
         }
     }
 
     quit() {
-      this.house.abandon();
+      this.house.ownerId = '';
     }
 
     do(game, command) {

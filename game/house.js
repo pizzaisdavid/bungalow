@@ -29,10 +29,6 @@ class House {
     return this.ownerId === aPlayer.id;
   }
 
-  abandon() {
-    this.ownerId = '';
-  }
-
   toString() {
     return `ownerId=${this.ownerId}`;
   }
@@ -70,7 +66,7 @@ class House {
   }
  
   up(game) {
-    var oldy = this.position.x;
+    var oldy = this.position.y;
     this.position.y -= this.SPEED;     
     if (game.isTouchingAnyHouse(this.position)) {
       this.position.y = oldy;
@@ -98,10 +94,6 @@ class NullHouse {
 
   constructor() {
     this.position = PlaneObject.Null;
-  }
-
-  abandon() {
-
   }
 
   isVancant() {
