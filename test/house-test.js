@@ -3,7 +3,7 @@ const Game = require('../game/game')
 const House = require('../game/house')
 const PlaneObject = require('../game/plane-object')
 
-describe('game-collision', function () {
+describe('house', function () {
   var game
 
   beforeEach(() => {
@@ -14,7 +14,7 @@ describe('game-collision', function () {
     var house = generalTestHouse(100, 100)
     game.setHouses([house])
     house.do(game, 'LEFT')
-    assert(house.x !== 100)
+    assert(house.x === 90)
   })
 })
 
