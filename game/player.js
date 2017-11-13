@@ -13,9 +13,9 @@ class Player {
     }
   }
 
-    quit() {
-      this.house.ownerId = ''
-    }
+  quit () {
+    this.house.ownerId = ''
+  }
 
   do (game, command) {
     this.house.do(game, command)
