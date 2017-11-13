@@ -4,7 +4,8 @@
   "scripts": {
     "test": "mocha",
     "start": "node ./app",
-    "devstart": "nodemon ./app"
+    "devstart": "nodemon ./app",
+    "clean": "standard"
   },
   "dependencies": {
     "body-parser": "~1.18.2",
@@ -15,6 +16,19 @@
     "socket.io": "^2.0.4"
   },
   "devDependencies": {
-    "nodemon": "^1.12.1"
+    "nodemon": "^1.12.1",
+    "standard": "^10.0.3"
+  },
+  "standard": {
+    "ignore": [
+      "jquery.js"
+    ],
+    "globals": [
+      "$",
+      "io"
+    ],
+    "envs": [
+      "mocha"
+    ]
   }
 }
