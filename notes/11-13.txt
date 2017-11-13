@@ -1,0 +1,5 @@
+
+    //  register player should
+    //  assign spectator control-object to player
+    //  add player to list of players
+    //  assign player to team spectator
