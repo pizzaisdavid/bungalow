@@ -68,7 +68,7 @@ class House {
   }
 
   up (game) {
-    var oldy = this.position.x
+    var oldy = this.position.y
     this.position.y -= this.SPEED
     if (game.isTouchingAnyHouse(this.position)) {
       this.position.y = oldy
