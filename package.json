@@ -2,9 +2,10 @@
   "name": "bungalow",
   "version": "0.0.0",
   "scripts": {
-    "test": "standard && mocha",
+    "test": "mocha",
     "start": "node ./app",
-    "devstart": "nodemon ./app"
+    "devstart": "nodemon ./app",
+    "clean": "standard"
   },
   "dependencies": {
     "body-parser": "~1.18.2",
