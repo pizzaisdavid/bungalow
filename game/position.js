@@ -1,9 +1,8 @@
 
-const MathHelper = require('./math-helper');
+const MathHelper = require('./math-helper')
 
 class Position {
-
-  static generateRandom(width, height) {
+  static generateRandom (width, height) {
     return new Position(
       MathHelper.randomBetween(0, width),
       MathHelper.randomBetween(0, height),
@@ -11,11 +10,11 @@ class Position {
     )
   }
 
-  constructor(x, y, angle) {
-    this.x = x;
-    this.y = y;
-    this.angle = angle;
+  constructor (x, y, angle) {
+    this.x = x
+    this.y = y
+    this.angle = angle
   }
 }
 
-module.exports = Position;
+module.exports = Position

@@ -1,7 +1,7 @@
-const MathHelper = require('./math-helper');
+const MathHelper = require('./math-helper')
 
 class PlaneObject {
-  static generateRandom(width, height) {
+  static generateRandom (width, height) {
     return new PlaneObject(
       MathHelper.randomBetween(0, width),
       MathHelper.randomBetween(0, height),
@@ -12,47 +12,46 @@ class PlaneObject {
     )
   }
 
-  constructor(x, y, z, height, width, angle) {
-//this.self = this;
-    this.x = x;
-    this.y = y;
-    this.z = z;
-    this.height = height;
-    this.width = width;
-    this.angle = angle;
+  constructor (x, y, z, height, width, angle) {
+// this.self = this;
+    this.x = x
+    this.y = y
+    this.z = z
+    this.height = height
+    this.width = width
+    this.angle = angle
   }
 
-  isTouchingAny(planeObjects){
-    for(var i = 0; i < planeObjects.length; i++){
-      if (planeObjects[i].isTouching(this)){
+  isTouchingAny (planeObjects) {
+    for (var i = 0; i < planeObjects.length; i++) {
+      if (planeObjects[i].isTouching(this)) {
         return true
       }
     }
-    return false;
+    return false
   }
 
-  isTouching(aPlaneObject) {
-    //console.log(this);
+  isTouching (aPlaneObject) {
+    // console.log(this);
     if (this.z !== aPlaneObject.z || this === aPlaneObject) {
-      return false;
+      return false
     }
     return (this.x < aPlaneObject.x + aPlaneObject.width &&
     this.x + this.width > aPlaneObject.x &&
     this.y < aPlaneObject.y + aPlaneObject.height &&
-    this.y + this.height > aPlaneObject.y);
+    this.y + this.height > aPlaneObject.y)
   }
 }
 
 class NullPlaneObject {
-
-  constructor() {
+  constructor () {
 
   }
 
-  isTouching() {
-    return false;
+  isTouching () {
+    return false
   }
 }
 
-PlaneObject.Null = NullPlaneObject;
-module.exports = PlaneObject;
+PlaneObject.Null = NullPlaneObject
+module.exports = PlaneObject

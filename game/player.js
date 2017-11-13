@@ -1,27 +1,26 @@
-const House = require('./house');
+const House = require('./house')
 
 class Player {
-  
-    constructor(anId){
-        this.name = '';
-        this.id = anId;
-        this.self = this;
-        this.house = House.Null; 
+  constructor (anId) {
+    this.name = ''
+    this.id = anId
+    this.self = this
+    this.house = House.Null
 
-        this.assignHouse = (aHouse) => {
-            this.house.abandon();
-            aHouse.owner = this.id;         
-            this.house = aHouse;
-        }
+    this.assignHouse = (aHouse) => {
+      this.house.abandon()
+      aHouse.owner = this.id
+      this.house = aHouse
     }
+  }
 
-    quit() {
-      this.house.abandon();
-    }
+  quit () {
+    this.house.abandon()
+  }
 
-    do(game, command) {
-      this.house.do(game, command);
-    }
+  do (game, command) {
+    this.house.do(game, command)
+  }
 }
 
-module.exports = Player;
+module.exports = Player

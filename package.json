@@ -21,6 +21,9 @@
   "standard": {
     "ignore": [
       "jquery.js"
+    ],
+    "envs": [
+      "mocha"
     ]
   }
 }
