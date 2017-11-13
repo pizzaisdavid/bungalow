@@ -30,5 +30,20 @@
     "envs": [
       "mocha"
     ]
-  }
+  },
+  "description": "* movement (mult-input)\r   - slow to backup\r   - turn rotates\r * collision\r * smash",
+  "main": "app.js",
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pizzaisdavid/bungalow.git"
+  },
+  "author": "David Germain, Micah Argeropoulos",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pizzaisdavid/bungalow/issues"
+  },
+  "homepage": "https://github.com/pizzaisdavid/bungalow#readme"
 }
