@@ -28,6 +28,14 @@ class House {
     this.position.x = x
   }
 
+  get y () {
+    return this.position.y
+  }
+
+  set y (y) {
+    this.position.y = y
+  }
+
   set owner (newOwnerId) {
     this.ownerId = newOwnerId
   }
