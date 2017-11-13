@@ -7,7 +7,6 @@ describe('game', function () {
   const PLAYER_0_ID = 'qw12'
   const PLAYER_1_ID = 'xnr13'
   const PLAYER_2_ID = 'xLB94'
-  const PLAYER_3_ID = 'RnQ78'
   var game
 
   beforeEach(() => {
@@ -34,12 +33,12 @@ describe('game', function () {
     assert(houses[1].isVancant())
     assert(houses[2].isVancant())
     game.registerPlayer(PLAYER_1_ID)
-    var houses = game.state.houses
+    houses = game.state.houses
     assert.equal(houses[0].ownerId, PLAYER_0_ID)
     assert.equal(houses[1].ownerId, PLAYER_1_ID)
     assert(houses[2].isVancant())
     game.registerPlayer(PLAYER_2_ID)
-    var houses = game.state.houses
+    houses = game.state.houses
     assert.equal(houses[0].ownerId, PLAYER_0_ID)
     assert.equal(houses[1].ownerId, PLAYER_1_ID)
     assert.equal(houses[2].ownerId, PLAYER_2_ID)

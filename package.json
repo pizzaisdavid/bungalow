@@ -22,6 +22,10 @@
     "ignore": [
       "jquery.js"
     ],
+    "globals": [
+      "$",
+      "io"
+    ],
     "envs": [
       "mocha"
     ]

@@ -13,7 +13,6 @@ class PlaneObject {
   }
 
   constructor (x, y, z, height, width, angle) {
-// this.self = this;
     this.x = x
     this.y = y
     this.z = z
@@ -44,10 +43,6 @@ class PlaneObject {
 }
 
 class NullPlaneObject {
-  constructor () {
-
-  }
-
   isTouching () {
     return false
   }

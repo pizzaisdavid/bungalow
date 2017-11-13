@@ -6,8 +6,6 @@ const PlaneObject = require('../game/plane-object')
 describe('game-collision', function () {
   const PLAYER_0_ID = 'qw12'
   const PLAYER_1_ID = 'xnr13'
-  const PLAYER_2_ID = 'xLB94'
-  const PLAYER_3_ID = 'RnQ78'
   var game
 
   beforeEach(() => {
