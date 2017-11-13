@@ -86,7 +86,7 @@ describe('game', function () {
     assert(houses[2].isVancant())
   })
 
-  function makeTestHouse() {
-    return new House(new PlaneObject(0, 0, 0), 'red');
-}
-});
+  function makeTestHouse () {
+    return new House(new PlaneObject(0, 0, 0), 'red')
+  };
+})
