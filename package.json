@@ -5,7 +5,7 @@
     "test": "mocha",
     "start": "node ./app",
     "devstart": "nodemon ./app",
-    "clean": "standard"
+    "clean": "standard --fix"
   },
   "dependencies": {
     "body-parser": "~1.18.2",
