@@ -20,6 +20,22 @@ class House {
     return this.ownerId === ''
   }
 
+  get x () {
+    return this.position.x
+  }
+
+  set x (x) {
+    this.position.x = x
+  }
+
+  get y () {
+    return this.position.y
+  }
+
+  set y (y) {
+    this.position.y = y
+  }
+
   set owner (newOwnerId) {
     this.ownerId = newOwnerId
   }
