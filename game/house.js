@@ -1,10 +1,10 @@
-const PlaneObject = require('./plane-object')
+const Shape = require('./shape')
 const MathHelper = require('./math-helper')
 
 class House {
   static generateRandom (width, height) {
     return new House(
-      PlaneObject.generateRandom(width, height),
+      Shape.generateRandom(width, height),
       MathHelper.selectRandom(['blue', 'red', 'green', 'yellow'])
     )
   }
@@ -110,7 +110,7 @@ class House {
 
 class NullHouse {
   constructor () {
-    this.position = PlaneObject.Null
+    this.position = Shape.Null
   }
 
   abandon () {

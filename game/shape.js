@@ -1,8 +1,8 @@
 const MathHelper = require('./math-helper')
 
-class PlaneObject {
+class Shape {
   static generateRandom (width, height) {
-    return new PlaneObject(
+    return new Shape(
       MathHelper.randomBetween(0, width),
       MathHelper.randomBetween(0, height),
       0,
@@ -21,32 +21,32 @@ class PlaneObject {
     this.angle = angle
   }
 
-  isTouchingAny (planeObjects) {
-    for (var i = 0; i < planeObjects.length; i++) {
-      if (planeObjects[i].isTouching(this)) {
+  isTouchingAny (Shapes) {
+    for (var i = 0; i < Shapes.length; i++) {
+      if (Shapes[i].isTouching(this)) {
         return true
       }
     }
     return false
   }
 
-  isTouching (aPlaneObject) {
+  isTouching (aShape) {
     // console.log(this);
-    if (this.z !== aPlaneObject.z || this === aPlaneObject) {
+    if (this.z !== aShape.z || this === aShape) {
       return false
     }
-    return (this.x < aPlaneObject.x + aPlaneObject.width &&
-    this.x + this.width > aPlaneObject.x &&
-    this.y < aPlaneObject.y + aPlaneObject.height &&
-    this.y + this.height > aPlaneObject.y)
+    return (this.x < aShape.x + aShape.width &&
+    this.x + this.width > aShape.x &&
+    this.y < aShape.y + aShape.height &&
+    this.y + this.height > aShape.y)
   }
 }
 
-class NullPlaneObject {
+class NullShape {
   isTouching () {
     return false
   }
 }
 
-PlaneObject.Null = NullPlaneObject
-module.exports = PlaneObject
+Shape.Null = NullShape
+module.exports = Shape

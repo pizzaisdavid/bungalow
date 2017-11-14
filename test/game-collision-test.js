@@ -1,7 +1,7 @@
 var assert = require('assert')
 const Game = require('../game/game')
 const House = require('../game/house')
-const PlaneObject = require('../game/plane-object')
+const Shape = require('../game/shape')
 
 describe('game-collision', function () {
   const PLAYER_0_ID = 'qw12'
@@ -126,5 +126,5 @@ function generalTestHouse (X, Y, Z = 0) {
   const WIDTH = 50
   const HEIGHT = 50
   const ANGLE = 0
-  return new House(new PlaneObject(X, Y, Z, WIDTH, HEIGHT, ANGLE), 'red')
+  return new House(new Shape(X, Y, Z, WIDTH, HEIGHT, ANGLE), 'red')
 }

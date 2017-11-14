@@ -1,5 +1,5 @@
 var assert = require('assert')
-const PlaneObject = require('../game/plane-object')
+const Shape = require('../game/shape')
 
 describe('plane-object', function () {
   var farAwayPlane
@@ -9,11 +9,11 @@ describe('plane-object', function () {
   var regularOlPlane3
 
   beforeEach(() => {
-    farAwayPlane = new PlaneObject(500, 500, 0, 1, 1, 0)
-    // bigOlPlane = new PlaneObject(10, 10, 0, 50, 50, 0)
-    regularOlPlane1 = new PlaneObject(10, 10, 0, 20, 20, 0)
-    regularOlPlane2 = new PlaneObject(10, 10, 0, 20, 20, 0)
-    regularOlPlane3 = new PlaneObject(10, 10, 0, 20, 20, 0)
+    farAwayPlane = new Shape(500, 500, 0, 1, 1, 0)
+    // bigOlPlane = new Shape(10, 10, 0, 50, 50, 0)
+    regularOlPlane1 = new Shape(10, 10, 0, 20, 20, 0)
+    regularOlPlane2 = new Shape(10, 10, 0, 20, 20, 0)
+    regularOlPlane3 = new Shape(10, 10, 0, 20, 20, 0)
   })
 
   it('NoCollision', () => {

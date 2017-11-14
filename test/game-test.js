@@ -1,7 +1,7 @@
 var assert = require('assert')
 const Game = require('../game/game')
 const House = require('../game/house')
-const PlaneObject = require('../game/position')
+const Shape = require('../game/shape')
 
 describe('game', function () {
   const PLAYER_0_ID = 'qw12'
@@ -87,6 +87,6 @@ describe('game', function () {
   })
 
   function makeTestHouse () {
-    return new House(new PlaneObject(0, 0, 0), 'red')
+    return new House(new Shape(0, 0, 0), 'red')
   };
 })
