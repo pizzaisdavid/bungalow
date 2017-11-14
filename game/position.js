@@ -10,10 +10,10 @@ class Position {
     )
   }
 
-  constructor (x, y, angle) {
+  constructor (x, y, z) {
     this.x = x
     this.y = y
-    this.angle = angle
+    this.z = z
   }
 }
 
