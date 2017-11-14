@@ -26,3 +26,4 @@
 ## Meet-up Tasks
 - Define which public interfaces need tests
 - Further define teams
+- Decide game interface
