@@ -26,16 +26,16 @@ describe('game-collision', function () {
     ])
     game.registerPlayer(PLAYER_0_ID)
     game.registerPlayer(PLAYER_1_ID)
-    var startingX = game.players[PLAYER_1_ID].house.position.x
-    var startingY = game.players[PLAYER_1_ID].house.position.y
+    var startingX = game.players[PLAYER_1_ID].house.x
+    var startingY = game.players[PLAYER_1_ID].house.y
     game.queue(PLAYER_1_ID, ['LEFT'])
     game.tick()
     game.queue(PLAYER_1_ID, ['LEFT'])
     game.tick()
     game.queue(PLAYER_1_ID, ['LEFT'])
     game.tick()
-    var currentX = game.players[PLAYER_1_ID].house.position.x
-    var currentY = game.players[PLAYER_1_ID].house.position.y
+    var currentX = game.players[PLAYER_1_ID].house.x
+    var currentY = game.players[PLAYER_1_ID].house.y
     assert.equal(startingX, currentX)
     assert.equal(startingY, currentY)
   })
@@ -48,16 +48,16 @@ describe('game-collision', function () {
     ])
     game.registerPlayer(PLAYER_0_ID)
     game.registerPlayer(PLAYER_1_ID)
-    var startingX = game.players[PLAYER_0_ID].house.position.x
-    var startingY = game.players[PLAYER_0_ID].house.position.y
+    var startingX = game.players[PLAYER_0_ID].house.x
+    var startingY = game.players[PLAYER_0_ID].house.y
     game.queue(PLAYER_0_ID, ['RIGHT'])
     game.tick()
     game.queue(PLAYER_0_ID, ['RIGHT'])
     game.tick()
     game.queue(PLAYER_0_ID, ['RIGHT'])
     game.tick()
-    var currentX = game.players[PLAYER_0_ID].house.position.x
-    var currentY = game.players[PLAYER_0_ID].house.position.y
+    var currentX = game.players[PLAYER_0_ID].house.x
+    var currentY = game.players[PLAYER_0_ID].house.y
     assert.equal(startingX, currentX)
     assert.equal(startingY, currentY)
   })
@@ -70,16 +70,16 @@ describe('game-collision', function () {
     ])
     game.registerPlayer(PLAYER_0_ID)
     game.registerPlayer(PLAYER_1_ID)
-    var startingX = game.players[PLAYER_1_ID].house.position.x
-    var startingY = game.players[PLAYER_1_ID].house.position.y
+    var startingX = game.players[PLAYER_1_ID].house.x
+    var startingY = game.players[PLAYER_1_ID].house.y
     game.queue(PLAYER_1_ID, ['UP'])
     game.tick()
     game.queue(PLAYER_1_ID, ['UP'])
     game.tick()
     game.queue(PLAYER_1_ID, ['UP'])
     game.tick()
-    var currentX = game.players[PLAYER_1_ID].house.position.x
-    var currentY = game.players[PLAYER_1_ID].house.position.y
+    var currentX = game.players[PLAYER_1_ID].house.x
+    var currentY = game.players[PLAYER_1_ID].house.y
     assert.equal(startingX, currentX)
     assert.equal(startingY, currentY)
   })
@@ -92,16 +92,16 @@ describe('game-collision', function () {
     ])
     game.registerPlayer(PLAYER_0_ID)
     game.registerPlayer(PLAYER_1_ID)
-    var startingX = game.players[PLAYER_0_ID].house.position.x
-    var startingY = game.players[PLAYER_0_ID].house.position.y
+    var startingX = game.players[PLAYER_0_ID].house.x
+    var startingY = game.players[PLAYER_0_ID].house.y
     game.queue(PLAYER_0_ID, ['DOWN'])
     game.tick()
     game.queue(PLAYER_0_ID, ['DOWN'])
     game.tick()
     game.queue(PLAYER_0_ID, ['DOWN'])
     game.tick()
-    var currentX = game.players[PLAYER_0_ID].house.position.x
-    var currentY = game.players[PLAYER_0_ID].house.position.y
+    var currentX = game.players[PLAYER_0_ID].house.x
+    var currentY = game.players[PLAYER_0_ID].house.y
     assert.equal(startingX, currentX)
     assert.equal(startingY, currentY)
   })

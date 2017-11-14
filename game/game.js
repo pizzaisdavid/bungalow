@@ -30,7 +30,7 @@ class Game {
   }
 
   isTouchingAnyHouse (aPlaneObject) {
-    var planeObjects = this.houses.map((house) => { return house.position })
+    var planeObjects = this.houses.map((house) => { return house.shape })
     return aPlaneObject.isTouchingAny(planeObjects)
   }
 

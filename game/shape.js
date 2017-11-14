@@ -43,9 +43,9 @@ class Shape {
     this.position.z = z
   }
 
-  isTouchingAny (Shapes) {
-    for (var i = 0; i < Shapes.length; i++) {
-      if (Shapes[i].isTouching(this)) {
+  isTouchingAny (shapes) {
+    for (var i = 0; i < shapes.length; i++) {
+      if (shapes[i].isTouching(this)) {
         return true
       }
     }
