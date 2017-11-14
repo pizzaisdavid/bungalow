@@ -1,6 +1,6 @@
 var assert = require('assert')
 const Game = require('../game/game')
-const House = require('../game/house')
+const House = require('../game/controllables/house')
 const Shape = require('../game/shape')
 
 describe('game', function () {

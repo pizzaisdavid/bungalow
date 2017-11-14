@@ -1,5 +1,5 @@
-const Shape = require('./shape')
-const MathHelper = require('./math-helper')
+const Shape = require('../shape')
+const MathHelper = require('../math-helper')
 
 class House {
   static generateRandom (width, height) {

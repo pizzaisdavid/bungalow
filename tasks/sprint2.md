@@ -1,9 +1,9 @@
 ## Tasks for all
 - [x] Change plane-object to shape 🍬🍬
-- [ ] Modify position object distinct from shape(just xyz, no angle) 
+- [x] Modify position object distinct from shape(just xyz, no angle) 
     - [x] Modify position to have xyz no angle 🍬
-    - [ ] Implement position in shape(getters + setters, constructor takes a position) 🍬
-    - [ ] Iron out problems in tests 🍬🍬
+    - [x] Implement position in shape(getters + setters, constructor takes a position) 🍬
+    - [x] Iron out problems in tests 🍬🍬
 - [ ] Assign 'unassigned' on connect
     - [ ] Create tests for unassigned object (doesn't crash when do is called, x, y) 🍬🍬
     - [ ] Create unassigned object (singleton) 🍬

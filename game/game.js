@@ -1,4 +1,4 @@
-const House = require('./house')
+const House = require('./controllables/house')
 const Player = require('./player')
 
 class Game {
