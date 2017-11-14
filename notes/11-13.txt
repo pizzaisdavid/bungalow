@@ -1,5 +1,16 @@
 
-    //  register player should
-    //  assign spectator control-object to player
-    //  add player to list of players
-    //  assign player to team spectator
+on server start:
+  var manager = new PlayerManager()
+  var board = new GameBoard()
+  var game = new Game(manager, board);
+
+on player connect:
+  game.registerSpectator(anId0);
+  //  assign spectator control-object to player
+  //  add player to list of players
+  //  assign player to team spectator
+
+on player picks team:
+  game.registerPlayer(anId0, aTeamName);
+  // give player a vacant controllable on that team if possible
+  // assign player to that team
