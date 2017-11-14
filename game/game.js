@@ -23,7 +23,7 @@ class Game {
   spawnProperPlacedHouse () {
     while (true) {
       var house = House.generateRandom(this.WIDTH, this.HEIGHT)
-      if (this.isTouchingAnyHouse(house.position) === false) {
+      if (this.isTouchingAnyHouse(house.shape) === false) {
         return house
       }
     }
@@ -32,13 +32,6 @@ class Game {
   isTouchingAnyHouse (aPlaneObject) {
     var planeObjects = this.houses.map((house) => { return house.position })
     return aPlaneObject.isTouchingAny(planeObjects)
-    // for (var i = 0; i < this.houses.length; i++) {
-    //   var h = this.houses[i];
-    //   if (h.position.isTouching(anObjectWithPlaneObject.position)) {
-    //     return true;
-    //   }
-    // }
-    // return false;
   }
 
   setHouses (houses) {
@@ -56,7 +49,6 @@ class Game {
     var aPlayer = new Player(id)
     var aHouse = this.findVancantHouse()
     aPlayer.assignHouse(aHouse)
-    // console.log(`house modified: ${aHouse.toString()}`);
     this.add(aPlayer)
   }
 
@@ -100,11 +92,6 @@ class Game {
   }
 
   processCommands (player, commands) {
-    // for (var i = 0; i < commands.length; i++) {
-    //   var c = commands[i];
-    //   // console.log(c);
-    //   player.do(this, c);
-    // }
     commands.map((c) => {
       console.log(c)
       player.do(this, c)
