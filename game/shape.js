@@ -12,13 +12,35 @@ class Shape {
     )
   }
 
-  constructor (x, y, z, height, width, angle) {
-    this.x = x
-    this.y = y
-    this.z = z
+  constructor (position, height, width, angle) {
+    this.position = position
     this.height = height
     this.width = width
     this.angle = angle
+  }
+
+  get x () {
+    return this.position.x
+  }
+
+  get y () {
+    return this.position.y
+  }
+
+  get z () {
+    return this.position.z
+  }
+
+  set x (x) {
+    this.position.x = x
+  }
+
+  set y (y) {
+    this.position.y = y
+  }
+
+  set z (z) {
+    this.position.z = z
   }
 
   isTouchingAny (Shapes) {
@@ -31,7 +53,6 @@ class Shape {
   }
 
   isTouching (aShape) {
-    // console.log(this);
     if (this.z !== aShape.z || this === aShape) {
       return false
     }

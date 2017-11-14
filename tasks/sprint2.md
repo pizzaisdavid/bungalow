@@ -1,7 +1,7 @@
 ## Tasks for all
-- [ ] Change plane-object to shape 🍬🍬
+- [x] Change plane-object to shape 🍬🍬
 - [ ] Modify position object distinct from shape(just xyz, no angle) 
-    - [ ] Modify position to have xyz no angle 🍬
+    - [x] Modify position to have xyz no angle 🍬
     - [ ] Implement position in shape(getters + setters, constructor takes a position) 🍬
     - [ ] Iron out problems in tests 🍬🍬
 - [ ] Assign 'unassigned' on connect

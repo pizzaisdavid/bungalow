@@ -1,34 +1,35 @@
 var assert = require('assert')
 const Shape = require('../game/shape')
+const Position = require('../game/position')
 
-describe('plane-object', function () {
-  var farAwayPlane
-  // var bigOlPlane
-  var regularOlPlane1
-  var regularOlPlane2
-  var regularOlPlane3
+describe('Shape', function () {
+  var farAwayShape
+  // var bigOlShape
+  var regularOlShape1
+  var regularOlShape2
+  var regularOlShape3
 
   beforeEach(() => {
-    farAwayPlane = new Shape(500, 500, 0, 1, 1, 0)
-    // bigOlPlane = new Shape(10, 10, 0, 50, 50, 0)
-    regularOlPlane1 = new Shape(10, 10, 0, 20, 20, 0)
-    regularOlPlane2 = new Shape(10, 10, 0, 20, 20, 0)
-    regularOlPlane3 = new Shape(10, 10, 0, 20, 20, 0)
+    farAwayShape = new Shape(new Position(500, 500, 0), 1, 1, 0)
+    // bigOlShape = new Shape(10, 10, 0, 50, 50, 0)
+    regularOlShape1 = new Shape(new Position(10, 10, 0), 20, 20, 0)
+    regularOlShape2 = new Shape(new Position(10, 10, 0), 20, 20, 0)
+    regularOlShape3 = new Shape(new Position(10, 10, 0), 20, 20, 0)
   })
 
   it('NoCollision', () => {
-    assert(!regularOlPlane1.isTouching(farAwayPlane))
+    assert(!regularOlShape1.isTouching(farAwayShape))
   })
 
   it('SelfCollision', () => {
-    assert(!regularOlPlane1.isTouching(regularOlPlane1))
+    assert(!regularOlShape1.isTouching(regularOlShape1))
   })
 
   it('Collision', () => {
-    assert(regularOlPlane1.isTouching(regularOlPlane2))
+    assert(regularOlShape1.isTouching(regularOlShape2))
   })
 
   it('collideMany', () => {
-    assert(!farAwayPlane.isTouchingAny([regularOlPlane1, regularOlPlane2, regularOlPlane3]))
+    assert(!farAwayShape.isTouchingAny([regularOlShape1, regularOlShape2, regularOlShape3]))
   })
 })
