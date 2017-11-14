@@ -9,8 +9,8 @@ class House {
     )
   }
 
-  constructor (position, color) {
-    this.position = position
+  constructor (shape, color) {
+    this.shape = shape
     this.color = color
     this.SPEED = 10
     this.ownerId = ''
@@ -21,19 +21,19 @@ class House {
   }
 
   get x () {
-    return this.position.x
+    return this.shape.x
   }
 
   set x (x) {
-    this.position.x = x
+    this.shape.x = x
   }
 
   get y () {
-    return this.position.y
+    return this.shape.y
   }
 
   set y (y) {
-    this.position.y = y
+    this.shape.y = y
   }
 
   set owner (newOwnerId) {
@@ -73,37 +73,34 @@ class House {
   }
 
   left (game) {
-    var oldx = this.position.x
-
-    this.position.x -= this.SPEED
-    // console.log('iiiiiiiiiiiiiiiiiiiiiii');
-    if (game.isTouchingAnyHouse(this.position)) {
-      // console.log('hihihihih');
-      this.position.x = oldx
+    var oldx = this.shape.x
+    this.shape.x -= this.SPEED
+    if (game.isTouchingAnyHouse(this.shape)) {
+      this.shape.x = oldx
     }
   }
 
   up (game) {
-    var oldy = this.position.y
-    this.position.y -= this.SPEED
-    if (game.isTouchingAnyHouse(this.position)) {
-      this.position.y = oldy
+    var oldy = this.shape.y
+    this.shape.y -= this.SPEED
+    if (game.isTouchingAnyHouse(this.shape)) {
+      this.shape.y = oldy
     }
   }
 
   right (game) {
-    var oldx = this.position.x
-    this.position.x += this.SPEED
-    if (game.isTouchingAnyHouse(this.position)) {
-      this.position.x = oldx
+    var oldx = this.shape.x
+    this.shape.x += this.SPEED
+    if (game.isTouchingAnyHouse(this.shape)) {
+      this.shape.x = oldx
     }
   }
 
   down (game) {
-    var oldy = this.position.x
-    this.position.y += this.SPEED
-    if (game.isTouchingAnyHouse(this.position)) {
-      this.position.y = oldy
+    var oldy = this.shape.x
+    this.shape.y += this.SPEED
+    if (game.isTouchingAnyHouse(this.shape)) {
+      this.shape.y = oldy
     }
   }
 }
