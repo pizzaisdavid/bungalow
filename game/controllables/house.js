@@ -75,7 +75,7 @@ class House {
   left (game) {
     var oldx = this.shape.x
     this.shape.x -= this.SPEED
-    if (game.isTouchingAnyHouse(this.shape)) {
+    if (game.isTouchingAny(this.shape)) {
       this.shape.x = oldx
     }
   }
@@ -83,7 +83,7 @@ class House {
   up (game) {
     var oldy = this.shape.y
     this.shape.y -= this.SPEED
-    if (game.isTouchingAnyHouse(this.shape)) {
+    if (game.isTouchingAny(this.shape)) {
       this.shape.y = oldy
     }
   }
@@ -91,7 +91,7 @@ class House {
   right (game) {
     var oldx = this.shape.x
     this.shape.x += this.SPEED
-    if (game.isTouchingAnyHouse(this.shape)) {
+    if (game.isTouchingAny(this.shape)) {
       this.shape.x = oldx
     }
   }
@@ -99,7 +99,7 @@ class House {
   down (game) {
     var oldy = this.shape.x
     this.shape.y += this.SPEED
-    if (game.isTouchingAnyHouse(this.shape)) {
+    if (game.isTouchingAny(this.shape)) {
       this.shape.y = oldy
     }
   }

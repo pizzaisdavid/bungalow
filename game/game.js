@@ -1,41 +1,14 @@
 const House = require('./controllables/house')
+const Team = require('./team')
 const Player = require('./player')
 
 class Game {
-  constructor (width = 300, height = 150, houseCount = 6) {
+  constructor (teams, board) {
     console.log('Hi, Clickty-Clack.')
-    this.WIDTH = width
-    this.HEIGHT = height
-    this.HOUSE_COUNT = houseCount
-    this.houses = []
-    this.players = {}
+    this.teams = teams
+    this.board = board
+    this.players = []
     this.commands = {}
-  }
-
-  createDefaultHouses () {
-    for (var i = 0; i < this.HOUSE_COUNT; i++) {
-      var house = this.spawnProperPlacedHouse()
-      this.houses.push(house)
-    }
-    console.log(`${this.HOUSE_COUNT} houses generated.`)
-  }
-
-  spawnProperPlacedHouse () {
-    while (true) {
-      var house = House.generateRandom(this.WIDTH, this.HEIGHT)
-      if (this.isTouchingAnyHouse(house.shape) === false) {
-        return house
-      }
-    }
-  }
-
-  isTouchingAnyHouse (aPlaneObject) {
-    var planeObjects = this.houses.map((house) => { return house.shape })
-    return aPlaneObject.isTouchingAny(planeObjects)
-  }
-
-  setHouses (houses) {
-    this.houses = houses
   }
 
   get state () {
@@ -44,11 +17,12 @@ class Game {
     }
   }
 
-  registerPlayer (id) {
+  registerPlayer (teamName, id) {
     console.log(`${id} has joined.`)
     var aPlayer = new Player(id)
-    var aHouse = this.findVancantHouse()
-    aPlayer.assignHouse(aHouse)
+    var aControllable = this.findOpenControllable(teamName)
+    console.log(aControllable)
+    aPlayer.assignControllable(aControllable)
     this.add(aPlayer)
   }
 
@@ -57,14 +31,9 @@ class Game {
     this.players[id] = aPlayer
   }
 
-  findVancantHouse () {
-    for (var i = 0; i < this.HOUSE_COUNT; i++) {
-      var house = this.houses[i]
-      if (house.isVancant()) {
-        return house
-      }
-    }
-    return House.Null
+  findOpenControllable(teamId) {
+    var team = this.teams[teamId]
+    return team.findOpenControllable();
   }
 
   deregisterPlayer (id) {
@@ -94,7 +63,7 @@ class Game {
   processCommands (player, commands) {
     commands.map((c) => {
       console.log(c)
-      player.do(this, c)
+      player.do(this.board, c)
     })
   }
 }

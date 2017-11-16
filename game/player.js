@@ -13,6 +13,11 @@ class Player {
     }
   }
 
+  assignControllable (thingy) {
+    thingy.owner = this.id
+    this.house = thingy
+  }
+
   quit () {
     this.house.ownerId = ''
   }

@@ -1,3 +1,5 @@
+import { request } from 'https';
+
 var express = require('express')
 var app = express()
 var http = require('http')
@@ -13,10 +15,18 @@ app.use(express.static('public'))
 var socketio = require('socket.io')
 var io = socketio(server)
 
+var GameBoard = require('./game/game-board')
+var Team = require('./game/team')
 var Game = require('./game/game')
 
-var game = new Game()
-game.createDefaultHouses()
+var board = new GameBoard(300, 150)
+
+var teams = [
+  new Team('0', board.createHouses(6))
+  // new Team('1', board.createGiant())
+]
+
+var game = new Game(teams, board)
 
 io.on('connection', (socket) => {
   game.registerPlayer(socket.id)

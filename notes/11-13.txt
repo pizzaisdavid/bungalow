@@ -1,8 +1,6 @@
 
 on server start:
-  var manager = new PlayerManager()
-  var board = new GameBoard()
-  var game = new Game(manager, board);
+  var game = new Game(???);
 
 on player connect:
   game.registerSpectator(anId0);
@@ -12,5 +10,6 @@ on player connect:
 
 on player picks team:
   game.registerPlayer(anId0, aTeamName);
+  // unregister as spectator
   // give player a vacant controllable on that team if possible
   // assign player to that team
