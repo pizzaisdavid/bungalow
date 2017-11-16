@@ -5,8 +5,8 @@
     - [x] Implement position in shape(getters + setters, constructor takes a position) 🍬
     - [x] Iron out problems in tests 🍬🍬
 - [ ] Assign 'unassigned' on connect
-    - [ ] Create tests for unassigned object (doesn't crash when do is called, x, y) 🍬🍬
-    - [ ] Create unassigned object (singleton) 🍬
+    - [x] Create tests for unassigned object (doesn't crash when do is called, x, y) 🍬🍬
+    - [x] Create unassigned object (singleton) 🍬
     - [ ] Make player object able to be assigned the unassigned object( rename stuff accordingly) 🍬
     - [ ] Make assignPiece method in game object 🍬
 - [ ] Make teams
