@@ -1,0 +1,15 @@
+
+
+make giant [Micah]
+make house smashable [David]
+start
+  select team
+  select skin
+  some kind of "ready" mechanic
+
+win state
+timer
+database house theme [Micah]
+submit house picture [David]
+
+DUE WEDNESDAY THE 22
