@@ -97,7 +97,7 @@ class House {
   }
 
   down (game) {
-    var oldy = this.shape.x
+    var oldy = this.shape.y
     this.shape.y += this.SPEED
     if (game.isTouchingAny(this.shape)) {
       this.shape.y = oldy

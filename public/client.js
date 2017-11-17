@@ -5,17 +5,17 @@ $(document).ready(() => {
   var commands = new Set()
   var id = ''
 
-  socket.on('initialize', (state) => {
+  socket.on('initialize', (initialize) => {
     clearCanvas()
-    id = state.id
-    var houses = state.houses
+    id = initialize.id
+    var houses = initialize.state
     drawHouses(houses)
   })
 
   socket.on('poll', (gameState) => {
     clearCanvas()
-    drawHouses(gameState.houses)
-    console.log(gameState.houses)
+    drawHouses(gameState)
+    console.log(gameState)
     socket.emit('commands', pollInput())
   })
 
@@ -32,15 +32,14 @@ $(document).ready(() => {
   }
 
   function drawHouse (house) {
-    var position = house.position
     if (house.ownerId === id) {
       console.log('hi')
       context.fillStyle = 'black'
-      context.strokeRect(position.x, position.y, house.position.width + 5, house.position.height + 5)
+      context.strokeRect(house.shape.position.x, house.shape.position.y, house.shape.width + 5, house.shape.height + 5)
     }
     context.beginPath()
     context.fillStyle = house.color
-    context.fillRect(position.x, position.y, house.position.width, house.position.height)
+    context.fillRect(house.shape.position.x, house.shape.position.y, house.shape.width, house.shape.height)
   }
 
   function pollInput () {

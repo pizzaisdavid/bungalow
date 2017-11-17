@@ -1,5 +1,3 @@
-import { request } from 'https';
-
 var express = require('express')
 var app = express()
 var http = require('http')
@@ -29,11 +27,12 @@ var teams = [
 var game = new Game(teams, board)
 
 io.on('connection', (socket) => {
-  game.registerPlayer(socket.id)
+
+  game.registerPlayer('0', socket.id)
 
   socket.emit('initialize', {
     id: socket.id,
-    houses: game.houses
+    state: game.state
   })
 
   socket.on('commands', (commands) => {

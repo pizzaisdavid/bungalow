@@ -1,3 +1,4 @@
+const House = require('./controllables/house')
 
 class GameBoard {
   constructor(width = 300, height = 150) {
@@ -22,7 +23,7 @@ class GameBoard {
 
   spawnProperPlacedHouse () {
     while (true) {
-      var house = House.generateRandom(this.width, this.hieght)
+      var house = House.generateRandom(this.width, this.height)
       if (this.isTouchingAny(house.shape) === false) {
         return house
       }

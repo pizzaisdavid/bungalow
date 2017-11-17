@@ -7,14 +7,12 @@ class Game {
     console.log('Hi, Clickty-Clack.')
     this.teams = teams
     this.board = board
-    this.players = []
+    this.players = {}
     this.commands = {}
   }
 
   get state () {
-    return {
-      houses: this.houses
-    }
+    return this.board.controllables
   }
 
   registerPlayer (teamName, id) {

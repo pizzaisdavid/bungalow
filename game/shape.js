@@ -1,11 +1,15 @@
+
 const MathHelper = require('./math-helper')
+const Position = require('./position')
 
 class Shape {
   static generateRandom (width, height) {
     return new Shape(
-      MathHelper.randomBetween(0, width),
-      MathHelper.randomBetween(0, height),
-      0,
+      new Position(
+        MathHelper.randomBetween(0, width),
+        MathHelper.randomBetween(0, height),
+        0
+      ),
       20,
       20,
       MathHelper.randomBetween(0, 360)
