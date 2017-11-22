@@ -1,0 +1,12 @@
+How I(Clickity-Clack) want house.do implemented:
+
+  do (game, command) {
+    let commands = {
+      'LEFT': this.left,
+      'UP': this.up,
+      'RIGHT': this.right,
+      'DOWN': this.down
+    }
+    let action = commands[command] || (() => { console.log(`band command: ${command}`) })
+    action(game)
+  }
