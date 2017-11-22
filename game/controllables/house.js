@@ -13,11 +13,12 @@ class House {
     this.shape = shape
     this.color = color
     this.SPEED = 10
+    this.isAlive = true;
     this.ownerId = ''
   }
 
   isVancant () {
-    return this.ownerId === ''
+    return this.isAlive === true && this.ownerId === ''
   }
 
   get x () {
@@ -103,6 +104,10 @@ class House {
       this.shape.y = oldy
     }
   }
+
+  smash() {
+    this.isAlive = false;
+  }
 }
 
 class NullHouse {
@@ -116,6 +121,10 @@ class NullHouse {
 
   isVancant () {
     return false
+  }
+
+  smash() {
+    
   }
 
   toString () {

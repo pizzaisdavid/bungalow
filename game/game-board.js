@@ -21,6 +21,10 @@ class GameBoard {
     return houses;
   }
 
+  createGiant () {
+    
+  }
+
   spawnProperPlacedHouse () {
     while (true) {
       var house = House.generateRandom(this.width, this.height)

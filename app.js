@@ -20,8 +20,8 @@ var Game = require('./game/game')
 var board = new GameBoard(300, 150)
 
 var teams = [
-  new Team('0', board.createHouses(6))
-  // new Team('1', board.createGiant())
+  new Team('0', board.createHouses(6)),
+  new Team('1', board.createGiant())
 ]
 
 var game = new Game(teams, board)
