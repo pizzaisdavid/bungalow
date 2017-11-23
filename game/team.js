@@ -1,19 +1,19 @@
 
 class Team {
-  constructor(name, controllables) {
+  constructor (name, controllables) {
     this.name = name
     this.controllables = controllables
     this.players = []
   }
 
-  findOpenControllable() {
+  findOpenControllable () {
     for (var i = 0; i < this.controllables.length; i++) {
       var c = this.controllables[i]
       if (c.isVancant()) {
         return c
       }
     }
-    return null; // TODO return Controllable.Null
+    return null // TODO return Controllable.Null
   }
 }
 

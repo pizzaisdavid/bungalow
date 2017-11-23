@@ -67,7 +67,7 @@ describe('game-collision', function () {
   })
 })
 
-function makeGameWithOneTeam(house0, house1) {
+function makeGameWithOneTeam (house0, house1) {
   var board = new GameBoard(2000, 2000)
   board.setControllables([house0, house1])
   var teams = [
@@ -75,7 +75,7 @@ function makeGameWithOneTeam(house0, house1) {
       house0,
       house1
     ])
-  ];
+  ]
   return new Game(teams, board)
 }
 

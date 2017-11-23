@@ -29,9 +29,9 @@ class Game {
     this.players[id] = aPlayer
   }
 
-  findOpenControllable(teamId) {
+  findOpenControllable (teamId) {
     var team = this.teams[teamId]
-    return team.findOpenControllable();
+    return team.findOpenControllable()
   }
 
   deregisterPlayer (id) {

@@ -23,7 +23,7 @@ describe('game', function () {
     ])
     var teams = [
       new Team('0', [
-        house0, 
+        house0,
         house1,
         house2
       ])

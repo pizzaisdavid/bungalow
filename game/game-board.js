@@ -1,7 +1,7 @@
 const House = require('./controllables/house')
 
 class GameBoard {
-  constructor(width = 300, height = 150) {
+  constructor (width = 300, height = 150) {
     this.width = width
     this.height = height
     this.controllables = []
@@ -12,17 +12,17 @@ class GameBoard {
   }
 
   createHouses (count) {
-    var houses = [];
+    var houses = []
     for (var i = 0; i < count; i++) {
       var house = this.spawnProperPlacedHouse()
       houses.push(house)
       this.controllables.push(house)
     }
-    return houses;
+    return houses
   }
 
   createGiant () {
-    
+
   }
 
   spawnProperPlacedHouse () {
@@ -40,4 +40,4 @@ class GameBoard {
   }
 }
 
-module.exports = GameBoard;
+module.exports = GameBoard

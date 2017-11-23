@@ -27,7 +27,6 @@ var teams = [
 var game = new Game(teams, board)
 
 io.on('connection', (socket) => {
-
   game.registerPlayer('0', socket.id)
 
   socket.emit('initialize', {

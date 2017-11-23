@@ -13,7 +13,7 @@ class House {
     this.shape = shape
     this.color = color
     this.SPEED = 10
-    this.isAlive = true;
+    this.isAlive = true
     this.ownerId = ''
   }
 
@@ -105,8 +105,8 @@ class House {
     }
   }
 
-  smash() {
-    this.isAlive = false;
+  smash () {
+    this.isAlive = false
   }
 }
 
@@ -123,8 +123,8 @@ class NullHouse {
     return false
   }
 
-  smash() {
-    
+  smash () {
+
   }
 
   toString () {
