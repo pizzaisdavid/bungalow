@@ -8,8 +8,9 @@ $(document).ready(() => {
   socket.on('initialize', (initialize) => {
     clearCanvas()
     id = initialize.id
-    var houses = initialize.state
-    displayTeams(initialize.teams)
+    var houses = initialize.state.controllables
+    var teams = initialize.state.teams
+    displayTeams(teams)
     drawHouses(houses)
   })
 
@@ -41,9 +42,10 @@ $(document).ready(() => {
   }
 
   socket.on('poll', (gameState) => {
+    console.log(gameState)    
     clearCanvas()
-    drawHouses(gameState)
-    console.log(gameState)
+    drawHouses(gameState.controllables)
+    displayTeams(gameState.teams)
     socket.emit('commands', pollInput())
   })
 

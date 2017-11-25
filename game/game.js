@@ -16,7 +16,10 @@ class Game {
   }
 
   get state () {
-    return this.board.controllables
+    return {
+      'teams': this.teams,
+      'controllables': this.board.controllables
+    }
   }
 
   registerPlayer(teamName, id) {
