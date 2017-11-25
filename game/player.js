@@ -4,13 +4,15 @@ class Player {
   constructor (anId) {
     this.name = ''
     this.id = anId
-    this.self = this
     this.house = House.Null
-
     this.assignHouse = (aHouse) => {
       aHouse.owner = this.id
       this.house = aHouse
     }
+  }
+
+  is(aPlayer) {
+    return this.id === aPlayer.id
   }
 
   assignControllable (thingy) {

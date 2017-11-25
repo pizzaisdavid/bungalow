@@ -17,8 +17,8 @@ $(document).ready(() => {
     console.log('teams:')
     console.log(teams)
     clearTeams()
-    for (var i = 0; i < teams.length; i++) {
-      var team = teams[i]
+    for (var name in teams) {
+      var team = teams[name]
       displayTeam(team)
     }
   }
@@ -36,6 +36,7 @@ $(document).ready(() => {
     container.append(`players: ${team.players.length}`)
     container.append('<br>')    
     container.append(`objects: ${team.controllables.length}`)
+    console.log('make team');
     $('#teams').append(container)
   }
 

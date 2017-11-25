@@ -16,19 +16,20 @@ var io = socketio(server)
 var GameBoard = require('./game/game-board')
 var Team = require('./game/team')
 var Game = require('./game/game')
+const Player = require('./game/player')
 
 var board = new GameBoard(300, 150)
 
-var teams = [
-  new Team('0', board.createHouses(6)),
-  new Team('1', board.createGiant())
-]
+var teams = {
+  'Houses' : new Team('Houses', board.createHouses(6)),
+  'Giants' : new Team('Giants', board.createGiant())
+}
 
 var game = new Game(teams, board)
 
 io.on('connection', (socket) => {
-  game.registerPlayer('0', socket.id)
-
+  socket.player = new Player(socket.id)
+  game.registerSpectator(socket.player)
   socket.emit('initialize', {
     id: socket.id,
     state: game.state,
@@ -40,7 +41,7 @@ io.on('connection', (socket) => {
   })
 
   socket.on('disconnection', () => {
-    game.deregisterPlayer(socket.id)
+    game.deregister(socket.player)
   })
 })
 
