@@ -39,7 +39,7 @@ class Game {
   }
 
   deregister(aPlayer) {
-    var team = aPlayer.teamName
+    var teamName = aPlayer.teamName
     aPlayer.quit()
     this.remove(aPlayer)
     this.teams[teamName].remove(aPlayer)

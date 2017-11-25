@@ -40,7 +40,8 @@ io.on('connection', (socket) => {
     game.queue(socket.id, commands)
   })
 
-  socket.on('disconnection', () => {
+  socket.on('disconnect', () => {
+    console.log(`someone disconnected: ${socket.player.id}`)
     game.deregister(socket.player)
   })
 })
