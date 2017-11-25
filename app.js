@@ -37,7 +37,7 @@ io.on('connection', (socket) => {
   })
 
   socket.on('commands', (commands) => {
-    game.queue(socket.id, commands)
+    game.queue(socket.player, commands)
   })
 
   socket.on('disconnect', () => {
@@ -49,7 +49,7 @@ io.on('connection', (socket) => {
 setInterval(() => {
   game.tick()
   io.emit('poll', game.state)
-}, 3000)
+}, 33)
 
 server.listen(3000, () => {
   console.log('Game is running...')

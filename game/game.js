@@ -47,6 +47,7 @@ class Game {
   add (teamName, aPlayer) {
     var team = this.teams[teamName]
     team.players.push(aPlayer)
+    this.players[aPlayer.id] = aPlayer
   }
 
   findOpenControllable (teamName) {
@@ -59,15 +60,15 @@ class Game {
     delete this.players[id]
   }
 
-  queue (id, commands) {
-    this.commands[id] = commands
+  queue (aPlayer, commands) {
+    this.commands[aPlayer.id] = commands
   }
 
   tick () {
     for (var id in this.commands) {
-      var player = this.players[id]
+      var aPlayer = this.players[id]
       var commands = this.commands[id]
-      this.processCommands(player, commands)
+      this.processCommands(aPlayer, commands)
     }
     this.commands = {}
   }
