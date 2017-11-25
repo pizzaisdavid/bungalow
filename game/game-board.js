@@ -22,7 +22,7 @@ class GameBoard {
   }
 
   createGiant () {
-
+    return [];
   }
 
   spawnProperPlacedHouse () {

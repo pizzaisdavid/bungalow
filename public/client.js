@@ -9,8 +9,35 @@ $(document).ready(() => {
     clearCanvas()
     id = initialize.id
     var houses = initialize.state
+    displayTeams(initialize.teams)
     drawHouses(houses)
   })
+
+  function displayTeams(teams) {
+    console.log('teams:')
+    console.log(teams)
+    clearTeams()
+    for (var i = 0; i < teams.length; i++) {
+      var team = teams[i]
+      displayTeam(team)
+    }
+  }
+
+  function clearTeams() {
+    $('#teams').empty()
+  }
+
+  function displayTeam(team) {
+    var container = $('<div></div>')
+    var joinButton = $('<input type="button">')
+    joinButton.prop('value', `join team: ${team.name}`)
+    container.append(joinButton)
+    container.append('<br>')
+    container.append(`players: ${team.players.length}`)
+    container.append('<br>')    
+    container.append(`objects: ${team.controllables.length}`)
+    $('#teams').append(container)
+  }
 
   socket.on('poll', (gameState) => {
     clearCanvas()
@@ -33,7 +60,6 @@ $(document).ready(() => {
 
   function drawHouse (house) {
     if (house.ownerId === id) {
-      console.log('hi')
       context.fillStyle = 'black'
       context.strokeRect(house.shape.position.x, house.shape.position.y, house.shape.width + 5, house.shape.height + 5)
     }
