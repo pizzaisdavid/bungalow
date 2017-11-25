@@ -1,4 +1,4 @@
-const NullControllable = require('./controllables/unassigned')
+const NullControllable = require('./controllables/controllable')
 
 class Team {
   constructor (name, controllables = []) {

@@ -2,6 +2,7 @@ const House = require('./controllables/house')
 
 class Player {
   constructor (anId) {
+    this.teamName = ''
     this.name = ''
     this.id = anId
     this.house = House.Null
