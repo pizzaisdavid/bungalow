@@ -12,6 +12,10 @@ class Controllable {
   isVancant() {
     return false
   }
+
+  abandon() {
+    
+  }
 }
 
 Controllable.Null = new Controllable()

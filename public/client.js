@@ -22,6 +22,7 @@ $(document).ready(() => {
       var team = teams[name]
       displayTeam(team)
     }
+    //TODO disableMyTeam()
   }
 
   function clearTeams() {

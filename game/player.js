@@ -1,32 +1,28 @@
-const House = require('./controllables/house')
+const Controllable = require('./controllables/controllable')
 
 class Player {
   constructor (anId) {
     this.teamName = ''
     this.name = ''
     this.id = anId
-    this.house = House.Null
-    this.assignHouse = (aHouse) => {
-      aHouse.owner = this.id
-      this.house = aHouse
-    }
+    this.controllable = Controllable.Null
   }
 
   is(aPlayer) {
     return this.id === aPlayer.id
   }
 
-  assignControllable (thingy) {
-    thingy.owner = this.id
-    this.house = thingy
+  assignControllable (aControllable) {
+    aControllable.owner = this.id
+    this.controllable = aControllable
   }
 
   quit () {
-    this.house.ownerId = ''
+    this.controllable.abandon()
   }
 
   do (game, command) {
-    this.house.do(game, command)
+    this.controllable.do(game, command)
   }
 }
 
