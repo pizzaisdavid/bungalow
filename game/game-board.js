@@ -1,4 +1,6 @@
 const House = require('./controllables/house')
+const Shape = require('./shape')
+const MathHelper = require('./math-helper')
 
 class GameBoard {
   constructor (width = 300, height = 150) {
@@ -27,9 +29,12 @@ class GameBoard {
 
   spawnProperPlacedHouse () {
     while (true) {
-      var house = House.generateRandom(this.width, this.height)
-      if (this.isTouchingAny(house.shape) === false) {
-        return house
+      var shape = Shape.generateRandom(this.width, this.height)
+      if (this.isTouchingAny(shape) === false) {
+        return new House(
+          shape, 
+          MathHelper.selectRandom(['blue', 'red', 'green', 'yellow'])
+        )
       }
     }
   }

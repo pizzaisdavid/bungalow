@@ -17,14 +17,14 @@ class Team {
     return NullControllable.Null
   }
 
-  remove(aPlayer) {
+  remove (aPlayer) {
     var index = this.index(aPlayer)
     if (index > -1) {
       this.players.splice(index, 1)
     }
   }
 
-  index(aPlayer) {
+  index (aPlayer) {
     for (var i = 0; i < this.players.length; i++) {
       var player = this.players[i]
       if (aPlayer.is(player)) {

@@ -9,12 +9,12 @@ class Controllable {
     // do nothing
   }
 
-  isVancant() {
+  isVancant () {
     return false
   }
 
-  abandon() {
-    
+  abandon () {
+
   }
 }
 

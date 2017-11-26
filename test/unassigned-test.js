@@ -1,7 +1,7 @@
 // var assert = require('assert')
 const Player = require('../game/player')
 const Game = require('../game/game')
-const Unassigned = require('../game/controllables/unassigned')
+const Unassigned = require('../game/controllables/controllable')
 // const House = require('../game/controllables/house')
 // const Shape = require('../game/shape')
 

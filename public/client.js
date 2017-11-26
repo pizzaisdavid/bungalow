@@ -14,7 +14,7 @@ $(document).ready(() => {
     drawHouses(houses)
   })
 
-  function displayTeams(teams) {
+  function displayTeams (teams) {
     console.log('teams:')
     console.log(teams)
     clearTeams()
@@ -22,28 +22,28 @@ $(document).ready(() => {
       var team = teams[name]
       displayTeam(team)
     }
-    //TODO disableMyTeam()
+    // TODO disableMyTeam()
   }
 
-  function clearTeams() {
+  function clearTeams () {
     $('#teams').empty()
   }
 
-  function displayTeam(team) {
+  function displayTeam (team) {
     var container = $('<div></div>')
     var joinButton = $('<input type="button">')
     joinButton.prop('value', `join team: ${team.name}`)
     container.append(joinButton)
     container.append('<br>')
     container.append(`players: ${team.players.length}`)
-    container.append('<br>')    
+    container.append('<br>')
     container.append(`objects: ${team.controllables.length}`)
-    console.log('make team');
+    console.log('make team')
     $('#teams').append(container)
   }
 
   socket.on('poll', (gameState) => {
-    console.log(gameState)    
+    console.log(gameState)
     clearCanvas()
     drawHouses(gameState.controllables)
     displayTeams(gameState.teams)

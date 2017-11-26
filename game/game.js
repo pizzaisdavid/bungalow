@@ -11,7 +11,7 @@ class Game {
     this.setupSpectators()
   }
 
-  setupSpectators() {
+  setupSpectators () {
     this.teams[this.SPECTATORS_TEAM_NAME] = new Team(this.SPECTATORS_TEAM_NAME)
   }
 
@@ -22,17 +22,17 @@ class Game {
     }
   }
 
-  registerPlayer(teamName, id) {
+  registerPlayer (teamName, id) {
     this.deregister(id)
     this.register(teamName, id)
   }
 
-  registerSpectator(aPlayer) {
+  registerSpectator (aPlayer) {
     this.register(this.SPECTATORS_TEAM_NAME, aPlayer)
   }
 
   register (teamName, aPlayer) {
-    aPlayer.teamName = teamName;
+    aPlayer.teamName = teamName
     console.log(`${aPlayer.id} has joined team: ${teamName}`)
     var aControllable = this.findOpenControllable(teamName)
     console.log(aControllable)
@@ -40,7 +40,7 @@ class Game {
     this.add(teamName, aPlayer)
   }
 
-  deregister(aPlayer) {
+  deregister (aPlayer) {
     var teamName = aPlayer.teamName
     aPlayer.quit()
     this.remove(aPlayer)

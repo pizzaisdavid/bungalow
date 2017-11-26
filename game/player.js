@@ -8,7 +8,7 @@ class Player {
     this.controllable = Controllable.Null
   }
 
-  is(aPlayer) {
+  is (aPlayer) {
     return this.id === aPlayer.id
   }
 

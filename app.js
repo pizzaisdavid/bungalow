@@ -21,8 +21,8 @@ const Player = require('./game/player')
 var board = new GameBoard(300, 150)
 
 var teams = {
-  'Houses' : new Team('Houses', board.createHouses(6)),
-  'Giants' : new Team('Giants', board.createGiant())
+  'Houses': new Team('Houses', board.createHouses(6)),
+  'Giants': new Team('Giants', board.createGiant())
 }
 
 var game = new Game(teams, board)
