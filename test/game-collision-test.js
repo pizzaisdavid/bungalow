@@ -91,10 +91,6 @@ function makeTestHouseBeneathTestHouse () {
   return generalTestHouse(10, 60)
 }
 
-function makeTestFarAwayHouse () {
-  return generalTestHouse(1000, 10)
-}
-
 function generalTestHouse (X, Y, Z = 0) {
   const WIDTH = 50
   const HEIGHT = 50

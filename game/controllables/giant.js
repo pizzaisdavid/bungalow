@@ -1,4 +1,3 @@
-const Shape = require('../shape')
 
 class Giant {
   constructor (rightShape, leftShape) {

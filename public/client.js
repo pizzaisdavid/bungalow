@@ -15,7 +15,7 @@ $(document).ready(() => {
     drawHouses(houses)
   })
 
-  function initializeTeams(teams) {
+  function initializeTeams (teams) {
     var TEAM_CONTAIN_SELECTOR = '#teams'
     for (var name in teams) {
       var team = teams[name]
@@ -23,15 +23,15 @@ $(document).ready(() => {
     }
   }
 
-  function makeTeamContainer(team) {
+  function makeTeamContainer (team) {
     var container = $(`<div id="${team.name}-container"></div>`)
     container.append(makeJoinTeamButton(team))
     container.append(makeTeamStatisticsContainer(team))
     console.log('make team container')
     return container
   }
-  
-  function makeJoinTeamButton(team) {
+
+  function makeJoinTeamButton (team) {
     // TODO is there a full team?
     var button = $('<input type="button">')
     button.prop('value', `join team: ${team.name}`)
@@ -41,12 +41,12 @@ $(document).ready(() => {
     return button
   }
 
-  function makeTeamStatisticsContainer(team) {
+  function makeTeamStatisticsContainer (team) {
     var container = $(`<div id="${team.name}-statistics"></div>`)
     return container
   }
 
-  function updateTeams(teams) {
+  function updateTeams (teams) {
     console.log('teams:')
     console.log(teams)
     for (var name in teams) {
@@ -55,13 +55,13 @@ $(document).ready(() => {
     }
   }
 
-  function populateStats(team) {
+  function populateStats (team) {
     var statistics = $(`#${team.name}-statistics`)
     statistics.empty()
     statistics.append('<br>')
     statistics.append(`players: ${team.players.length}`)
     statistics.append('<br>')
-    statistics.append(`objects: ${team.controllables.length}`) 
+    statistics.append(`objects: ${team.controllables.length}`)
   }
 
   socket.on('poll', (gameState) => {
