@@ -21,8 +21,8 @@ class Player {
     this.controllable.abandon()
   }
 
-  do (game, command) {
-    this.controllable.do(game, command)
+  do (aGameBoard, command) {
+    this.controllable.do(aGameBoard, command)
   }
 }
 

@@ -53,19 +53,19 @@ class House {
     return `ownerId=${this.ownerId}`
   }
 
-  do (game, command) {
+  do (aGameBoard, command) {
     switch (command) {
       case 'LEFT':
-        this.left(game)
+        this.left(aGameBoard)
         break
       case 'UP':
-        this.up(game)
+        this.up(aGameBoard)
         break
       case 'RIGHT':
-        this.right(game)
+        this.right(aGameBoard)
         break
       case 'DOWN':
-        this.down(game)
+        this.down(aGameBoard)
         break
       default:
         console.log(`band command: ${command}`)
@@ -73,34 +73,34 @@ class House {
     }
   }
 
-  left (game) {
+  left (aGameBoard) {
     var oldx = this.shape.x
     this.shape.x -= this.SPEED
-    if (game.isTouchingAny(this.shape)) {
+    if (aGameBoard.isTouchingAny(this.shape)) {
       this.shape.x = oldx
     }
   }
 
-  up (game) {
+  up (aGameBoard) {
     var oldy = this.shape.y
     this.shape.y -= this.SPEED
-    if (game.isTouchingAny(this.shape)) {
+    if (aGameBoard.isTouchingAny(this.shape)) {
       this.shape.y = oldy
     }
   }
 
-  right (game) {
+  right (aGameBoard) {
     var oldx = this.shape.x
     this.shape.x += this.SPEED
-    if (game.isTouchingAny(this.shape)) {
+    if (aGameBoard.isTouchingAny(this.shape)) {
       this.shape.x = oldx
     }
   }
 
-  down (game) {
+  down (aGameBoard) {
     var oldy = this.shape.y
     this.shape.y += this.SPEED
-    if (game.isTouchingAny(this.shape)) {
+    if (aGameBoard.isTouchingAny(this.shape)) {
       this.shape.y = oldy
     }
   }
