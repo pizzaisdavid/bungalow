@@ -10,37 +10,27 @@ $(document).ready(() => {
     id = initialize.id
     var houses = initialize.state.controllables
     var teams = initialize.state.teams
-    displayTeams(teams)
+    initializeTeams(teams)
+    updateTeams(teams)
     drawHouses(houses)
   })
 
-  function displayTeams (teams) {
-    console.log('teams:')
-    console.log(teams)
-    clearTeams()
+  function initializeTeams(teams) {
+    var TEAM_CONTAIN_SELECTOR = '#teams'
     for (var name in teams) {
       var team = teams[name]
-      displayTeam(team)
+      $(TEAM_CONTAIN_SELECTOR).append(makeTeamContainer(team))
     }
-    // TODO disableMyTeam()
   }
 
-  function clearTeams () {
-    $('#teams').empty()
+  function makeTeamContainer(team) {
+    var container = $(`<div id="${team.name}-container"></div>`)
+    container.append(makeJoinTeamButton(team))
+    container.append(makeTeamStatisticsContainer(team))
+    console.log('make team container')
+    return container
   }
-
-  function displayTeam (team) {
-    var container = $('<div></div>')
-    var joinButton = makeJoinTeamButton(team)
-    container.append(joinButton)
-    container.append('<br>')
-    container.append(`players: ${team.players.length}`)
-    container.append('<br>')
-    container.append(`objects: ${team.controllables.length}`)
-    console.log('make team')
-    $('#teams').append(container)
-  }
-
+  
   function makeJoinTeamButton(team) {
     // TODO is there a full team?
     var button = $('<input type="button">')
@@ -51,11 +41,36 @@ $(document).ready(() => {
     return button
   }
 
+  function makeTeamStatisticsContainer(team) {
+    var container = $(`<div id="${team.name}-statistics"></div>`)
+    return container
+  }
+
+  function updateTeams(teams) {
+    console.log('teams:')
+    console.log(teams)
+    for (var name in teams) {
+      var team = teams[name]
+      populateStats(team)
+    }
+  }
+
+
+
+  function populateStats(team) {
+    var statistics = $(`#${team.name}-statistics`)
+    statistics.empty()
+    statistics.append('<br>')
+    statistics.append(`players: ${team.players.length}`)
+    statistics.append('<br>')
+    statistics.append(`objects: ${team.controllables.length}`) 
+  }
+
   socket.on('poll', (gameState) => {
     console.log(gameState)
     clearCanvas()
     drawHouses(gameState.controllables)
-    displayTeams(gameState.teams)
+    updateTeams(gameState.teams)
     socket.emit('commands', pollInput())
   })
 
