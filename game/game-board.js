@@ -24,7 +24,7 @@ class GameBoard {
   }
 
   createGiant () {
-    return [];
+    return []
   }
 
   spawnProperPlacedHouse () {
@@ -32,7 +32,7 @@ class GameBoard {
       var shape = Shape.generateRandom(this.width, this.height)
       if (this.isTouchingAny(shape) === false) {
         return new House(
-          shape, 
+          shape,
           MathHelper.selectRandom(['blue', 'red', 'green', 'yellow'])
         )
       }

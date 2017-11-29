@@ -29,18 +29,18 @@ class Game {
 
   joinTeam (aTeamName, aPlayer) {
     this.leaveCurrentTeam(aPlayer)
-    this.addToTeam(aTeamName, aPlayer)    
+    this.addToTeam(aTeamName, aPlayer)
   }
 
   leaveCurrentTeam (aPlayer) {
     var teamName = aPlayer.teamName
     var team = this.teams[teamName]
     aPlayer.quit()
-    team.remove(aPlayer)    
+    team.remove(aPlayer)
   }
 
   addToTeam (aTeamName, aPlayer) {
-    console.log(`${aPlayer.id} has joined team: ${aTeamName}`)        
+    console.log(`${aPlayer.id} has joined team: ${aTeamName}`)
     var team = this.teams[aTeamName]
     var aControllable = team.findOpenControllable()
     aPlayer.assignControllable(aControllable)
