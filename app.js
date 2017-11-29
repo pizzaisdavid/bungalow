@@ -29,11 +29,16 @@ var game = new Game(teams, board)
 
 io.on('connection', (socket) => {
   socket.player = new Player(socket.id)
-  game.registerSpectator(socket.player)
+  game.initalizePlayer(socket.player)
   socket.emit('initialize', {
     id: socket.id,
     state: game.state,
     teams: game.teams
+  })
+
+  socket.on('join', (teamName) => {
+    console.log(teamName)
+    game.joinTeam(teamName, socket.player)
   })
 
   socket.on('commands', (commands) => {
@@ -42,7 +47,7 @@ io.on('connection', (socket) => {
 
   socket.on('disconnect', () => {
     console.log(`someone disconnected: ${socket.player.id}`)
-    game.deregister(socket.player)
+    game.terminatePlayer(socket.player)
   })
 })
 

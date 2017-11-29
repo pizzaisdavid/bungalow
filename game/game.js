@@ -22,45 +22,35 @@ class Game {
     }
   }
 
-  registerPlayer (teamName, id) {
-    this.deregister(id)
-    this.register(teamName, id)
-  }
-
-  registerSpectator (aPlayer) {
-    this.register(this.SPECTATORS_TEAM_NAME, aPlayer)
-  }
-
-  register (teamName, aPlayer) {
-    aPlayer.teamName = teamName
-    console.log(`${aPlayer.id} has joined team: ${teamName}`)
-    var aControllable = this.findOpenControllable(teamName)
-    console.log(aControllable)
-    aPlayer.assignControllable(aControllable)
-    this.add(teamName, aPlayer)
-  }
-
-  deregister (aPlayer) {
-    var teamName = aPlayer.teamName
-    aPlayer.quit()
-    this.remove(aPlayer)
-    this.teams[teamName].remove(aPlayer)
-  }
-
-  add (teamName, aPlayer) {
-    var team = this.teams[teamName]
-    team.players.push(aPlayer)
+  initalizePlayer (aPlayer) {
     this.players[aPlayer.id] = aPlayer
+    this.addToTeam(this.SPECTATORS_TEAM_NAME, aPlayer)
   }
 
-  findOpenControllable (teamName) {
+  joinTeam (aTeamName, aPlayer) {
+    this.leaveCurrentTeam(aPlayer)
+    this.addToTeam(aTeamName, aPlayer)    
+  }
+
+  leaveCurrentTeam (aPlayer) {
+    var teamName = aPlayer.teamName
     var team = this.teams[teamName]
-    return team.findOpenControllable()
+    aPlayer.quit()
+    team.remove(aPlayer)    
   }
 
-  remove (aPlayer) {
-    var id = aPlayer.id
-    delete this.players[id]
+  addToTeam (aTeamName, aPlayer) {
+    console.log(`${aPlayer.id} has joined team: ${aTeamName}`)        
+    var team = this.teams[aTeamName]
+    var aControllable = team.findOpenControllable()
+    aPlayer.assignControllable(aControllable)
+    aPlayer.teamName = aTeamName
+    team.push(aPlayer)
+  }
+
+  terminatePlayer (aPlayer) {
+    delete this.players[aPlayer.id]
+    this.leaveCurrentTeam(aPlayer)
   }
 
   queue (aPlayer, commands) {

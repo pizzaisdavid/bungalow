@@ -31,8 +31,7 @@ $(document).ready(() => {
 
   function displayTeam (team) {
     var container = $('<div></div>')
-    var joinButton = $('<input type="button">')
-    joinButton.prop('value', `join team: ${team.name}`)
+    var joinButton = makeJoinTeamButton(team)
     container.append(joinButton)
     container.append('<br>')
     container.append(`players: ${team.players.length}`)
@@ -40,6 +39,16 @@ $(document).ready(() => {
     container.append(`objects: ${team.controllables.length}`)
     console.log('make team')
     $('#teams').append(container)
+  }
+
+  function makeJoinTeamButton(team) {
+    // TODO is there a full team?
+    var button = $('<input type="button">')
+    button.prop('value', `join team: ${team.name}`)
+    button.click(() => {
+      socket.emit('join', team.name)
+    })
+    return button
   }
 
   socket.on('poll', (gameState) => {
