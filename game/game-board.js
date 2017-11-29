@@ -30,13 +30,18 @@ class GameBoard {
   spawnProperPlacedHouse () {
     while (true) {
       var shape = Shape.generateRandom(this.width, this.height)
-      if (this.isTouchingAny(shape) === false) {
+      if (this.isTouchingAny(shape) === false && this.isWithinBoard(shape)) {
         return new House(
           shape,
           MathHelper.selectRandom(['blue', 'red', 'green', 'yellow'])
         )
       }
     }
+  }
+
+  isWithinBoard (aShape) {
+    return (aShape.x > 0 && aShape.x + aShape.width < this.width &&
+      aShape.y > 0 && aShape.y + aShape.height < this.height)
   }
 
   isTouchingAny (aPlaneObject) {
