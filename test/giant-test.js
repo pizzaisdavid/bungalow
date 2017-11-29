@@ -1,4 +1,5 @@
 const Giant = require('../game/controllables/giant')
+var should = require('chai').should()
 
 describe('giant: ', () => {
   it('should have a rightShape property', () => {
