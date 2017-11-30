@@ -28,7 +28,7 @@ describe('giant: ', () => {
     it('should have a do function', () => {
       let sut = new Giant({}, {})
 
-      sut.should.have.propert('do').a('function')
+      sut.should.have.property('do').a('function')
     })
 
     it('should move the right shape up when you press space', () => {
