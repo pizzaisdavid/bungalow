@@ -4,8 +4,10 @@ const Team = require('../game/team')
 const Game = require('../game/game')
 const House = require('../game/controllables/house')
 const Shape = require('../game/shape')
+const Player = require('./../game/player')
+var should = require('chai').should()
 
-describe('game', function () {
+describe('game: ', function () {
   const PLAYER_0_ID = 'qw12'
   const PLAYER_1_ID = 'xnr13'
   const PLAYER_2_ID = 'xLB94'
@@ -28,77 +30,74 @@ describe('game', function () {
         house2
       ])
     ]
-    game = new Game(teams, board)
+    aGame = new Game(teams, board)
   })
 
-  it('Register one player', () => {
-    game.registerPlayer('0', PLAYER_0_ID)
-    var houses = game.state.houses
-    assert.equal(houses[0].ownerId, PLAYER_0_ID)
-    assert(houses[1].isVancant())
-    assert(houses[2].isVancant())
+  it('should have a teams property', () => {
+    aGame.should.have.property('teams').an('array')
+  })
+  
+  it('should have a gameBoard property', () => {
+    aGame.should.have.property('board').an('object')
   })
 
-  it('Register multiple players', () => {
-    game.registerPlayer('0', PLAYER_0_ID)
-    var houses = game.state.houses
-    assert.equal(houses[0].ownerId, PLAYER_0_ID)
-    assert(houses[1].isVancant())
-    assert(houses[2].isVancant())
-    game.registerPlayer('0', PLAYER_1_ID)
-    houses = game.state.houses
-    assert.equal(houses[0].ownerId, PLAYER_0_ID)
-    assert.equal(houses[1].ownerId, PLAYER_1_ID)
-    assert(houses[2].isVancant())
-    game.registerPlayer('0', PLAYER_2_ID)
-    houses = game.state.houses
-    assert.equal(houses[0].ownerId, PLAYER_0_ID)
-    assert.equal(houses[1].ownerId, PLAYER_1_ID)
-    assert.equal(houses[2].ownerId, PLAYER_2_ID)
+  describe('initalizePlayer: ', () => {
+    it('should assign to spectator', () => {
+      let player1 = new Player(PLAYER_1_ID)
+      let player0 = new Player(PLAYER_0_ID)
+      aGame.teams['spectators'].players.should.be.empty
+      aGame.initializePlayer(player1)
+      aGame.teams['spectators'].players.should.contain(player1)
+      aGame.initializePlayer(player0)
+      aGame.teams['spectators'].players.should.contain(player0)
+      aGame.teams['spectators'].players.should.contain(player1)
+    })
+  })
+  
+  describe('joinTeam: ', () => {
+    it('should remove player from old team', () => {
+      let player1 = new Player(PLAYER_1_ID)
+      let player0 = new Player(PLAYER_0_ID)
+      aGame.initializePlayer(player1)
+      aGame.initializePlayer(player0)
+      aGame.joinTeam('0', player1)
+      aGame.teams['spectators'].players.should.not.contain(player1)
+      aGame.joinTeam('0', player0)
+      aGame.teams['spectators'].players.should.not.contain(player0)
+      aGame.joinTeam('spectators', player1)
+      aGame.teams['0'].players.should.not.contain(player1)
+      aGame.teams['spectators'].players.should.not.contain(player0)
+    })
+    
+    it('should add player to new team', () => {
+      let player1 = new Player(PLAYER_1_ID)
+      let player0 = new Player(PLAYER_0_ID)
+      aGame.initializePlayer(player1)
+      aGame.initializePlayer(player0)
+      aGame.joinTeam('0', player1)
+      aGame.teams['0'].players.should.contain(player1)
+      aGame.joinTeam('0', player0)
+      aGame.teams['0'].players.should.contain(player0)
+      aGame.teams['0'].players.should.contain(player1)
+      aGame.joinTeam('spectators', player1)
+      aGame.teams['0'].players.should.contain(player0)
+      aGame.teams['spectators'].players.should.contain(player1)
+      
+    })
   })
 
-  it('De-Register one player', () => {
-    game.registerPlayer('0', PLAYER_0_ID)
-    game.deregisterPlayer(PLAYER_0_ID)
-    var houses = game.state.houses
-    assert(houses[0].isVancant())
-    assert(houses[1].isVancant())
-    assert(houses[2].isVancant())
+  describe('terminatePlayer: ', () => {
+    it('should remove player from their team', () => {
+      let player1 = new Player(PLAYER_1_ID)
+      aGame.initializePlayer(player1)
+      aGame.terminatePlayer(player1)
+      aGame.teams['spectators'].players.should.be.empty
+      aGame.initializePlayer(player1)
+      aGame.joinTeam('0', player1)
+      aGame.terminatePlayer(player1)
+      aGame.teams['0'].players.should.be.empty
+    })
   })
-
-  it('De-Register multiple players FIFO', () => {
-    game.registerPlayer('0', PLAYER_0_ID)
-    game.registerPlayer('0', PLAYER_1_ID)
-    game.registerPlayer('0', PLAYER_2_ID)
-    game.deregisterPlayer(PLAYER_0_ID)
-    var houses = game.state.houses
-    assert(houses[0].isVancant())
-    assert.equal(houses[1].ownerId, PLAYER_1_ID)
-    assert.equal(houses[2].ownerId, PLAYER_2_ID)
-    game.deregisterPlayer(PLAYER_1_ID)
-    houses = game.state.houses
-    assert(houses[0].isVancant())
-    assert(houses[1].isVancant())
-    assert.equal(houses[2].ownerId, PLAYER_2_ID)
-    game.deregisterPlayer(PLAYER_2_ID)
-  })
-
-  it('De-Register multiple players LIFO', () => {
-    game.registerPlayer('0', PLAYER_0_ID)
-    game.registerPlayer('0', PLAYER_1_ID)
-    game.registerPlayer('0', PLAYER_2_ID)
-    game.deregisterPlayer(PLAYER_2_ID)
-    var houses = game.state.houses
-    assert.equal(houses[0].ownerId, PLAYER_0_ID)
-    assert.equal(houses[1].ownerId, PLAYER_1_ID)
-    assert(houses[2].isVancant())
-    game.deregisterPlayer(PLAYER_1_ID)
-    houses = game.state.houses
-    assert.equal(houses[0].ownerId, PLAYER_0_ID)
-    assert(houses[1].isVancant())
-    assert(houses[2].isVancant())
-  })
-
   function makeTestHouse () {
     return new House(new Shape(0, 0, 0), 'red')
   };
