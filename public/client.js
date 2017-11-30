@@ -77,6 +77,7 @@ $(document).ready(() => {
     for (var i = 0; i < controllables.length; i++) {
       var controllable = controllables[i]
       if (controllable.controllableType === 'house') { drawHouse(controllable) }
+      else if (controllable.controllableType === 'giant') { drawGiant(controllable) }
     }
   }
 
@@ -92,6 +93,17 @@ $(document).ready(() => {
     context.beginPath()
     context.fillStyle = aHouse.color
     context.fillRect(aHouse.shape.position.x, aHouse.shape.position.y, aHouse.shape.width, aHouse.shape.height)
+  }
+
+  function drawGiant (aGiant) {
+    if (aGiant.ownerId === id) {
+      context.fillStyle = 'black'
+      context.strokeRect(aGiant.currentControl.position.x, aGiant.currentControl.position.y, aGiant.currentControl.width + 5, aGiant.currentControl.height + 5)
+    }
+    context.beginPath()
+    context.fillStyle = 'black'
+    context.fillRect(aGiant.rightShape.position.x, aGiant.rightShape.position.y, aGiant.rightShape.width, aGiant.rightShape.height)
+    context.fillRect(aGiant.leftShape.position.x, aGiant.leftShape.position.y, aGiant.leftShape.width, aGiant.leftShape.height)
   }
 
   function pollInput () {
