@@ -22,7 +22,7 @@ class Game {
     }
   }
 
-  initalizePlayer (aPlayer) {
+  initializePlayer (aPlayer) {
     this.players[aPlayer.id] = aPlayer
     this.addToTeam(this.SPECTATORS_TEAM_NAME, aPlayer)
   }
