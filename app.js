@@ -29,7 +29,7 @@ var game = new Game(teams, board)
 
 io.on('connection', (socket) => {
   socket.player = new Player(socket.id)
-  game.initalizePlayer(socket.player)
+  game.initializePlayer(socket.player)
   socket.emit('initialize', {
     id: socket.id,
     state: game.state,
