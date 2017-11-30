@@ -9,7 +9,12 @@ class House {
     )
   }
 
+  get shapes () {
+    return [ this.shape ]
+  }
+
   constructor (shape, color) {
+    this.controllableType = 'house'
     this.shape = shape
     this.color = color
     this.SPEED = 10

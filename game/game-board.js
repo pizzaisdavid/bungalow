@@ -1,4 +1,5 @@
 const House = require('./controllables/house')
+const Giant = require('./controllables/giant')
 const Shape = require('./shape')
 const MathHelper = require('./math-helper')
 
@@ -24,19 +25,29 @@ class GameBoard {
   }
 
   createGiant () {
-    return []
+    let giant = this.spawnProperPlacedGiant()
+    this.controllables.push(giant)
+    return [ giant ]
   }
 
-  spawnProperPlacedHouse () {
+  spawnProperPlacedShape () {
     while (true) {
       var shape = Shape.generateRandom(this.width, this.height)
       if (this.isValidSpace(shape)) {
-        return new House(
-          shape,
-          MathHelper.selectRandom(['blue', 'red', 'green', 'yellow'])
-        )
+        return shape
       }
     }
+  }
+
+  spawnProperPlacedGiant () {
+    return new Giant(this.spawnProperPlacedShape(), this.spawnProperPlacedShape())
+  }
+
+  spawnProperPlacedHouse () {
+    return new House(
+      this.spawnProperPlacedShape(),
+      MathHelper.selectRandom(['blue', 'red', 'green', 'yellow'])
+    )
   }
 
   isValidSpace (aShape) {
@@ -49,8 +60,11 @@ class GameBoard {
   }
 
   isTouchingAny (aPlaneObject) {
-    var planeObjects = this.controllables.map((x) => { return x.shape })
-    return aPlaneObject.isTouchingAny(planeObjects)
+    var planeObjects = this.controllables.map((x) => { return x.shapes })
+    for (let i = 0; i < planeObjects.length; i++) {
+      if (aPlaneObject.isTouchingAny(planeObjects[i])) { return true }
+    }
+    return false
   }
 }
 

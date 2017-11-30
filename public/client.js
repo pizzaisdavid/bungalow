@@ -8,11 +8,11 @@ $(document).ready(() => {
   socket.on('initialize', (initialize) => {
     clearCanvas()
     id = initialize.id
-    var houses = initialize.state.controllables
+    var controllables = initialize.state.controllables
     var teams = initialize.state.teams
     initializeTeams(teams)
     updateTeams(teams)
-    drawHouses(houses)
+    drawControllables(controllables)
   })
 
   function initializeTeams (teams) {
@@ -67,16 +67,16 @@ $(document).ready(() => {
   socket.on('poll', (gameState) => {
     console.log(gameState)
     clearCanvas()
-    drawHouses(gameState.controllables)
+    drawControllables(gameState.controllables)
     updateTeams(gameState.teams)
     socket.emit('commands', pollInput())
   })
 
-  function drawHouses (houses) {
-    console.log(houses)
-    for (var i = 0; i < houses.length; i++) {
-      var house = houses[i]
-      drawHouse(house)
+  function drawControllables (controllables) {
+    console.log(controllables)
+    for (var i = 0; i < controllables.length; i++) {
+      var controllable = controllables[i]
+      if (controllable.controllableType === 'house') { drawHouse(controllable) }
     }
   }
 
@@ -84,14 +84,14 @@ $(document).ready(() => {
     context.clearRect(0, 0, canvas.width, canvas.height)
   }
 
-  function drawHouse (house) {
-    if (house.ownerId === id) {
+  function drawHouse (aHouse) {
+    if (aHouse.ownerId === id) {
       context.fillStyle = 'black'
-      context.strokeRect(house.shape.position.x, house.shape.position.y, house.shape.width + 5, house.shape.height + 5)
+      context.strokeRect(aHouse.shape.position.x, aHouse.shape.position.y, aHouse.shape.width + 5, aHouse.shape.height + 5)
     }
     context.beginPath()
-    context.fillStyle = house.color
-    context.fillRect(house.shape.position.x, house.shape.position.y, house.shape.width, house.shape.height)
+    context.fillStyle = aHouse.color
+    context.fillRect(aHouse.shape.position.x, aHouse.shape.position.y, aHouse.shape.width, aHouse.shape.height)
   }
 
   function pollInput () {

@@ -36,7 +36,7 @@ describe('game: ', function () {
   it('should have a teams property', () => {
     aGame.should.have.property('teams').an('array')
   })
-  
+
   it('should have a gameBoard property', () => {
     aGame.should.have.property('board').an('object')
   })
@@ -53,7 +53,7 @@ describe('game: ', function () {
       aGame.teams['spectators'].players.should.contain(player1)
     })
   })
-  
+
   describe('joinTeam: ', () => {
     it('should remove player from old team', () => {
       let player1 = new Player(PLAYER_1_ID)
@@ -68,7 +68,7 @@ describe('game: ', function () {
       aGame.teams['0'].players.should.not.contain(player1)
       aGame.teams['spectators'].players.should.not.contain(player0)
     })
-    
+
     it('should add player to new team', () => {
       let player1 = new Player(PLAYER_1_ID)
       let player0 = new Player(PLAYER_0_ID)
@@ -82,7 +82,6 @@ describe('game: ', function () {
       aGame.joinTeam('spectators', player1)
       aGame.teams['0'].players.should.contain(player0)
       aGame.teams['spectators'].players.should.contain(player1)
-      
     })
   })
 
