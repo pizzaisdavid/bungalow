@@ -38,24 +38,5 @@ describe('giant: ', () => {
 
       sut.rightShape.should.be.same(right)
     })
-
-        /*
-            shape
-            undefined/empty doesn't cause problems
-            happy path
-            exercise all branches
-            force errors
-            make sure limits are obeyed
-            default values assigned
-            default actions used
-            validate interactions with other objects (values passed, functions called)
-            Do NOT depend on other obects to do work, fake the behavior of other systems
-
-        */
-
-        // test a
-        // test b
-        // feature c
-        // behavior d
   })
 })

@@ -1,0 +1,18 @@
+How to proceed with unit tests:
+    1. define the shape of the object (make sure it has all of the expected properties and methods)
+    2. undefined/empty doesn't cause problems
+    3. make sure the happy path works
+    4. make sure you have all branches covered
+    5. force errors, make sure it can handle them
+    6. make sure limits are obeyed
+    7. default values assigned
+    8. default actions used
+
+General rules:
+    validate interactions with other objects (values passed, functions called)
+    Do NOT depend on other obects to do work, fake the behavior of other systems
+
+// test a
+// test b
+// feature c
+// behavior d
