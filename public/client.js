@@ -4,19 +4,138 @@ $(document).ready(() => {
   var context = canvas.getContext('2d')
   var commands = new Set()
   var id = ''
+  var showHitBoxes = false
 
   socket.on('initialize', (initialize) => {
-    clearCanvas()
     id = initialize.id
     var controllables = initialize.state.controllables
     var teams = initialize.state.teams
     initializeTeams(teams)
-    updateTeams(teams)
-    drawControllables(controllables)
   })
+
+  loadSprites((sprites) => {
+    function updateTeams (teams) {
+      console.log('teams:')
+      console.log(teams)
+      for (var name in teams) {
+        var team = teams[name]
+        populateStats(team)
+      }
+    }
+
+    function populateStats (team) {
+      var statistics = $(`#${team.name}-statistics`)
+      statistics.empty()
+      statistics.append('<br>')
+      statistics.append(`players: ${team.players.length}`)
+      statistics.append('<br>')
+      statistics.append(`objects: ${team.controllables.length}`)
+    }
+
+    socket.on('poll', (gameState) => {
+      console.log(gameState)
+      clearCanvas()
+      drawControllables(gameState.controllables)
+      updateTeams(gameState.teams)
+      socket.emit('commands', pollInput())
+    })
+
+    function drawControllables (controllables) {
+      console.log(controllables)
+      context.drawImage(sprites['BACKGROUND'], 0, 0)
+      for (var i = 0; i < controllables.length; i++) {
+        var controllable = controllables[i]
+        if (controllable.controllableType === 'house') { drawHouse(controllable) } else if (controllable.controllableType === 'giant') { drawGiant(controllable) }
+      }
+    }
+
+    function clearCanvas () {
+      context.clearRect(0, 0, canvas.width, canvas.height)
+    }
+
+    function drawHouse (aHouse) {
+      var image = sprites['HOUSE_RED_FRONT']
+      context.drawImage(image, aHouse.shape.position.x, aHouse.shape.position.y - 10)
+      if (aHouse.ownerId === id) {
+        var image = sprites['HOUSE_OUTLINE_FRONT']
+        context.drawImage(image, aHouse.shape.position.x, aHouse.shape.position.y - 10)
+        if (showHitBoxes) {
+          context.fillStyle = 'black'
+          context.lineWidth = 1
+          context.strokeRect(aHouse.shape.position.x, aHouse.shape.position.y, aHouse.shape.width, aHouse.shape.height)
+        }
+      }
+    }
+
+    function drawGiant (aGiant) {
+      if (aGiant.ownerId === id) {
+        context.fillStyle = 'black'
+        context.lineWidth = 1
+        context.strokeRect(aGiant.currentControl.position.x, aGiant.currentControl.position.y, aGiant.currentControl.width, aGiant.currentControl.height)
+      }
+      context.beginPath()
+      context.fillStyle = 'black'
+      context.fillRect(aGiant.rightShape.position.x, aGiant.rightShape.position.y, aGiant.rightShape.width, aGiant.rightShape.height)
+      context.fillRect(aGiant.leftShape.position.x, aGiant.leftShape.position.y, aGiant.leftShape.width, aGiant.leftShape.height)
+    }
+
+    function pollInput () {
+      return Array.from(commands) // 'Set' cannot be sent over a socket.
+    }
+
+    document.addEventListener('keydown', (event) => {
+      var command = processCommand(event.keyCode)
+      if (command) {
+        commands.add(command)
+      }
+    })
+
+    document.addEventListener('keyup', (event) => {
+      var command = processCommand(event.keyCode)
+      if (command) {
+        commands.delete(command)
+      }
+    })
+
+    function processCommand (code) {
+      const KEYBOARD_CODES = {
+        32: 'SPACE_BAR',
+        37: 'LEFT',
+        38: 'UP',
+        39: 'RIGHT',
+        40: 'DOWN'
+      }
+      try {
+        return KEYBOARD_CODES[code]
+      } catch (e) {
+        return ''
+      }
+    }
+  })
+
+  function loadSprites (callback) {
+    var redHouseFront = new Image()
+    redHouseFront.src = 'assets/house_red_front.png'
+    redHouseFront.onload = () => {
+      var background = new Image()
+      background.src = 'assets/map.png'
+      background.onload = () => {
+        var outlineHouseFront = new Image()
+        outlineHouseFront.src = 'assets/house_outline_front.png'
+        outlineHouseFront.onload = () => {
+          callback({
+            'HOUSE_RED_FRONT': redHouseFront,
+            'BACKGROUND': background,
+            'HOUSE_OUTLINE_FRONT': outlineHouseFront
+          })
+        }
+      }
+    }
+  }
 
   function initializeTeams (teams) {
     var TEAM_CONTAIN_SELECTOR = '#teams'
+    $(TEAM_CONTAIN_SELECTOR).empty()
     for (var name in teams) {
       var team = teams[name]
       $(TEAM_CONTAIN_SELECTOR).append(makeTeamContainer(team))
@@ -44,98 +163,5 @@ $(document).ready(() => {
   function makeTeamStatisticsContainer (team) {
     var container = $(`<div id="${team.name}-statistics"></div>`)
     return container
-  }
-
-  function updateTeams (teams) {
-    console.log('teams:')
-    console.log(teams)
-    for (var name in teams) {
-      var team = teams[name]
-      populateStats(team)
-    }
-  }
-
-  function populateStats (team) {
-    var statistics = $(`#${team.name}-statistics`)
-    statistics.empty()
-    statistics.append('<br>')
-    statistics.append(`players: ${team.players.length}`)
-    statistics.append('<br>')
-    statistics.append(`objects: ${team.controllables.length}`)
-  }
-
-  socket.on('poll', (gameState) => {
-    console.log(gameState)
-    clearCanvas()
-    drawControllables(gameState.controllables)
-    updateTeams(gameState.teams)
-    socket.emit('commands', pollInput())
-  })
-
-  function drawControllables (controllables) {
-    console.log(controllables)
-    for (var i = 0; i < controllables.length; i++) {
-      var controllable = controllables[i]
-      if (controllable.controllableType === 'house') { drawHouse(controllable) }
-      else if (controllable.controllableType === 'giant') { drawGiant(controllable) }
-    }
-  }
-
-  function clearCanvas () {
-    context.clearRect(0, 0, canvas.width, canvas.height)
-  }
-
-  function drawHouse (aHouse) {
-    if (aHouse.ownerId === id) {
-      context.fillStyle = 'black'
-      context.strokeRect(aHouse.shape.position.x, aHouse.shape.position.y, aHouse.shape.width + 5, aHouse.shape.height + 5)
-    }
-    context.beginPath()
-    context.fillStyle = aHouse.color
-    context.fillRect(aHouse.shape.position.x, aHouse.shape.position.y, aHouse.shape.width, aHouse.shape.height)
-  }
-
-  function drawGiant (aGiant) {
-    if (aGiant.ownerId === id) {
-      context.fillStyle = 'black'
-      context.strokeRect(aGiant.currentControl.position.x, aGiant.currentControl.position.y, aGiant.currentControl.width + 5, aGiant.currentControl.height + 5)
-    }
-    context.beginPath()
-    context.fillStyle = 'black'
-    context.fillRect(aGiant.rightShape.position.x, aGiant.rightShape.position.y, aGiant.rightShape.width, aGiant.rightShape.height)
-    context.fillRect(aGiant.leftShape.position.x, aGiant.leftShape.position.y, aGiant.leftShape.width, aGiant.leftShape.height)
-  }
-
-  function pollInput () {
-    return Array.from(commands) // 'Set' cannot be sent over a socket.
-  }
-
-  document.addEventListener('keydown', (event) => {
-    var command = processCommand(event.keyCode)
-    if (command) {
-      commands.add(command)
-    }
-  })
-
-  document.addEventListener('keyup', (event) => {
-    var command = processCommand(event.keyCode)
-    if (command) {
-      commands.delete(command)
-    }
-  })
-
-  function processCommand (code) {
-    const KEYBOARD_CODES = {
-      32: 'SPACE_BAR',
-      37: 'LEFT',
-      38: 'UP',
-      39: 'RIGHT',
-      40: 'DOWN'
-    }
-    try {
-      return KEYBOARD_CODES[code]
-    } catch (e) {
-      return ''
-    }
   }
 })
