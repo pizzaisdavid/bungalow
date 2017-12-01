@@ -54,6 +54,14 @@ $(document).ready(() => {
     }
 
     function drawHouse (aHouse) {
+      if (aHouse.isAlive) {
+        drawAliveHouse(aHouse)
+      } else {
+        drawDeadHouse(aHouse)
+      }
+    }
+
+    function drawAliveHouse(aHouse) {
       var image = sprites['HOUSE_RED_FRONT']
       context.drawImage(image, aHouse.shape.position.x, aHouse.shape.position.y - 10)
       if (aHouse.ownerId === id) {
@@ -65,6 +73,11 @@ $(document).ready(() => {
           context.strokeRect(aHouse.shape.position.x, aHouse.shape.position.y, aHouse.shape.width, aHouse.shape.height)
         }
       }
+    }
+
+    function drawDeadHouse(aHouse) {
+      image = sprites['HOUSE_RED_FRONT_DEAD']   
+      context.drawImage(image, aHouse.shape.position.x, aHouse.shape.position.y + 10)      
     }
 
     function drawGiant (aGiant) {
@@ -133,12 +146,17 @@ $(document).ready(() => {
           var shoe = new Image()
           shoe.src = 'assets/leg.png'
           shoe.onload = () => {
-            callback({
-              'HOUSE_RED_FRONT': redHouseFront,
-              'BACKGROUND': background,
-              'HOUSE_OUTLINE_FRONT': outlineHouseFront,
-              'SHOE_SIDE': shoe
-            })
+            var redHouseFrontDead = new Image()
+            redHouseFrontDead.src = 'assets/house_red_front_dead.png'
+            redHouseFrontDead.onload = () => {
+              callback({
+                'HOUSE_RED_FRONT': redHouseFront,
+                'BACKGROUND': background,
+                'HOUSE_OUTLINE_FRONT': outlineHouseFront,
+                'SHOE_SIDE': shoe,
+                'HOUSE_RED_FRONT_DEAD' : redHouseFrontDead
+              })
+            }
           }
         }
       }
