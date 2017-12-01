@@ -4,7 +4,7 @@ $(document).ready(() => {
   var context = canvas.getContext('2d')
   var commands = new Set()
   var id = ''
-  var showHitBoxes = false
+  var showHitBoxes = true
 
   socket.on('initialize', (initialize) => {
     id = initialize.id
@@ -68,15 +68,18 @@ $(document).ready(() => {
     }
 
     function drawGiant (aGiant) {
+      var image = sprites['SHOE_SIDE']
+      const OFFSET = 180
+      context.drawImage(image, aGiant.rightShape.position.x, aGiant.rightShape.position.y - OFFSET)
+      context.drawImage(image, aGiant.leftShape.position.x, aGiant.leftShape.position.y - OFFSET)
       if (aGiant.ownerId === id) {
-        context.fillStyle = 'black'
-        context.lineWidth = 1
-        context.strokeRect(aGiant.currentControl.position.x, aGiant.currentControl.position.y, aGiant.currentControl.width, aGiant.currentControl.height)
+
+        if (showHitBoxes) {
+          context.fillStyle = 'black'
+          context.lineWidth = 1
+          context.strokeRect(aGiant.currentControl.position.x, aGiant.currentControl.position.y, aGiant.currentControl.width, aGiant.currentControl.height)
+        }
       }
-      context.beginPath()
-      context.fillStyle = 'black'
-      context.fillRect(aGiant.rightShape.position.x, aGiant.rightShape.position.y, aGiant.rightShape.width, aGiant.rightShape.height)
-      context.fillRect(aGiant.leftShape.position.x, aGiant.leftShape.position.y, aGiant.leftShape.width, aGiant.leftShape.height)
     }
 
     function pollInput () {
@@ -123,11 +126,16 @@ $(document).ready(() => {
         var outlineHouseFront = new Image()
         outlineHouseFront.src = 'assets/house_outline_front.png'
         outlineHouseFront.onload = () => {
-          callback({
-            'HOUSE_RED_FRONT': redHouseFront,
-            'BACKGROUND': background,
-            'HOUSE_OUTLINE_FRONT': outlineHouseFront
-          })
+          var shoe = new Image()
+          shoe.src = 'assets/leg.png'
+          shoe.onload = () => {
+            callback({
+              'HOUSE_RED_FRONT': redHouseFront,
+              'BACKGROUND': background,
+              'HOUSE_OUTLINE_FRONT': outlineHouseFront,
+              'SHOE_SIDE': shoe
+            })
+          }
         }
       }
     }

@@ -3,7 +3,7 @@ const MathHelper = require('./math-helper')
 const Position = require('./position')
 
 class Shape {
-  static generateRandom (width, height, z = 0) {
+  static generateRandom (width, height, size_width = 20, z = 0) {
     return new Shape(
       new Position(
         MathHelper.randomBetween(0, width),
@@ -11,7 +11,7 @@ class Shape {
         z
       ),
       20,
-      20,
+      size_width,
       MathHelper.randomBetween(0, 360)
     )
   }
