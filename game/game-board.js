@@ -30,17 +30,9 @@ class GameBoard {
     return [ giant ]
   }
 
-  spawnProperPlacedShape () {
-    while (true) {
-      var shape = Shape.generateRandom(this.width, this.height)
-      if (this.isValidSpace(shape)) {
-        return shape
-      }
-    }
-  }
-
   spawnProperPlacedGiant () {
-    return new Giant(this.spawnProperPlacedShape(), this.spawnProperPlacedShape())
+    var z = 1
+    return new Giant(this.spawnProperPlacedShape(z), this.spawnProperPlacedShape(z))
   }
 
   spawnProperPlacedHouse () {
@@ -48,6 +40,15 @@ class GameBoard {
       this.spawnProperPlacedShape(),
       MathHelper.selectRandom(['blue', 'red', 'green', 'yellow'])
     )
+  }
+
+  spawnProperPlacedShape (z = 0) {
+    while (true) {
+      var shape = Shape.generateRandom(this.width, this.height, z)
+      if (this.isValidSpace(shape)) {
+        return shape
+      }
+    }
   }
 
   isValidSpace (aShape) {
