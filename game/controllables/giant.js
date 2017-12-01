@@ -93,11 +93,18 @@ class Giant {
 
   space (aGameBoard) {
     if (this.isReady(aGameBoard, 'SPACE_BAR')) {
+      this.stomp(aGameBoard)
       this.swap(aGameBoard)      
     }
   }
 
+  stomp (aGameBoard) {
+    this.currentControl.z = 0
+    aGameBoard.stomp(this.currentControl)
+  }
+
   swap (aGameBoard) {
+    this.currentControl.z = 1
     this.cooldowns['SPACE_BAR'] = aGameBoard.time()
     if (this.currentControl === this.rightShape) {
       this.currentControl = this.leftShape
