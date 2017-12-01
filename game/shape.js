@@ -49,7 +49,7 @@ class Shape {
 
   isTouchingAny (shapes) {
     for (var i = 0; i < shapes.length; i++) {
-      if (shapes[i].isTouching(this)) {
+      if (this.isTouching(shapes[i])) {
         return true
       }
     }
@@ -57,6 +57,7 @@ class Shape {
   }
 
   isTouching (aShape) {
+    console.log(aShape)
     if (this.z !== aShape.z || this === aShape) {
       return false
     }

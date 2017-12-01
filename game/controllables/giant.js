@@ -5,7 +5,14 @@ class Giant {
     this.rightShape = rightShape
     this.leftShape = leftShape
     this.currentControl = this.rightShape
-    this.speed = 10
+    this.SPEED = 10
+
+    this.cooldowns = {
+      'SPACE_BAR': 0
+    }
+    this.COOLDOWN_RATES_IN_MILLISECONDS = {
+      'SPACE_BAR': 200
+    }
     this.ownerId = ''
   }
 
@@ -43,7 +50,7 @@ class Giant {
       case 'DOWN':
         this.down(aGameBoard)
         break
-      case 'SPACE':
+      case 'SPACE_BAR':
         this.space(aGameBoard)
         break
       default:
@@ -85,7 +92,24 @@ class Giant {
   }
 
   space (aGameBoard) {
+    if (this.isReady(aGameBoard, 'SPACE_BAR')) {
+      this.swap(aGameBoard)      
+    }
+  }
 
+  swap (aGameBoard) {
+    this.cooldowns['SPACE_BAR'] = aGameBoard.time()
+    if (this.currentControl === this.rightShape) {
+      this.currentControl = this.leftShape
+    } else {
+      this.currentControl = this.rightShape
+    }
+  }
+
+  isReady (aGameBoard, abilityName) {
+    let timeLastUsed = this.cooldowns[abilityName]
+    let difference = aGameBoard.time() - timeLastUsed
+    return difference >= this.COOLDOWN_RATES_IN_MILLISECONDS[abilityName]
   }
 }
 

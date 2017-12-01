@@ -25,7 +25,7 @@ class GameBoard {
   }
 
   createGiant () {
-    let giant = this.spawnProperPlacedGiant()
+    var giant = this.spawnProperPlacedGiant()
     this.controllables.push(giant)
     return [ giant ]
   }
@@ -62,9 +62,15 @@ class GameBoard {
   isTouchingAny (aPlaneObject) {
     var planeObjects = this.controllables.map((x) => { return x.shapes })
     for (let i = 0; i < planeObjects.length; i++) {
-      if (aPlaneObject.isTouchingAny(planeObjects[i])) { return true }
+      if (aPlaneObject.isTouchingAny(planeObjects[i])) {
+        return true
+      }
     }
     return false
+  }
+
+  time() {
+    return new Date().getTime()
   }
 }
 
