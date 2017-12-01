@@ -5,6 +5,12 @@
 }
 
 canvas {
-  background-image: url("assets/map.png");
-  background-size: cover;
+  width: 600px;
+  height: 300px;
+  image-rendering: optimizeSpeed;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: optimize-contrast;
+  image-rendering: pixelated;
+  -ms-interpolation-mode: nearest-neighbor;
 }
