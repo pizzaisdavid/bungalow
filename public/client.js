@@ -68,18 +68,22 @@ $(document).ready(() => {
     }
 
     function drawGiant (aGiant) {
-      var image = sprites['SHOE_SIDE']
-      const OFFSET = 180
-      context.drawImage(image, aGiant.rightShape.position.x, aGiant.rightShape.position.y - OFFSET)
-      context.drawImage(image, aGiant.leftShape.position.x, aGiant.leftShape.position.y - OFFSET)
-      if (aGiant.ownerId === id) {
+      drawPressedFoot(aGiant.otherControl)
+      drawRaisedFoot(aGiant.currentControl)
+    }
 
-        if (showHitBoxes) {
-          context.fillStyle = 'black'
-          context.lineWidth = 1
-          context.strokeRect(aGiant.currentControl.position.x, aGiant.currentControl.position.y, aGiant.currentControl.width, aGiant.currentControl.height)
-        }
-      }
+    function drawPressedFoot(aShape) {
+      var image = sprites['SHOE_SIDE']
+      var OFFSET = 180
+      context.globalAlpha = 0.5
+      context.drawImage(image, aShape.position.x, aShape.position.y - OFFSET)      
+      context.globalAlpha = 1.0      
+    }
+
+    function drawRaisedFoot(aShape) {
+      var image = sprites['SHOE_SIDE']
+      var OFFSET = 180
+      context.drawImage(image, aShape.position.x, aShape.position.y - OFFSET)  
     }
 
     function pollInput () {

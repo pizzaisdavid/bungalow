@@ -5,6 +5,7 @@ class Giant {
     this.rightShape = rightShape
     this.leftShape = leftShape
     this.currentControl = this.rightShape
+    this.otherControl = this.leftShape
     this.SPEED = 10
 
     this.cooldowns = {
@@ -108,8 +109,10 @@ class Giant {
     this.cooldowns['SPACE_BAR'] = aGameBoard.time()
     if (this.currentControl === this.rightShape) {
       this.currentControl = this.leftShape
+      this.otherControl = this.rightShape
     } else {
       this.currentControl = this.rightShape
+      this.otherControl = this.leftShape
     }
   }
 
