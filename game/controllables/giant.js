@@ -94,7 +94,7 @@ class Giant {
   space (aGameBoard) {
     if (this.isReady(aGameBoard, 'SPACE_BAR')) {
       this.stomp(aGameBoard)
-      this.swap(aGameBoard)      
+      this.swap(aGameBoard)
     }
   }
 

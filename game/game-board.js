@@ -81,7 +81,7 @@ class GameBoard {
     }
   }
 
-  time() {
+  time () {
     return new Date().getTime()
   }
 }

@@ -14,7 +14,6 @@ $(document).ready(() => {
   })
 
   loadSprites((sprites) => {
-
     function updateTeams (teams) {
       console.log('teams:')
       console.log(teams)
@@ -46,8 +45,7 @@ $(document).ready(() => {
       context.drawImage(sprites['BACKGROUND'], 0, 0)
       for (var i = 0; i < controllables.length; i++) {
         var controllable = controllables[i]
-        if (controllable.controllableType === 'house') { drawHouse(controllable) }
-        else if (controllable.controllableType === 'giant') { drawGiant(controllable) }
+        if (controllable.controllableType === 'house') { drawHouse(controllable) } else if (controllable.controllableType === 'giant') { drawGiant(controllable) }
       }
     }
 
@@ -60,9 +58,9 @@ $(document).ready(() => {
       context.drawImage(image, aHouse.shape.position.x, aHouse.shape.position.y - 10)
       if (aHouse.ownerId === id) {
         var image = sprites['HOUSE_OUTLINE_FRONT']
-        context.drawImage(image, aHouse.shape.position.x, aHouse.shape.position.y - 10)        
+        context.drawImage(image, aHouse.shape.position.x, aHouse.shape.position.y - 10)
         if (showHitBoxes) {
-          context.fillStyle = 'black'          
+          context.fillStyle = 'black'
           context.lineWidth = 1
           context.strokeRect(aHouse.shape.position.x, aHouse.shape.position.y, aHouse.shape.width, aHouse.shape.height)
         }
@@ -115,8 +113,7 @@ $(document).ready(() => {
     }
   })
 
-  function loadSprites(callback) {
-    
+  function loadSprites (callback) {
     var redHouseFront = new Image()
     redHouseFront.src = 'assets/house_red_front.png'
     redHouseFront.onload = () => {
@@ -127,7 +124,7 @@ $(document).ready(() => {
         outlineHouseFront.src = 'assets/house_outline_front.png'
         outlineHouseFront.onload = () => {
           callback({
-            'HOUSE_RED_FRONT' : redHouseFront,
+            'HOUSE_RED_FRONT': redHouseFront,
             'BACKGROUND': background,
             'HOUSE_OUTLINE_FRONT': outlineHouseFront
           })
@@ -167,5 +164,4 @@ $(document).ready(() => {
     var container = $(`<div id="${team.name}-statistics"></div>`)
     return container
   }
-
 })
