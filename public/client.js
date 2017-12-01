@@ -4,6 +4,7 @@ $(document).ready(() => {
   var context = canvas.getContext('2d')
   var commands = new Set()
   var id = ''
+  var showHitBoxes = false
 
   socket.on('initialize', (initialize) => {
     id = initialize.id
@@ -57,17 +58,22 @@ $(document).ready(() => {
     function drawHouse (aHouse) {
       var image = sprites['HOUSE_RED_FRONT']
       context.drawImage(image, aHouse.shape.position.x, aHouse.shape.position.y - 10)
-
       if (aHouse.ownerId === id) {
-        context.fillStyle = 'black'
-        context.strokeRect(aHouse.shape.position.x, aHouse.shape.position.y, aHouse.shape.width, aHouse.shape.height)
+        var image = sprites['HOUSE_OUTLINE_FRONT']
+        context.drawImage(image, aHouse.shape.position.x, aHouse.shape.position.y - 10)        
+        if (showHitBoxes) {
+          context.fillStyle = 'black'          
+          context.lineWidth = 1
+          context.strokeRect(aHouse.shape.position.x, aHouse.shape.position.y, aHouse.shape.width, aHouse.shape.height)
+        }
       }
     }
 
     function drawGiant (aGiant) {
       if (aGiant.ownerId === id) {
         context.fillStyle = 'black'
-        context.strokeRect(aGiant.currentControl.position.x, aGiant.currentControl.position.y, aGiant.currentControl.width + 5, aGiant.currentControl.height + 5)
+        context.lineWidth = 1
+        context.strokeRect(aGiant.currentControl.position.x, aGiant.currentControl.position.y, aGiant.currentControl.width, aGiant.currentControl.height)
       }
       context.beginPath()
       context.fillStyle = 'black'
@@ -117,16 +123,22 @@ $(document).ready(() => {
       var background = new Image()
       background.src = 'assets/map.png'
       background.onload = () => {
-        callback({
-          'HOUSE_RED_FRONT' : redHouseFront,
-          'BACKGROUND': background
-        })
+        var outlineHouseFront = new Image()
+        outlineHouseFront.src = 'assets/house_outline_front.png'
+        outlineHouseFront.onload = () => {
+          callback({
+            'HOUSE_RED_FRONT' : redHouseFront,
+            'BACKGROUND': background,
+            'HOUSE_OUTLINE_FRONT': outlineHouseFront
+          })
+        }
       }
     }
   }
 
   function initializeTeams (teams) {
     var TEAM_CONTAIN_SELECTOR = '#teams'
+    $(TEAM_CONTAIN_SELECTOR).empty()
     for (var name in teams) {
       var team = teams[name]
       $(TEAM_CONTAIN_SELECTOR).append(makeTeamContainer(team))
