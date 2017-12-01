@@ -3,3 +3,8 @@
   border: 1px black solid;
   width: fit-content;
 }
+
+canvas {
+  background-image: url("assets/map.png");
+  background-size: cover;
+}

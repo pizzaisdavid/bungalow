@@ -5,6 +5,11 @@ $(document).ready(() => {
   var commands = new Set()
   var id = ''
 
+  canvas.width  = 300;
+  canvas.height = 150; 
+  canvas.style.width  = '600px';
+  canvas.style.height = '300px';
+
   socket.on('initialize', (initialize) => {
     clearCanvas()
     id = initialize.id
