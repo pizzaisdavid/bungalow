@@ -86,7 +86,7 @@ class GameBoard {
     console.log('stomping')
     for (let i = 0; i < this.controllables.length; i++) {
       var c = this.controllables[i]
-      if (aShape.isTouchingAny(c.shapes)) {
+      if (c.isAlive && aShape.isTouchingAny(c.shapes)) {
         console.log('SMASH')
         c.smash()
 
