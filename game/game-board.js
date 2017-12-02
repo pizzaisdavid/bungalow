@@ -8,6 +8,17 @@ class GameBoard {
     this.width = width
     this.height = height
     this.controllables = []
+    this._events = []
+  }
+
+  get events() {
+    var events = this._events
+    this._events = []
+    return events
+  }
+
+  set events(e) {
+    this._events = e
   }
 
   setControllables (c) {
@@ -78,6 +89,11 @@ class GameBoard {
       if (aShape.isTouchingAny(c.shapes)) {
         console.log('SMASH')
         c.smash()
+
+        this._events.push({
+          message: 'A house was smashed!',
+          type: 'kill'
+        })
       }
     }
   }

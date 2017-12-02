@@ -10,14 +10,14 @@ $(document).ready(() => {
     id = initialize.id
     var controllables = initialize.state.controllables
     var teams = initialize.state.teams
+    var events = initialize.state.events
+    updateFeed(events)
     initializeTeams(teams)
   })
 
   loadSprites((sprites) => {
 
     function updateTeams (teams) {
-      console.log('teams:')
-      console.log(teams)
       for (var name in teams) {
         var team = teams[name]
         populateStats(team)
@@ -59,6 +59,7 @@ $(document).ready(() => {
       clearCanvas()
       drawControllables(gameState.controllables)
       updateTeams(gameState.teams)
+      updateFeed(gameState.events)
       socket.emit('commands', pollInput())
     })
 
@@ -223,7 +224,6 @@ $(document).ready(() => {
     var container = $(`<div id="${team.name}-container"></div>`)
     container.append(makeJoinTeamButton(team))
     container.append(makeTeamStatisticsContainer(team))
-    console.log('make team container')
     return container
   }
 
@@ -240,5 +240,15 @@ $(document).ready(() => {
   function makeTeamStatisticsContainer (team) {
     var container = $(`<div id="${team.name}-statistics"></div>`)
     return container
+  }
+
+  function updateFeed(aListOfEvents) {
+    var feed = $('#feed')
+    for (var i = 0; i < aListOfEvents.length; i++) {
+      var event = aListOfEvents[i]
+      var value = feed.text()
+      value += ('\n' + event.message)
+      feed.text(value)
+    }
   }
 })
