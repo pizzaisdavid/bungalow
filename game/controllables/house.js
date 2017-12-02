@@ -14,6 +14,7 @@ class House {
   }
 
   constructor (shape, color) {
+    // TODO change shape of dead house.
     this.controllableType = 'house'
     this.shape = shape
     this.color = color
@@ -130,6 +131,10 @@ class NullHouse {
 
   smash () {
 
+  }
+
+  tick (aGameBoard) {
+    
   }
 
   toString () {

@@ -4,7 +4,7 @@ $(document).ready(() => {
   var context = canvas.getContext('2d')
   var commands = new Set()
   var id = ''
-  var showHitBoxes = false
+  var showHitBoxes = true
 
   socket.on('initialize', (initialize) => {
     id = initialize.id
@@ -41,12 +41,20 @@ $(document).ready(() => {
     })
 
     function drawControllables (controllables) {
-      console.log(controllables)
       context.drawImage(sprites['BACKGROUND'], 0, 0)
+      sortControllablesForDrawing(controllables)
       for (var i = 0; i < controllables.length; i++) {
         var controllable = controllables[i]
         if (controllable.controllableType === 'house') { drawHouse(controllable) } else if (controllable.controllableType === 'giant') { drawGiant(controllable) }
       }
+    }
+
+    function sortControllablesForDrawing (controllables) {
+      controllables.sort((a, b) => {
+        let aShape = a.shape || a.currentControl
+        let bShape = b.shape || b.currentControl
+        return aShape.position.y - bShape.position.y 
+      })
     }
 
     function clearCanvas () {
@@ -54,6 +62,14 @@ $(document).ready(() => {
     }
 
     function drawHouse (aHouse) {
+      if (aHouse.isAlive) {
+        drawAliveHouse(aHouse)
+      } else {
+        drawDeadHouse(aHouse)
+      }
+    }
+
+    function drawAliveHouse(aHouse) {
       var image = sprites['HOUSE_RED_FRONT']
       context.drawImage(image, aHouse.shape.position.x, aHouse.shape.position.y - 10)
       if (aHouse.ownerId === id) {
@@ -67,16 +83,30 @@ $(document).ready(() => {
       }
     }
 
+    function drawDeadHouse(aHouse) {
+      image = sprites['HOUSE_RED_FRONT_DEAD']   
+      context.drawImage(image, aHouse.shape.position.x, aHouse.shape.position.y + 10)      
+    }
+
     function drawGiant (aGiant) {
-      if (aGiant.ownerId === id) {
-        context.fillStyle = 'black'
-        context.lineWidth = 1
-        context.strokeRect(aGiant.currentControl.position.x, aGiant.currentControl.position.y, aGiant.currentControl.width, aGiant.currentControl.height)
-      }
-      context.beginPath()
-      context.fillStyle = 'black'
-      context.fillRect(aGiant.rightShape.position.x, aGiant.rightShape.position.y, aGiant.rightShape.width, aGiant.rightShape.height)
-      context.fillRect(aGiant.leftShape.position.x, aGiant.leftShape.position.y, aGiant.leftShape.width, aGiant.leftShape.height)
+      drawPressedFoot(aGiant.otherControl)
+      drawRaisedFoot(aGiant.currentControl)
+    }
+
+    function drawPressedFoot(aShape) {
+      var image = sprites['SHOE_SIDE']
+      var OFFSET = 180
+      context.globalAlpha = 0.5
+      context.drawImage(image, aShape.position.x, aShape.position.y - OFFSET)      
+      context.globalAlpha = 1.0      
+    }
+
+    function drawRaisedFoot(aShape) {
+      var foot = sprites['SHOE_SIDE']
+      var shadow = sprites['SHOE_BIG_SHADOW']
+      var OFFSET = 180
+      context.drawImage(shadow, aShape.position.x, aShape.position.y)
+      context.drawImage(foot, aShape.position.x, aShape.position.y - OFFSET - aShape.position.z)
     }
 
     function pollInput () {
@@ -123,11 +153,26 @@ $(document).ready(() => {
         var outlineHouseFront = new Image()
         outlineHouseFront.src = 'assets/house_outline_front.png'
         outlineHouseFront.onload = () => {
-          callback({
-            'HOUSE_RED_FRONT': redHouseFront,
-            'BACKGROUND': background,
-            'HOUSE_OUTLINE_FRONT': outlineHouseFront
-          })
+          var shoe = new Image()
+          shoe.src = 'assets/leg.png'
+          shoe.onload = () => {
+            var redHouseFrontDead = new Image()
+            redHouseFrontDead.src = 'assets/house_red_front_dead.png'
+            redHouseFrontDead.onload = () => {
+              var shadow = new Image()
+              shadow.src = 'assets/shadow_big.png'
+              shadow.onload = () => {
+                callback({
+                  'HOUSE_RED_FRONT': redHouseFront,
+                  'BACKGROUND': background,
+                  'HOUSE_OUTLINE_FRONT': outlineHouseFront,
+                  'SHOE_SIDE': shoe,
+                  'HOUSE_RED_FRONT_DEAD' : redHouseFrontDead,
+                  'SHOE_BIG_SHADOW': shadow
+                })
+              }
+            }
+          }
         }
       }
     }

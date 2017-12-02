@@ -21,6 +21,10 @@ class Player {
     this.controllable.abandon()
   }
 
+  tick(aGameBoard) {
+    this.controllable.tick(aGameBoard)
+  }
+
   do (aGameBoard, command) {
     this.controllable.do(aGameBoard, command)
   }

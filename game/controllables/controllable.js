@@ -9,6 +9,10 @@ class Controllable {
     // do nothing
   }
 
+  tick(aGameBoard) {
+    // do nothing!
+  }
+
   isVancant () {
     return false
   }
