@@ -102,9 +102,11 @@ $(document).ready(() => {
     }
 
     function drawRaisedFoot(aShape) {
-      var image = sprites['SHOE_SIDE']
+      var foot = sprites['SHOE_SIDE']
+      var shadow = sprites['SHOE_BIG_SHADOW']
       var OFFSET = 180
-      context.drawImage(image, aShape.position.x, aShape.position.y - OFFSET)  
+      context.drawImage(shadow, aShape.position.x, aShape.position.y)
+      context.drawImage(foot, aShape.position.x, aShape.position.y - OFFSET - aShape.position.z)
     }
 
     function pollInput () {
@@ -157,13 +159,18 @@ $(document).ready(() => {
             var redHouseFrontDead = new Image()
             redHouseFrontDead.src = 'assets/house_red_front_dead.png'
             redHouseFrontDead.onload = () => {
-              callback({
-                'HOUSE_RED_FRONT': redHouseFront,
-                'BACKGROUND': background,
-                'HOUSE_OUTLINE_FRONT': outlineHouseFront,
-                'SHOE_SIDE': shoe,
-                'HOUSE_RED_FRONT_DEAD' : redHouseFrontDead
-              })
+              var shadow = new Image()
+              shadow.src = 'assets/shadow_big.png'
+              shadow.onload = () => {
+                callback({
+                  'HOUSE_RED_FRONT': redHouseFront,
+                  'BACKGROUND': background,
+                  'HOUSE_OUTLINE_FRONT': outlineHouseFront,
+                  'SHOE_SIDE': shoe,
+                  'HOUSE_RED_FRONT_DEAD' : redHouseFrontDead,
+                  'SHOE_BIG_SHADOW': shadow
+                })
+              }
             }
           }
         }

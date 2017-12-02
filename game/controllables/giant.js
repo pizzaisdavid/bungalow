@@ -6,6 +6,8 @@ class Giant {
     this.leftShape = leftShape
     this.currentControl = this.rightShape
     this.otherControl = this.leftShape
+    this.isStomping = false
+    this.isRaising = false
     this.SPEED = 10
 
     this.cooldowns = {
@@ -15,6 +17,8 @@ class Giant {
       'SPACE_BAR': 200
     }
     this.ownerId = ''
+
+    this.raise()
   }
 
   get shapes () {
@@ -38,6 +42,9 @@ class Giant {
   }
 
   do (aGameBoard, command) {
+    if (this.isStomping) {
+      return
+    }
     switch (command) {
       case 'LEFT':
         this.left(aGameBoard)
@@ -57,6 +64,24 @@ class Giant {
       default:
         console.log(`band command: ${command}`)
         break
+    }
+  }
+
+  tick(aGameBoard) {
+    if (this.isStomping) {
+      this.currentControl.z -= 15
+      if (this.currentControl.z < 0) {
+        this.currentControl.z = 0
+        aGameBoard.stomp(this.currentControl)
+        this.isStomping = false
+        this.swap(aGameBoard)
+      }
+    } else if (this.isRaising) {
+      this.currentControl.z += 5
+      if (this.currentControl.z > 100) {
+        this.currentControl.z = 100
+        this.isRaising = false
+      }
     }
   }
 
@@ -94,18 +119,15 @@ class Giant {
 
   space (aGameBoard) {
     if (this.isReady(aGameBoard, 'SPACE_BAR')) {
-      this.stomp(aGameBoard)
-      this.swap(aGameBoard)
+      this.isStomping = true
     }
   }
 
-  stomp (aGameBoard) {
-    this.currentControl.z = 0
-    aGameBoard.stomp(this.currentControl)
+  raise() {
+    this.israising = true
   }
 
   swap (aGameBoard) {
-    this.currentControl.z = 1
     this.cooldowns['SPACE_BAR'] = aGameBoard.time()
     if (this.currentControl === this.rightShape) {
       this.currentControl = this.leftShape
@@ -114,6 +136,7 @@ class Giant {
       this.currentControl = this.rightShape
       this.otherControl = this.leftShape
     }
+    this.isRaising = true
   }
 
   isReady (aGameBoard, abilityName) {

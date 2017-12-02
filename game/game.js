@@ -63,6 +63,10 @@ class Game {
       var commands = this.commands[id]
       this.processCommands(aPlayer, commands)
     }
+    for (var id in this.players) {
+      var aPlayer = this.players[id]
+      aPlayer.tick(this.board)
+    }
     this.commands = {}
   }
 

@@ -9,6 +9,10 @@ class Controllable {
     // do nothing
   }
 
+  tick() {
+    // do nothing!
+  }
+
   isVancant () {
     return false
   }
