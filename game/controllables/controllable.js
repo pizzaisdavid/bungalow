@@ -9,7 +9,7 @@ class Controllable {
     // do nothing
   }
 
-  tick() {
+  tick(aGameBoard) {
     // do nothing!
   }
 

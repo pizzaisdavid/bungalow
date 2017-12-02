@@ -133,6 +133,10 @@ class NullHouse {
 
   }
 
+  tick (aGameBoard) {
+    
+  }
+
   toString () {
     return 'NullHouse'
   }

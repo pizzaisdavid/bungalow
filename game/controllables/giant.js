@@ -18,7 +18,7 @@ class Giant {
     }
     this.ownerId = ''
 
-    this.raise()
+    this.currentControl.z = 50 // hacky boi
   }
 
   get shapes () {
@@ -59,7 +59,9 @@ class Giant {
         this.down(aGameBoard)
         break
       case 'SPACE_BAR':
-        this.space(aGameBoard)
+        if (this.isRaising === false) {
+          this.space(aGameBoard)          
+        }
         break
       default:
         console.log(`band command: ${command}`)
@@ -126,6 +128,10 @@ class Giant {
   raise() {
     this.israising = true
   }
+
+  smash () {
+    // TODO: haha smash your own foot!
+  } 
 
   swap (aGameBoard) {
     this.cooldowns['SPACE_BAR'] = aGameBoard.time()
