@@ -125,9 +125,16 @@ $(document).ready(() => {
 
     function drawRaisedFoot(aShape) {
       var foot = sprites['SHOE_SIDE']
-      var shadow = sprites['SHOE_BIG_SHADOW']
+      var shadow = sprites['SHOE_BIG_SHADOW']  
+      let distance = aShape.position.z
+      let distanceRatio = distance / 100
       var OFFSET = 180
-      context.drawImage(shadow, aShape.position.x, aShape.position.y)
+      var shadowWidth = Math.max(40 - (distanceRatio * 40), 15)
+      var shadowHeight = Math.max(17 - (distanceRatio * 17), 7)
+
+      var horizontalShadowOffset = (40 - shadowWidth) / 2
+      var verticalShadowOffset = (17 - shadowHeight) / 2
+      context.drawImage(shadow, aShape.position.x + horizontalShadowOffset, aShape.position.y + verticalShadowOffset, shadowWidth, shadowHeight)
       context.drawImage(foot, aShape.position.x, aShape.position.y - OFFSET - aShape.position.z)
     }
 
@@ -190,8 +197,8 @@ $(document).ready(() => {
                   'HOUSE_OUTLINE_FRONT': outlineHouseFront,
                   'SHOE_SIDE': shoe,
                   'HOUSE_RED_FRONT_DEAD' : redHouseFrontDead,
-                  'SHOE_BIG_SHADOW': shadow
-                })
+                  'SHOE_BIG_SHADOW': shadow,
+                }) 
               }
             }
           }
