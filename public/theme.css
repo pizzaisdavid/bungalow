@@ -14,3 +14,8 @@ canvas {
   image-rendering: pixelated;
   -ms-interpolation-mode: nearest-neighbor;
 }
+
+#feed {
+  float: right;
+  resize: none;  
+}

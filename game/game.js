@@ -4,6 +4,7 @@ class Game {
   constructor (teams, board) {
     this.SPECTATORS_TEAM_NAME = 'spectators'
     console.log('Hi, Clickty-Clack.')
+    this.events = []            
     this.teams = teams
     this.board = board
     this.players = {}
@@ -16,18 +17,24 @@ class Game {
   }
 
   get state () {
+    let events = this.events
+    this.events = []
+    events = events.concat(this.board.events)
     return {
       'teams': this.teams,
-      'controllables': this.board.controllables
+      'controllables': this.board.controllables,
+      'events': events
     }
   }
 
   initializePlayer (aPlayer) {
+    this.queueEventJoin(aPlayer)
     this.players[aPlayer.id] = aPlayer
     this.addToTeam(this.SPECTATORS_TEAM_NAME, aPlayer)
   }
 
   joinTeam (aTeamName, aPlayer) {
+    this.queueEventJoinTeam(aTeamName, aPlayer)
     this.leaveCurrentTeam(aPlayer)
     this.addToTeam(aTeamName, aPlayer)
   }
@@ -49,6 +56,7 @@ class Game {
   }
 
   terminatePlayer (aPlayer) {
+    this.queueEventTerminatePlayer(aPlayer)
     delete this.players[aPlayer.id]
     this.leaveCurrentTeam(aPlayer)
   }
@@ -65,7 +73,10 @@ class Game {
     }
     for (var id in this.players) {
       var aPlayer = this.players[id]
-      aPlayer.tick(this.board)
+      var events = aPlayer.tick(this.board)
+      if (events) {
+        this.events = this.events.concat(events)
+      }
     }
     this.commands = {}
   }
@@ -73,7 +84,28 @@ class Game {
   processCommands (player, commands) {
     commands.map((c) => {
       console.log(c)
-      player.do(this.board, c)
+     player.do(this.board, c)
+    })
+  }
+
+  queueEventJoin (aPlayer) {
+    this.events.push({
+      message: `Welcome ${aPlayer.id}`,
+      type: 'initialize'
+    })
+  }
+
+  queueEventJoinTeam(aTeamName, aPlayer) {
+    this.events.push({
+      message: `${aPlayer.id} switched from ${aPlayer.teamName} to ${aTeamName}`,
+      type: 'joinTeam'
+    })
+  }
+
+  queueEventTerminatePlayer(aPlayer) {
+    this.events.push({
+      message: `${aPlayer.id} quit`,
+      type: 'terminatePlayer'
     })
   }
 }
