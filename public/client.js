@@ -14,12 +14,34 @@ $(document).ready(() => {
   })
 
   loadSprites((sprites) => {
+
     function updateTeams (teams) {
       console.log('teams:')
       console.log(teams)
       for (var name in teams) {
         var team = teams[name]
         populateStats(team)
+      }
+      disableMyTeamButton(teams)
+    }
+
+    function disableMyTeamButton(teams) {
+      for (var name in teams) {
+        var team = teams[name]
+        var players = team.players
+        var isOnThisTeam = false
+        for (var i = 0; i < players.length; i++) {
+          var aPlayer = players[i]
+          if (aPlayer.id === id) {
+            isOnThisTeam = true
+          }
+        }
+        var selector = `#${name}-button`
+        if (isOnThisTeam) {
+          $(selector).attr('disabled','disabled')
+        } else {
+          $(selector).removeAttr('disabled')
+        }
       }
     }
 
@@ -197,7 +219,7 @@ $(document).ready(() => {
 
   function makeJoinTeamButton (team) {
     // TODO is there a full team?
-    var button = $('<input type="button">')
+    var button = $(`<input id="${team.name}-button" type="button">`)
     button.prop('value', `join team: ${team.name}`)
     button.click(() => {
       socket.emit('join', team.name)
