@@ -76,8 +76,8 @@ $(document).ready(() => {
 
     function sortControllablesForDrawing (controllables) {
       controllables.sort((a, b) => {
-        let aShape = a.shape || a.currentControl
-        let bShape = b.shape || b.currentControl
+        let aShape = a.shape || a.otherControl
+        let bShape = b.shape || b.otherControl
         return aShape.position.y - bShape.position.y 
       })
     }
