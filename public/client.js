@@ -41,12 +41,20 @@ $(document).ready(() => {
     })
 
     function drawControllables (controllables) {
-      console.log(controllables)
       context.drawImage(sprites['BACKGROUND'], 0, 0)
+      sortControllablesForDrawing(controllables)
       for (var i = 0; i < controllables.length; i++) {
         var controllable = controllables[i]
         if (controllable.controllableType === 'house') { drawHouse(controllable) } else if (controllable.controllableType === 'giant') { drawGiant(controllable) }
       }
+    }
+
+    function sortControllablesForDrawing (controllables) {
+      controllables.sort((a, b) => {
+        let aShape = a.shape || a.currentControl
+        let bShape = b.shape || b.currentControl
+        return aShape.position.y - bShape.position.y 
+      })
     }
 
     function clearCanvas () {
