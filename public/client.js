@@ -1,3 +1,4 @@
+
 $(document).ready(() => {
   var socket = io()
   var canvas = $('#screen')[0]
@@ -60,6 +61,7 @@ $(document).ready(() => {
       drawControllables(gameState.controllables)
       updateTeams(gameState.teams)
       updateFeed(gameState.events)
+      processEvents(gameState.events)
       socket.emit('commands', pollInput())
     })
 
@@ -250,5 +252,33 @@ $(document).ready(() => {
       value += ('\n' + event.message)
       feed.text(value)
     }
+  }
+
+  function processEvents(aListOfEvents) {
+    for (var i = 0; i < aListOfEvents.length; i++) {
+      var event = aListOfEvents[i]
+      if (event.type === 'kill') {
+        shakeScreenFor(700)
+      }
+    } 
+  }
+
+  function shakeScreenFor(milliseconds) {
+    var id = setInterval(() => {
+      context.restore()
+      shakeScreen()      
+    }, 50)
+
+    setTimeout(() => {
+      clearInterval(id)
+      context.restore()
+    }, milliseconds)
+  }
+
+  function shakeScreen() {
+    context.save()
+    var dx = Math.random() * 5
+    var dy = Math.random() * 5
+    context.translate(dx, dy);  
   }
 })
