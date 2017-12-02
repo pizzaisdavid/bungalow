@@ -131,10 +131,13 @@ $(document).ready(() => {
       var OFFSET = 180
       var shadowWidth = Math.max(40 - (distanceRatio * 40), 15)
       var shadowHeight = Math.max(17 - (distanceRatio * 17), 7)
-
       var horizontalShadowOffset = (40 - shadowWidth) / 2
       var verticalShadowOffset = (17 - shadowHeight) / 2
+
+      var shadowTransparent = Math.max(0.3, 1 - distanceRatio)
+      context.globalAlpha = shadowTransparent    
       context.drawImage(shadow, aShape.position.x + horizontalShadowOffset, aShape.position.y + verticalShadowOffset, shadowWidth, shadowHeight)
+      context.globalAlpha = 1.0      
       context.drawImage(foot, aShape.position.x, aShape.position.y - OFFSET - aShape.position.z)
     }
 
