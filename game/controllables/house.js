@@ -114,6 +114,10 @@ class House {
   smash () {
     this.isAlive = false
   }
+
+  tick (aGameBoard) {
+    
+  }
 }
 
 class NullHouse {
