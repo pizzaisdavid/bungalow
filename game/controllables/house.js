@@ -60,6 +60,9 @@ class House {
   }
 
   do (aGameBoard, command) {
+    if (this.isAlive === false) {
+      return;
+    }
     switch (command) {
       case 'LEFT':
         this.left(aGameBoard)
