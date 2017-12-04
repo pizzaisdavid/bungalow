@@ -4,6 +4,7 @@ class Controllable {
   constructor () {
     this.shape = Shape.Null
     this.isAlive = false
+    this.ownerName = ''
   }
 
   do (game, command) {

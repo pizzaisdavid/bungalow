@@ -99,10 +99,10 @@ class GameBoard {
       if (c.isAlive && aShape.isTouchingAny(c.shapes)) {
         console.log('SMASH')
         c.smash()
-
         this._events.push({
-          message: '💀 A house was smashed!',
-          type: 'kill'
+          message: `💀 ${c.ownerName} smashed!`,
+          type: 'kill',
+          whoDied: c.ownerName
         })
       }
     }

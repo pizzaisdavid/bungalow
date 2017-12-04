@@ -9,6 +9,7 @@ class Giant {
     this.isStomping = false
     this.isRaising = false
     this.SPEED = 10
+    this.ownerName = ''
 
     this.cooldowns = {
       'SPACE_BAR': 0

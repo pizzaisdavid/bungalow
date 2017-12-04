@@ -14,6 +14,7 @@ class Player {
 
   assignControllable (aControllable) {
     aControllable.owner = this.id
+    aControllable.ownerName = this.name
     this.controllable = aControllable
   }
 
