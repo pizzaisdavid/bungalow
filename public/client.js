@@ -78,7 +78,7 @@ $(document).ready(() => {
       drawControllables(gameState.controllables)
       updateTeams(gameState.teams)
       updateFeed(gameState.events)
-      updateTimeRemaining(gameState.timeLimit)
+      updateTimeRemaining(gameState.timeLimit, gameState.winner)
       processEvents(gameState.events)
       socket.emit('commands', pollInput())
     })
@@ -328,8 +328,12 @@ $(document).ready(() => {
     })
   }
 
-  function updateTimeRemaining(aTimeLimit) {
-
+  function updateTimeRemaining(aTimeLimit, winner) {
+    if (winner) {
+      $('#time-remaining').text('game over')      
+      return;
+    }
     $('#time-remaining').text(aTimeLimit.remaining)
+    $('#is-pregame-lobby').text(aTimeLimit.isPregameLobby)
   }
 })
