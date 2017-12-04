@@ -7,6 +7,16 @@ class Team {
     this.players = []
   }
 
+  hasAliveControllables() {
+    for (var i = 0; i < this.controllables.length; i++) {
+      var c = this.controllables[i]
+      if (c.isAlive) {
+        return true
+      }
+    }
+    return false
+  }
+
   findOpenControllable () {
     for (var i = 0; i < this.controllables.length; i++) {
       var c = this.controllables[i]

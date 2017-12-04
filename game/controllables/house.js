@@ -126,6 +126,7 @@ class House {
 class NullHouse {
   constructor () {
     this.position = Shape.Null
+    this.isAlive = false
   }
 
   abandon () {

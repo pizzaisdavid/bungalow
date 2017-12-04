@@ -35,6 +35,16 @@ class GameBoard {
     return houses
   }
 
+  createGiants (count) {
+    var giants = []
+    for (var i = 0; i < count; i++) {
+      var g = this.spawnProperPlacedGiant()
+      giants.push(g)
+      this.controllables.push(g)
+    }
+    return giants
+  }
+
   createGiant () {
     var giant = this.spawnProperPlacedGiant()
     this.controllables.push(giant)

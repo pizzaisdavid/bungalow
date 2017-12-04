@@ -3,6 +3,7 @@ const Shape = require('../shape')
 class Controllable {
   constructor () {
     this.shape = Shape.Null
+    this.isAlive = false
   }
 
   do (game, command) {

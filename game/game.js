@@ -2,6 +2,9 @@ const Team = require('./team')
 
 class Game {
   constructor (teams, board) {
+    this.GAME_TIME_LIMIT_IN_MILLISECONDS = 30000
+    this.startTimestamp = new Date().getTime()
+    this.isPreGameLobby = true;
     this.SPECTATORS_TEAM_NAME = 'spectators'
     console.log('Hi, Clickty-Clack.')
     this.events = []            
@@ -9,6 +12,7 @@ class Game {
     this.board = board
     this.players = {}
     this.commands = {}
+    this.winner = ''
     this.setupSpectators()
   }
 
@@ -23,8 +27,22 @@ class Game {
     return {
       'teams': this.teams,
       'controllables': this.board.controllables,
-      'events': events
+      'events': events,
+      'timeLimt': {
+        'isPregameLobby': this.isPreGameLobby,
+        'total': this.GAME_TIME_LIMIT_IN_MILLISECONDS,
+        'remaining': this.getRemainingTime()
+      },
+      'winner': this.winner
     }
+  }
+
+  start (board, teams) {
+    console.log('Starting game')
+    this.isPreGameLobby = false
+    this.startTimestamp = new Date().getTime()
+    this.board = board
+    this.teams = teams
   }
 
   initializePlayer (aPlayer) {
@@ -66,6 +84,9 @@ class Game {
   }
 
   tick () {
+    if (this.isGameOver()) {
+      return
+    }
     for (var id in this.commands) {
       var aPlayer = this.players[id]
       var commands = this.commands[id]
@@ -107,6 +128,31 @@ class Game {
       message: `${aPlayer.id} quit`,
       type: 'terminatePlayer'
     })
+  }
+
+  areEnoughPlayersReady() {
+    return true
+  }
+
+  getRemainingTime() {
+    var whenTheGameEnds = this.GAME_TIME_LIMIT_IN_MILLISECONDS + this.startTimestamp
+    return whenTheGameEnds - new Date().getTime()
+  }
+
+  isGameOver() {
+    if (this.isPreGameLobby) {
+      return false
+    }
+    console.log(this.teams['Houses'])
+    if (this.teams['Houses'].hasAliveControllables() === false) {
+      this.winner = 'Giants'
+      return true
+    }  
+    if (this.getRemainingTime() < 0) {
+      this.winner = 'Houses'
+      return true
+    }
+    return false
   }
 }
 

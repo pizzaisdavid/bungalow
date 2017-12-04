@@ -1,3 +1,4 @@
+
 var express = require('express')
 var app = express()
 var http = require('http')
@@ -17,15 +18,10 @@ var GameBoard = require('./game/game-board')
 var Team = require('./game/team')
 var Game = require('./game/game')
 const Player = require('./game/player')
-
-var board = new GameBoard(300, 150)
-
-var teams = {
-  'Houses': new Team('Houses', board.createHouses(12)),
-  'Giants': new Team('Giants', board.createGiant())
-}
-
-var game = new Game(teams, board)
+var board
+var teams
+var game
+var preGameLobbyId
 
 io.on('connection', (socket) => {
   socket.player = new Player(socket.id)
@@ -42,6 +38,10 @@ io.on('connection', (socket) => {
     game.joinTeam(teamName, socket.player)
   })
 
+  socket.on('isReady', () => {
+    game.markAsReady(socket.player)
+  })
+
   socket.on('commands', (commands) => {
     game.queue(socket.player, commands)
   })
@@ -52,10 +52,24 @@ io.on('connection', (socket) => {
   })
 })
 
-setInterval(() => {
-  game.tick()
+
+board = new GameBoard(300, 150)
+teams = {
+  'Houses': new Team('Houses', board.createHouses(12)),
+  'Giants': new Team('Giants', board.createGiants(2))
+}
+game = new Game(teams, board)
+preGameLobbyId = setInterval(() => {
+  if (game.isPreGameLobby && game.areEnoughPlayersReady()) {
+    board = new GameBoard(300, 150)    
+    teams['Houses'].controllables = board.createHouses(12)
+    teams['Giants'].controllables = board.createGiants(2)
+    game.start(board, teams)
+  }
+  game.tick()    
   io.emit('poll', game.state)
 }, 33)
+
 
 server.listen(3000, () => {
   console.log('Game is running...')
