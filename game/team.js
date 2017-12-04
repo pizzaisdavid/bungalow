@@ -5,6 +5,7 @@ class Team {
     this.name = name
     this.controllables = controllables
     this.players = []
+    this.ready = {}
   }
 
   hasAliveControllables() {
@@ -32,9 +33,11 @@ class Team {
     if (index > -1) {
       this.players.splice(index, 1)
     }
+    delete this.ready[aPlayer]
   }
 
   push (aPlayer) {
+    this.ready[aPlayer.id] = false
     this.players.push(aPlayer)
   }
 
@@ -45,6 +48,10 @@ class Team {
         return i
       }
     }
+  }
+
+  setReadyStatus(aPlayer, status) {
+    this.ready[aPlayer.id] = status
   }
 }
 

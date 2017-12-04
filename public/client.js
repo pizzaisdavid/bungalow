@@ -7,6 +7,8 @@ $(document).ready(() => {
   var id = ''
   var showHitBoxes = false
 
+  setupReadyButton()
+
   socket.on('initialize', (initialize) => {
     id = initialize.id
     var controllables = initialize.state.controllables
@@ -54,6 +56,15 @@ $(document).ready(() => {
       statistics.empty()
       statistics.append(`players: ${team.players.length}`)
       statistics.append('<br>')
+      var readyCount = 0
+      for (var name in team.ready) {
+        var status = team.ready[name]
+        if (status) {
+          readyCount++
+        }
+      }
+      statistics.append(`ready: ${readyCount}`)
+      statistics.append('<br>')      
       statistics.append(`objects: ${team.controllables.length}`)
     }
 
@@ -237,6 +248,8 @@ $(document).ready(() => {
     button.prop('value', `join team: ${team.name}`)
     button.click(() => {
       socket.emit('join', team.name)
+      $('#ready').text('click to ready-up')
+      
     })
     return button
   }
@@ -294,5 +307,19 @@ $(document).ready(() => {
     var dx = Math.random() * 5
     var dy = Math.random() * 5
     context.translate(dx, dy);  
+  }
+
+  function setupReadyButton() {
+    var button = $('#ready')
+    var isReady = false
+    button.click(() => {
+      isReady = !isReady
+      socket.emit('isReady', isReady)
+      if (isReady) {
+        $('#ready').text('You are ready, click to unready')        
+      } else {
+        $('#ready').text('click to ready-up')        
+      }
+    })
   }
 })

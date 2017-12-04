@@ -21,7 +21,6 @@ const Player = require('./game/player')
 var board
 var teams
 var game
-var preGameLobbyId
 
 io.on('connection', (socket) => {
   socket.player = new Player(socket.id)
@@ -38,8 +37,8 @@ io.on('connection', (socket) => {
     game.joinTeam(teamName, socket.player)
   })
 
-  socket.on('isReady', () => {
-    game.markAsReady(socket.player)
+  socket.on('isReady', (status) => {
+    game.setReadyStatus(socket.player, status)
   })
 
   socket.on('commands', (commands) => {
@@ -59,7 +58,7 @@ teams = {
   'Giants': new Team('Giants', board.createGiants(2))
 }
 game = new Game(teams, board)
-preGameLobbyId = setInterval(() => {
+setInterval(() => {
   if (game.isPreGameLobby && game.areEnoughPlayersReady()) {
     board = new GameBoard(300, 150)    
     teams['Houses'].controllables = board.createHouses(12)

@@ -125,8 +125,21 @@ class Game {
 
   queueEventTerminatePlayer(aPlayer) {
     this.events.push({
-      message: `${aPlayer.id} quit`,
+      message: `${aPlayer.name} quit`,
       type: 'terminatePlayer'
+    })
+  }
+
+  queueEventReadyStatus(aPlayer, status) {
+    var message
+    if (status) {
+      message = `${aPlayer.name} is ready`
+    } else {
+      message = `${aPlayer.name} is not ready`
+    }
+    this.events.push({
+      message: message,
+      type: 'setReadyStatus'
     })
   }
 
@@ -143,7 +156,6 @@ class Game {
     if (this.isPreGameLobby) {
       return false
     }
-    console.log(this.teams['Houses'])
     if (this.teams['Houses'].hasAliveControllables() === false) {
       this.winner = 'Giants'
       return true
@@ -153,6 +165,11 @@ class Game {
       return true
     }
     return false
+  }
+
+  setReadyStatus(aPlayer, status) {
+    this.queueEventReadyStatus(aPlayer, status)
+    this.teams[aPlayer.teamName].setReadyStatus(aPlayer, status)
   }
 }
 
