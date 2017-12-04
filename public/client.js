@@ -269,7 +269,7 @@ $(document).ready(() => {
 
   function updatePlayerName(aNameString) {
     var event = {
-      message :`Your name is: ${aNameString}`
+      message :`📣 Your name is: ${aNameString}`
     }
     $('#playerName').text(aNameString)
     updateFeed([event])

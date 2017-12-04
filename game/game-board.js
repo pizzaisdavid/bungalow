@@ -101,7 +101,7 @@ class GameBoard {
         c.smash()
 
         this._events.push({
-          message: 'A house was smashed!',
+          message: '💀 A house was smashed!',
           type: 'kill'
         })
       }

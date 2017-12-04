@@ -112,21 +112,21 @@ class Game {
 
   queueEventJoin (aPlayer) {
     this.events.push({
-      message: `Welcome ${aPlayer.name}!`,
+      message: `👋 Welcome ${aPlayer.name}!`,
       type: 'initialize'
     })
   }
 
   queueEventJoinTeam(aTeamName, aPlayer) {
     this.events.push({
-      message: `${aPlayer.name} switched from ${aPlayer.teamName} to ${aTeamName}`,
+      message: `📣 ${aPlayer.name} switched from ${aPlayer.teamName} to ${aTeamName}`,
       type: 'joinTeam'
     })
   }
 
   queueEventTerminatePlayer(aPlayer) {
     this.events.push({
-      message: `${aPlayer.name} quit`,
+      message: `👋 ${aPlayer.name} quit`,
       type: 'terminatePlayer'
     })
   }
@@ -134,9 +134,9 @@ class Game {
   queueEventReadyStatus(aPlayer, status) {
     var message
     if (status) {
-      message = `${aPlayer.name} is ready`
+      message = `👍 ${aPlayer.name} is ready`
     } else {
-      message = `${aPlayer.name} is not ready`
+      message = `👎 ${aPlayer.name} is not ready`
     }
     this.events.push({
       message: message,
@@ -146,7 +146,7 @@ class Game {
 
   queueEventWin(aWinnerString) {
     this.events.push({
-      message: `${aWinnerString} win the game`,
+      message: `🎉 ${aWinnerString} win the game`,
       type: 'win'
     })
   }
