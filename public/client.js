@@ -234,14 +234,16 @@ $(document).ready(() => {
   function initializeTeams (teams) {
     var TEAM_CONTAIN_SELECTOR = '#teams'
     $(TEAM_CONTAIN_SELECTOR).empty()
+    var row = $('<tr></tr>')
     for (var name in teams) {
       var team = teams[name]
-      $(TEAM_CONTAIN_SELECTOR).append(makeTeamContainer(team))
+      row.append(makeTeamContainer(team))
     }
+    $(TEAM_CONTAIN_SELECTOR).append(row)
   }
 
   function makeTeamContainer (team) {
-    var container = $(`<div id="${team.name}-container"></div>`)
+    var container = $(`<td id="${team.name}-container"></td>`)
     container.append(makeJoinTeamButton(team))
     container.append(makeTeamStatisticsContainer(team))
     return container
