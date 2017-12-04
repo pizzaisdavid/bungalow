@@ -33,7 +33,7 @@ class Team {
     if (index > -1) {
       this.players.splice(index, 1)
     }
-    delete this.ready[aPlayer]
+    delete this.ready[aPlayer.id]
   }
 
   push (aPlayer) {

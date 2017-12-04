@@ -6,6 +6,7 @@ $(document).ready(() => {
   var commands = new Set()
   var id = ''
   var showHitBoxes = false
+  var isReady = false
 
   setupReadyButton()
 
@@ -248,6 +249,7 @@ $(document).ready(() => {
     button.prop('value', `join team: ${team.name}`)
     button.click(() => {
       socket.emit('join', team.name)
+      isReady = false
       $('#ready').text('click to ready-up')
       
     })
@@ -311,7 +313,6 @@ $(document).ready(() => {
 
   function setupReadyButton() {
     var button = $('#ready')
-    var isReady = false
     button.click(() => {
       isReady = !isReady
       socket.emit('isReady', isReady)
