@@ -33,7 +33,8 @@ io.on('connection', (socket) => {
   socket.emit('initialize', {
     id: socket.id,
     state: game.state,
-    teams: game.teams
+    teams: game.teams,
+    player: socket.player
   })
 
   socket.on('join', (teamName) => {

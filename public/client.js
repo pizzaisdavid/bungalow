@@ -5,13 +5,16 @@ $(document).ready(() => {
   var context = canvas.getContext('2d')
   var commands = new Set()
   var id = ''
-  var showHitBoxes = true
+  var showHitBoxes = false
 
   socket.on('initialize', (initialize) => {
     id = initialize.id
     var controllables = initialize.state.controllables
     var teams = initialize.state.teams
     var events = initialize.state.events
+    var player = initialize.player
+    clearFeed()
+    updatePlayerName(player.name)    
     updateFeed(events)
     initializeTeams(teams)
   })
@@ -49,7 +52,6 @@ $(document).ready(() => {
     function populateStats (team) {
       var statistics = $(`#${team.name}-statistics`)
       statistics.empty()
-      statistics.append('<br>')
       statistics.append(`players: ${team.players.length}`)
       statistics.append('<br>')
       statistics.append(`objects: ${team.controllables.length}`)
@@ -244,12 +246,24 @@ $(document).ready(() => {
     return container
   }
 
+  function updatePlayerName(aNameString) {
+    var event = {
+      message :`Your name is: ${aNameString}`
+    }
+    $('#playerName').text(aNameString)
+    updateFeed([event])
+  }
+
+  function clearFeed() {
+    $('#feed').text('')
+  }
+
   function updateFeed(aListOfEvents) {
     var feed = $('#feed')
     for (var i = 0; i < aListOfEvents.length; i++) {
       var event = aListOfEvents[i]
       var value = feed.text()
-      value += ('\n' + event.message)
+      value = (event.message + '\n') + value
       feed.text(value)
     }
   }
