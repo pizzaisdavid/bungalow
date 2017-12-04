@@ -49,7 +49,8 @@ class Player {
       'tasteful',
       'unique',
       'vibrant',
-      'rundown'
+      'rundown',
+      'jolly'
     ])
     var noun = MathHelper.selectRandom([
       'Cabin',
@@ -59,7 +60,8 @@ class Player {
       'Condominium',
       'Igloo',
       'Tepee',
-      'Apartment'
+      'Apartment',
+      'Bungalow'
     ])
     return `${adjective}${noun}`
   }
