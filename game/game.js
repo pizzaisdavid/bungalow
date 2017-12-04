@@ -28,7 +28,7 @@ class Game {
       'teams': this.teams,
       'controllables': this.board.controllables,
       'events': events,
-      'timeLimt': {
+      'timeLimit': {
         'isPregameLobby': this.isPreGameLobby,
         'total': this.GAME_TIME_LIMIT_IN_MILLISECONDS,
         'remaining': this.getRemainingTime()
@@ -85,6 +85,7 @@ class Game {
 
   tick () {
     if (this.isGameOver()) {
+      // TODO NEXT this.setupPregameLobby()
       return
     }
     for (var id in this.commands) {
@@ -143,6 +144,13 @@ class Game {
     })
   }
 
+  queueEventWin(aWinnerString) {
+    this.events.push({
+      message: `${aWinnerString} win the game`,
+      type: 'win'
+    })
+  }
+
   areEnoughPlayersReady() {
     return true
   }
@@ -158,10 +166,12 @@ class Game {
     }
     if (this.teams['Houses'].hasAliveControllables() === false) {
       this.winner = 'Giants'
+      this.queueEventWin(this.winner)
       return true
     }  
     if (this.getRemainingTime() < 0) {
       this.winner = 'Houses'
+      this.queueEventWin(this.winner)      
       return true
     }
     return false

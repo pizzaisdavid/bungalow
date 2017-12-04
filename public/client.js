@@ -72,9 +72,13 @@ $(document).ready(() => {
     socket.on('poll', (gameState) => {
       console.log(gameState)
       clearCanvas()
+      if (gameState.winner) {
+        clearFeed()
+      }
       drawControllables(gameState.controllables)
       updateTeams(gameState.teams)
       updateFeed(gameState.events)
+      updateTimeRemaining(gameState.timeLimit)
       processEvents(gameState.events)
       socket.emit('commands', pollInput())
     })
@@ -322,5 +326,10 @@ $(document).ready(() => {
         $('#ready').text('click to ready-up')        
       }
     })
+  }
+
+  function updateTimeRemaining(aTimeLimit) {
+
+    $('#time-remaining').text(aTimeLimit.remaining)
   }
 })
