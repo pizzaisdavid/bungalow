@@ -1,9 +1,9 @@
 const Controllable = require('./controllables/controllable')
-
+const MathHelper = require('./math-helper')
 class Player {
   constructor (anId) {
     this.teamName = ''
-    this.name = ''
+    this.name = this.generateRandomName()
     this.id = anId
     this.controllable = Controllable.Null
   }
@@ -27,6 +27,41 @@ class Player {
 
   do (aGameBoard, command) {
     this.controllable.do(aGameBoard, command)
+  }
+
+  generateRandomName () {
+    var adjective = MathHelper.selectRandom([
+      'rickety',
+      'spooky',
+      'dilapidated',
+      'charming',
+      'classic',
+      'cozy',
+      'efficient',
+      'exquisite',
+      'incredible',
+      'luxurious',
+      'modern',
+      'original',
+      'rare',
+      'sparkling',
+      'stunning',
+      'tasteful',
+      'unique',
+      'vibrant',
+      'rundown'
+    ])
+    var noun = MathHelper.selectRandom([
+      'Cabin',
+      'House',
+      'Castle',
+      'Abode',
+      'Condominium',
+      'Igloo',
+      'Tepee',
+      'Apartment'
+    ])
+    return `${adjective}${noun}`
   }
 }
 

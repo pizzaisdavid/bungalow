@@ -90,14 +90,14 @@ class Game {
 
   queueEventJoin (aPlayer) {
     this.events.push({
-      message: `Welcome ${aPlayer.id}`,
+      message: `Welcome ${aPlayer.name}!`,
       type: 'initialize'
     })
   }
 
   queueEventJoinTeam(aTeamName, aPlayer) {
     this.events.push({
-      message: `${aPlayer.id} switched from ${aPlayer.teamName} to ${aTeamName}`,
+      message: `${aPlayer.name} switched from ${aPlayer.teamName} to ${aTeamName}`,
       type: 'joinTeam'
     })
   }
