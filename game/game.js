@@ -150,7 +150,6 @@ class Game {
     var aListOfNames = aListOfPlayers.map((player) => {
       return player.name
     })
-    console.log(aListOfNames)
     this.events.push({
       message: `🎉 ${aWinnerString} win the game (players: ${aListOfNames.toString()})`,
       type: 'win'
