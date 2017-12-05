@@ -184,12 +184,14 @@ class Game {
 
   stomp(aShape) {
     console.log('stomping')
+    var killCount = 0
     for (let i = 0; i < this.board.controllables.length; i++) {
       var c = this.board.controllables[i]
       if (c.isAlive && aShape.isTouchingAny(c.shapes)) {
         console.log('SMASH')
         var ownerId = c.ownerId
         c.smash()
+        killCount++
         if (ownerId) {
           var aPlayer = this.players[ownerId]
           var team = this.teams[aPlayer.teamName]
@@ -202,6 +204,22 @@ class Game {
           whoDied: c.ownerName
         })
       }
+    }
+    if (killCount === 2) {
+      this.events.push({
+        message: `💠 double kill`,
+        type: 'kill',
+      })
+    } else if (killCount === 3) {
+      this.events.push({
+        message: `❇️ triple kill`,
+        type: 'kill',
+      })
+    } else if (killCount > 3) {
+      this.events.push({
+        message: `✴️ multi-kill`,
+        type: 'kill',
+      })
     }
   } 
 }
