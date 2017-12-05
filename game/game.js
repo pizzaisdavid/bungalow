@@ -145,8 +145,14 @@ class Game {
   }
 
   queueEventWin(aWinnerString) {
+    var aTeam = this.teams[aWinnerString]
+    var aListOfPlayers = aTeam.players
+    var aListOfNames = aListOfPlayers.map((player) => {
+      return player.name
+    })
+    console.log(aListOfNames)
     this.events.push({
-      message: `🎉 ${aWinnerString} win the game`,
+      message: `🎉 ${aWinnerString} win the game (players: ${aListOfNames.toString()})`,
       type: 'win'
     })
   }
