@@ -95,7 +95,7 @@ class Game {
     }
     for (var id in this.players) {
       var aPlayer = this.players[id]
-      var events = aPlayer.tick(this.board)
+      var events = aPlayer.tick(this)
       if (events) {
         this.events = this.events.concat(events)
       }
@@ -181,6 +181,29 @@ class Game {
     this.queueEventReadyStatus(aPlayer, status)
     this.teams[aPlayer.teamName].setReadyStatus(aPlayer, status)
   }
+
+  stomp(aShape) {
+    console.log('stomping')
+    for (let i = 0; i < this.board.controllables.length; i++) {
+      var c = this.board.controllables[i]
+      if (c.isAlive && aShape.isTouchingAny(c.shapes)) {
+        console.log('SMASH')
+        var ownerId = c.ownerId
+        c.smash()
+        if (ownerId) {
+          var aPlayer = this.players[ownerId]
+          var team = this.teams[aPlayer.teamName]
+          var aControllable = team.findOpenControllable()
+          aPlayer.assignControllable(aControllable)
+        }
+        this.events.push({
+          message: `💀 ${c.ownerName} smashed!`,
+          type: 'kill',
+          whoDied: c.ownerName
+        })
+      }
+    }
+  } 
 }
 
 module.exports = Game

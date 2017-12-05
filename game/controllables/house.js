@@ -120,7 +120,7 @@ class House {
     this.isAlive = false
   }
 
-  tick (aGameBoard) {
+  tick (aGame) {
     
   }
 }
@@ -144,7 +144,7 @@ class NullHouse {
 
   }
 
-  tick (aGameBoard) {
+  tick (aGame) {
     
   }
 

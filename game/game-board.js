@@ -92,22 +92,6 @@ class GameBoard {
     return false
   }
 
-  stomp (aShape) {
-    console.log('stomping')
-    for (let i = 0; i < this.controllables.length; i++) {
-      var c = this.controllables[i]
-      if (c.isAlive && aShape.isTouchingAny(c.shapes)) {
-        console.log('SMASH')
-        c.smash()
-        this._events.push({
-          message: `💀 ${c.ownerName} smashed!`,
-          type: 'kill',
-          whoDied: c.ownerName
-        })
-      }
-    }
-  }
-
   time () {
     return new Date().getTime()
   }

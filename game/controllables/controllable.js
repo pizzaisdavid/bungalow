@@ -11,7 +11,7 @@ class Controllable {
     // do nothing
   }
 
-  tick(aGameBoard) {
+  tick(aGame) {
     // do nothing!
   }
 
