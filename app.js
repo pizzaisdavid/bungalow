@@ -48,7 +48,7 @@ io.on('connection', (socket) => {
         state: game.state,
         teams: game.teams,
         player: socket.player,
-        leaderboard: games
+        games: games
       })
     })
   } else {
@@ -57,7 +57,7 @@ io.on('connection', (socket) => {
       state: game.state,
       teams: game.teams,
       player: socket.player,
-      leaderboard: []
+      games: []
     })  
   }
 
