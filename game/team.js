@@ -55,7 +55,12 @@ class Team {
   }
 
   areEnoughPlayersReady() {
-    
+    var readyPlayers = 0
+    this.ready.map( (aBool) => {
+      if(aBool)
+        readyPlayers++
+    })
+    var 
   }
 }
 
