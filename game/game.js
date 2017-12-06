@@ -181,7 +181,7 @@ class Game {
   }
 
   areEnoughPlayersReady() {
-    return true
+    return this.teams['Houses'].areEnoughPlayersReady() && this.teams['Giants'].areEnoughPlayersReady()
   }
 
   getRemainingTime() {

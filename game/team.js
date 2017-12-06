@@ -53,6 +53,10 @@ class Team {
   setReadyStatus(aPlayer, status) {
     this.ready[aPlayer.id] = status
   }
+
+  areEnoughPlayersReady() {
+    
+  }
 }
 
 module.exports = Team
