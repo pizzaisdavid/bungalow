@@ -46,6 +46,7 @@ class Game {
   start (board, teams) {
     this.teams['Houses'].reassignControllables()
     this.teams['Giants'].reassignControllables()
+    this.teams[this.SPECTATORS_TEAM_NAME].reassignControllables()
     console.log('Starting game')
     this.winner = ''
     this.isPreGameLobby = false
@@ -63,7 +64,7 @@ class Game {
     this.board = new GameBoard(300, 150)
     this.teams = {
       'Houses': new Team('Houses', this.board.createHouses(12)),
-      'Giants': new Team('Giants', this.board.createGiants(1))
+      'Giants': new Team('Giants', this.board.createGiants(2))
     }
   }
 
