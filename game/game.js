@@ -1,4 +1,5 @@
 const Team = require('./team')
+var mongoClient = require('mongodb').MongoClient
 
 class Game {
   constructor (teams, board) {
@@ -14,6 +15,10 @@ class Game {
     this.commands = {}
     this.winner = ''
     this.setupSpectators()
+    this.db = null
+    mongoClient.connect('mongodb://localhost:27017/bungalow', (err, db) => {
+      this.db = db
+    })
   }
 
   setupSpectators () {
@@ -86,6 +91,11 @@ class Game {
   tick () {
     if (this.isGameOver()) {
       // TODO NEXT this.setupPregameLobby()
+      this.db.collection('games').insertOne({
+        date: new Date(),
+        whoWon: this.winner,
+        playerCount: Object.keys(this.players).length
+      })
       return
     }
     for (var id in this.commands) {

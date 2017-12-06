@@ -32,7 +32,7 @@ mongoClient.connect('mongodb://localhost:27017/bungalow', (err, db) => {
     console.log('Connected to mongo')
     database = db
     database.collection('games').find({}).toArray((err, docs) => {
-      console.log(docs)
+      previousGames = docs
     })
   }
 })

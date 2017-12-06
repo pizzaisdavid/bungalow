@@ -342,12 +342,12 @@ $(document).ready(() => {
   }
 
   function showPreviousGames(aListOfGames) {
-    var feed = $('#games')
+    var gameDisplay = $('#games')
     for (var i = 0; i < aListOfGames.length; i++) {
       var event = aListOfGames[i]
-      var value = feed.text()
-      value += ('hi' + '\n')
-      feed.text(value)
+      var value = gameDisplay.text()
+      value += (`Date: ${event.date} Who won: ${event.whoWon} Player count: ${event.playerCount} \n`)
+      gameDisplay.text(value)
     }
   }
 
