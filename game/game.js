@@ -4,7 +4,7 @@ const GameBoard = require('./game-board')
 
 class Game {
   constructor (teams, board) {
-    this.GAME_TIME_LIMIT_IN_MILLISECONDS = 5000
+    this.GAME_TIME_LIMIT_IN_MILLISECONDS = 15000
     this.startTimestamp = 'game over'
     this.isPreGameLobby = true;
     this.SPECTATORS_TEAM_NAME = 'spectators'
@@ -44,6 +44,8 @@ class Game {
   }
 
   start (board, teams) {
+    this.teams['Houses'].reassignControllables()
+    this.teams['Giants'].reassignControllables()
     console.log('Starting game')
     this.winner = ''
     this.isPreGameLobby = false

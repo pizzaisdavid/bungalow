@@ -18,6 +18,13 @@ class Team {
     return false
   }
 
+  reassignControllables() {
+    for (var i = 0; i < this.players.length; i++) {
+      var player = this.players[i]
+      player.assignControllable(this.findOpenControllable())
+    }
+  }
+
   findOpenControllable () {
     for (var i = 0; i < this.controllables.length; i++) {
       var c = this.controllables[i]

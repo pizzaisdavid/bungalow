@@ -76,6 +76,7 @@ $(document).ready(() => {
       clearCanvas()
       if (gameState.winner) {
         clearFeed()
+        resetReadyButton()
       }
       drawControllables(gameState.controllables)
       updateTeams(gameState.teams)
@@ -349,6 +350,11 @@ $(document).ready(() => {
       value += (`Date: ${event.date} Who won: ${event.whoWon} Player count: ${event.playerCount} \n`)
       gameDisplay.text(value)
     }
+  }
+
+  function resetReadyButton() {
+    var button = $('#ready')    
+    $('#ready').text('click to ready-up')
   }
 
 })
