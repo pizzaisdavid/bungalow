@@ -35,6 +35,16 @@ class GameBoard {
     return houses
   }
 
+  createGiants (count) {
+    var giants = []
+    for (var i = 0; i < count; i++) {
+      var g = this.spawnProperPlacedGiant()
+      giants.push(g)
+      this.controllables.push(g)
+    }
+    return giants
+  }
+
   createGiant () {
     var giant = this.spawnProperPlacedGiant()
     this.controllables.push(giant)
@@ -80,22 +90,6 @@ class GameBoard {
       }
     }
     return false
-  }
-
-  stomp (aShape) {
-    console.log('stomping')
-    for (let i = 0; i < this.controllables.length; i++) {
-      var c = this.controllables[i]
-      if (c.isAlive && aShape.isTouchingAny(c.shapes)) {
-        console.log('SMASH')
-        c.smash()
-
-        this._events.push({
-          message: 'A house was smashed!',
-          type: 'kill'
-        })
-      }
-    }
   }
 
   time () {

@@ -9,6 +9,7 @@ class Giant {
     this.isStomping = false
     this.isRaising = false
     this.SPEED = 10
+    this.ownerName = ''
 
     this.cooldowns = {
       'SPACE_BAR': 0
@@ -69,14 +70,14 @@ class Giant {
     }
   }
 
-  tick(aGameBoard) {
+  tick(aGame) {
     if (this.isStomping) {
       this.currentControl.z -= 15
       if (this.currentControl.z < 0) {
         this.currentControl.z = 0
-        aGameBoard.stomp(this.currentControl)
+        aGame.stomp(this.currentControl)
         this.isStomping = false
-        this.swap(aGameBoard)
+        this.swap(aGame.board)
       }
     } else if (this.isRaising) {
       this.currentControl.z += 5

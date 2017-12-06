@@ -5,6 +5,17 @@ class Team {
     this.name = name
     this.controllables = controllables
     this.players = []
+    this.ready = {}
+  }
+
+  hasAliveControllables() {
+    for (var i = 0; i < this.controllables.length; i++) {
+      var c = this.controllables[i]
+      if (c.isAlive) {
+        return true
+      }
+    }
+    return false
   }
 
   findOpenControllable () {
@@ -22,9 +33,11 @@ class Team {
     if (index > -1) {
       this.players.splice(index, 1)
     }
+    delete this.ready[aPlayer.id]
   }
 
   push (aPlayer) {
+    this.ready[aPlayer.id] = false
     this.players.push(aPlayer)
   }
 
@@ -35,6 +48,10 @@ class Team {
         return i
       }
     }
+  }
+
+  setReadyStatus(aPlayer, status) {
+    this.ready[aPlayer.id] = status
   }
 }
 

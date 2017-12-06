@@ -5,13 +5,19 @@ $(document).ready(() => {
   var context = canvas.getContext('2d')
   var commands = new Set()
   var id = ''
-  var showHitBoxes = true
+  var showHitBoxes = false
+  var isReady = false
+
+  setupReadyButton()
 
   socket.on('initialize', (initialize) => {
     id = initialize.id
     var controllables = initialize.state.controllables
     var teams = initialize.state.teams
     var events = initialize.state.events
+    var player = initialize.player
+    clearFeed()
+    updatePlayerName(player.name)    
     updateFeed(events)
     initializeTeams(teams)
   })
@@ -49,18 +55,30 @@ $(document).ready(() => {
     function populateStats (team) {
       var statistics = $(`#${team.name}-statistics`)
       statistics.empty()
-      statistics.append('<br>')
       statistics.append(`players: ${team.players.length}`)
       statistics.append('<br>')
+      var readyCount = 0
+      for (var name in team.ready) {
+        var status = team.ready[name]
+        if (status) {
+          readyCount++
+        }
+      }
+      statistics.append(`ready: ${readyCount}`)
+      statistics.append('<br>')      
       statistics.append(`objects: ${team.controllables.length}`)
     }
 
     socket.on('poll', (gameState) => {
       console.log(gameState)
       clearCanvas()
+      if (gameState.winner) {
+        clearFeed()
+      }
       drawControllables(gameState.controllables)
       updateTeams(gameState.teams)
       updateFeed(gameState.events)
+      updateTimeRemaining(gameState.timeLimit, gameState.winner)
       processEvents(gameState.events)
       socket.emit('commands', pollInput())
     })
@@ -216,14 +234,16 @@ $(document).ready(() => {
   function initializeTeams (teams) {
     var TEAM_CONTAIN_SELECTOR = '#teams'
     $(TEAM_CONTAIN_SELECTOR).empty()
+    var row = $('<tr></tr>')
     for (var name in teams) {
       var team = teams[name]
-      $(TEAM_CONTAIN_SELECTOR).append(makeTeamContainer(team))
+      row.append(makeTeamContainer(team))
     }
+    $(TEAM_CONTAIN_SELECTOR).append(row)
   }
 
   function makeTeamContainer (team) {
-    var container = $(`<div id="${team.name}-container"></div>`)
+    var container = $(`<td id="${team.name}-container"></td>`)
     container.append(makeJoinTeamButton(team))
     container.append(makeTeamStatisticsContainer(team))
     return container
@@ -235,6 +255,9 @@ $(document).ready(() => {
     button.prop('value', `join team: ${team.name}`)
     button.click(() => {
       socket.emit('join', team.name)
+      isReady = false
+      $('#ready').text('click to ready-up')
+      
     })
     return button
   }
@@ -244,12 +267,24 @@ $(document).ready(() => {
     return container
   }
 
+  function updatePlayerName(aNameString) {
+    var event = {
+      message :`📣 Your name is: ${aNameString}`
+    }
+    $('#playerName').text(aNameString)
+    updateFeed([event])
+  }
+
+  function clearFeed() {
+    $('#feed').text('')
+  }
+
   function updateFeed(aListOfEvents) {
     var feed = $('#feed')
     for (var i = 0; i < aListOfEvents.length; i++) {
       var event = aListOfEvents[i]
       var value = feed.text()
-      value += ('\n' + event.message)
+      value = (event.message + '\n') + value
       feed.text(value)
     }
   }
@@ -280,5 +315,27 @@ $(document).ready(() => {
     var dx = Math.random() * 5
     var dy = Math.random() * 5
     context.translate(dx, dy);  
+  }
+
+  function setupReadyButton() {
+    var button = $('#ready')
+    button.click(() => {
+      isReady = !isReady
+      socket.emit('isReady', isReady)
+      if (isReady) {
+        $('#ready').text('You are ready, click to unready')        
+      } else {
+        $('#ready').text('click to ready-up')        
+      }
+    })
+  }
+
+  function updateTimeRemaining(aTimeLimit, winner) {
+    if (winner) {
+      $('#time-remaining').text('game over')      
+      return;
+    }
+    $('#time-remaining').text(aTimeLimit.remaining)
+    $('#is-pregame-lobby').text(aTimeLimit.isPregameLobby)
   }
 })

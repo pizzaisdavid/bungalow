@@ -2,6 +2,9 @@ const Team = require('./team')
 
 class Game {
   constructor (teams, board) {
+    this.GAME_TIME_LIMIT_IN_MILLISECONDS = 30000
+    this.startTimestamp = new Date().getTime()
+    this.isPreGameLobby = true;
     this.SPECTATORS_TEAM_NAME = 'spectators'
     console.log('Hi, Clickty-Clack.')
     this.events = []            
@@ -9,6 +12,7 @@ class Game {
     this.board = board
     this.players = {}
     this.commands = {}
+    this.winner = ''
     this.setupSpectators()
   }
 
@@ -23,8 +27,22 @@ class Game {
     return {
       'teams': this.teams,
       'controllables': this.board.controllables,
-      'events': events
+      'events': events,
+      'timeLimit': {
+        'isPregameLobby': this.isPreGameLobby,
+        'total': this.GAME_TIME_LIMIT_IN_MILLISECONDS,
+        'remaining': this.getRemainingTime()
+      },
+      'winner': this.winner
     }
+  }
+
+  start (board, teams) {
+    console.log('Starting game')
+    this.isPreGameLobby = false
+    this.startTimestamp = new Date().getTime()
+    this.board = board
+    this.teams = teams
   }
 
   initializePlayer (aPlayer) {
@@ -66,6 +84,10 @@ class Game {
   }
 
   tick () {
+    if (this.isGameOver()) {
+      // TODO NEXT this.setupPregameLobby()
+      return
+    }
     for (var id in this.commands) {
       var aPlayer = this.players[id]
       var commands = this.commands[id]
@@ -73,7 +95,7 @@ class Game {
     }
     for (var id in this.players) {
       var aPlayer = this.players[id]
-      var events = aPlayer.tick(this.board)
+      var events = aPlayer.tick(this)
       if (events) {
         this.events = this.events.concat(events)
       }
@@ -90,24 +112,121 @@ class Game {
 
   queueEventJoin (aPlayer) {
     this.events.push({
-      message: `Welcome ${aPlayer.id}`,
+      message: `👋 Welcome ${aPlayer.name}!`,
       type: 'initialize'
     })
   }
 
   queueEventJoinTeam(aTeamName, aPlayer) {
     this.events.push({
-      message: `${aPlayer.id} switched from ${aPlayer.teamName} to ${aTeamName}`,
+      message: `📣 ${aPlayer.name} switched from ${aPlayer.teamName} to ${aTeamName}`,
       type: 'joinTeam'
     })
   }
 
   queueEventTerminatePlayer(aPlayer) {
     this.events.push({
-      message: `${aPlayer.id} quit`,
+      message: `👋 ${aPlayer.name} quit`,
       type: 'terminatePlayer'
     })
   }
+
+  queueEventReadyStatus(aPlayer, status) {
+    var message
+    if (status) {
+      message = `👍 ${aPlayer.name} is ready`
+    } else {
+      message = `👎 ${aPlayer.name} is not ready`
+    }
+    this.events.push({
+      message: message,
+      type: 'setReadyStatus'
+    })
+  }
+
+  queueEventWin(aWinnerString) {
+    var aTeam = this.teams[aWinnerString]
+    var aListOfPlayers = aTeam.players
+    var aListOfNames = aListOfPlayers.map((player) => {
+      return player.name
+    })
+    this.events.push({
+      message: `🎉 ${aWinnerString} win the game (players: ${aListOfNames.toString()})`,
+      type: 'win'
+    })
+  }
+
+  areEnoughPlayersReady() {
+    return true
+  }
+
+  getRemainingTime() {
+    var whenTheGameEnds = this.GAME_TIME_LIMIT_IN_MILLISECONDS + this.startTimestamp
+    return whenTheGameEnds - new Date().getTime()
+  }
+
+  isGameOver() {
+    if (this.isPreGameLobby) {
+      return false
+    }
+    if (this.teams['Houses'].hasAliveControllables() === false) {
+      this.winner = 'Giants'
+      this.queueEventWin(this.winner)
+      return true
+    }  
+    if (this.getRemainingTime() < 0) {
+      this.winner = 'Houses'
+      this.queueEventWin(this.winner)      
+      return true
+    }
+    return false
+  }
+
+  setReadyStatus(aPlayer, status) {
+    this.queueEventReadyStatus(aPlayer, status)
+    this.teams[aPlayer.teamName].setReadyStatus(aPlayer, status)
+  }
+
+  stomp(aShape) {
+    console.log('stomping')
+    var killCount = 0
+    for (let i = 0; i < this.board.controllables.length; i++) {
+      var c = this.board.controllables[i]
+      if (c.isAlive && aShape.isTouchingAny(c.shapes)) {
+        console.log('SMASH')
+        var ownerId = c.ownerId
+        c.smash()
+        killCount++
+        if (ownerId) {
+          var aPlayer = this.players[ownerId]
+          var team = this.teams[aPlayer.teamName]
+          var aControllable = team.findOpenControllable()
+          aPlayer.assignControllable(aControllable)
+        }
+        this.events.push({
+          message: `💀 ${c.ownerName} smashed!`,
+          type: 'kill',
+          whoDied: c.ownerName
+        })
+      }
+    }
+    if (killCount === 2) {
+      this.events.push({
+        message: `💠 double kill`,
+        type: 'kill',
+      })
+    } else if (killCount === 3) {
+      this.events.push({
+        message: `❇️ triple kill`,
+        type: 'kill',
+      })
+    } else if (killCount > 3) {
+      this.events.push({
+        message: `✴️ multi-kill`,
+        type: 'kill',
+      })
+    }
+  } 
 }
 
 module.exports = Game

@@ -21,6 +21,7 @@ class House {
     this.SPEED = 10
     this.isAlive = true
     this.ownerId = ''
+    this.ownerName = 'An empty house'
   }
 
   isVancant () {
@@ -53,6 +54,7 @@ class House {
 
   abandon () {
     this.ownerId = ''
+    this.ownerName = 'An empty house'
   }
 
   toString () {
@@ -118,7 +120,7 @@ class House {
     this.isAlive = false
   }
 
-  tick (aGameBoard) {
+  tick (aGame) {
     
   }
 }
@@ -126,6 +128,8 @@ class House {
 class NullHouse {
   constructor () {
     this.position = Shape.Null
+    this.ownerName = ''
+    this.isAlive = false
   }
 
   abandon () {
@@ -140,7 +144,7 @@ class NullHouse {
 
   }
 
-  tick (aGameBoard) {
+  tick (aGame) {
     
   }
 

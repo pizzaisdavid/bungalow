@@ -15,6 +15,10 @@ canvas {
   -ms-interpolation-mode: nearest-neighbor;
 }
 
+.title {
+  text-align: center;
+}
+
 #feed {
   float: right;
   resize: none;  
