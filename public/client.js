@@ -5,7 +5,7 @@ $(document).ready(() => {
   var context = canvas.getContext('2d')
   var commands = new Set()
   var id = ''
-  var showHitBoxes = false
+  var showHitBoxes = true
   var isReady = false
 
   setupReadyButton()
@@ -121,11 +121,11 @@ $(document).ready(() => {
       if (aHouse.ownerId === id) {
         var image = sprites['HOUSE_OUTLINE_FRONT']
         context.drawImage(image, aHouse.shape.position.x, aHouse.shape.position.y - 10)
-        if (showHitBoxes) {
-          context.fillStyle = 'black'
-          context.lineWidth = 1
-          context.strokeRect(aHouse.shape.position.x, aHouse.shape.position.y, aHouse.shape.width, aHouse.shape.height)
-        }
+      }
+      if (showHitBoxes) {
+        context.fillStyle = 'black'
+        context.lineWidth = 1
+        context.strokeRect(aHouse.shape.position.x, aHouse.shape.position.y, aHouse.shape.width, aHouse.shape.height)
       }
     }
 
@@ -143,7 +143,12 @@ $(document).ready(() => {
       var image = sprites['SHOE_SIDE']
       var OFFSET = 180
       context.globalAlpha = 0.5
-      context.drawImage(image, aShape.position.x, aShape.position.y - OFFSET)      
+      context.drawImage(image, aShape.position.x, aShape.position.y - OFFSET)  
+      if (showHitBoxes) {
+        context.fillStyle = 'black'
+        context.lineWidth = 1
+        context.strokeRect(aShape.position.x, aShape.position.y, aShape.width, aShape.height)
+      }    
       context.globalAlpha = 1.0      
     }
 
@@ -163,6 +168,12 @@ $(document).ready(() => {
       context.drawImage(shadow, aShape.position.x + horizontalShadowOffset, aShape.position.y + verticalShadowOffset, shadowWidth, shadowHeight)
       context.globalAlpha = 1.0      
       context.drawImage(foot, aShape.position.x, aShape.position.y - OFFSET - aShape.position.z)
+
+      if (showHitBoxes) {
+        context.fillStyle = 'black'
+        context.lineWidth = 1
+        context.strokeRect(aShape.position.x, aShape.position.y, aShape.width, aShape.height)
+      }
     }
 
     function pollInput () {
