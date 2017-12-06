@@ -5,7 +5,7 @@ const GameBoard = require('./game-board')
 class Game {
   constructor (teams, board) {
     this.GAME_TIME_LIMIT_IN_MILLISECONDS = 5000
-    this.startTimestamp = new Date().getTime()
+    this.startTimestamp = 'game over'
     this.isPreGameLobby = true;
     this.SPECTATORS_TEAM_NAME = 'spectators'
     console.log('Hi, Clickty-Clack.')
@@ -50,9 +50,12 @@ class Game {
     this.startTimestamp = new Date().getTime()
     this.board = board
     this.teams = teams
+    this.teams['Houses'].ready = {}
+    this.teams['Giants'].ready = {}
   }
 
   runPregameLobby() {
+    this.startTimestamp = ''
     this.winner = ''
     this.isPreGameLobby = true
     this.board = new GameBoard(300, 150)
@@ -181,10 +184,16 @@ class Game {
   }
 
   areEnoughPlayersReady() {
+    if (this.teams['Houses'].players.length === 0 && this.teams['Giants'].players.length === 0) {
+      return false
+    }
     return this.teams['Houses'].areEnoughPlayersReady() && this.teams['Giants'].areEnoughPlayersReady()
   }
 
   getRemainingTime() {
+    if (this.startTimestamp === '') {
+      return ''
+    }
     var whenTheGameEnds = this.GAME_TIME_LIMIT_IN_MILLISECONDS + this.startTimestamp
     return whenTheGameEnds - new Date().getTime()
   }
