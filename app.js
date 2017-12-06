@@ -29,7 +29,8 @@ io.on('connection', (socket) => {
     id: socket.id,
     state: game.state,
     teams: game.teams,
-    player: socket.player
+    player: socket.player,
+    leaderboard: []
   })
 
   socket.on('join', (teamName) => {

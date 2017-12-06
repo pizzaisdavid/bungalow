@@ -16,10 +16,12 @@ $(document).ready(() => {
     var teams = initialize.state.teams
     var events = initialize.state.events
     var player = initialize.player
+    var leaderboard = initialize.leaderboard
     clearFeed()
     updatePlayerName(player.name)    
     updateFeed(events)
     initializeTeams(teams)
+    updateLeaderboard(leaderboard)
   })
 
   loadSprites((sprites) => {
@@ -337,5 +339,22 @@ $(document).ready(() => {
     }
     $('#time-remaining').text(aTimeLimit.remaining)
     $('#is-pregame-lobby').text(aTimeLimit.isPregameLobby)
+  }
+
+  function updateLeaderboard(aListOfEntries) {
+    var leaderboard = $('#leaderboard')
+    leaderboard.empty()
+    for (var i = 0; i < aListOfEntries.length; i++) {
+      var entry = aListOfEntries[i]
+      leaderboard.append(makeLeaderboardRow(entry))
+    }
+  }
+
+  function makeLeaderboardRow(entry) {
+    var tr = $("<tr></tr>")
+    tr.append(`<td>${entry.whoWon}</td>`)
+    tr.append(`<td>${entry.playerCount}</td>`)
+    tr.append(`<td>${entry.creationDate}</td>`)
+    return tr
   }
 })
