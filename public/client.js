@@ -260,7 +260,7 @@ $(document).ready(() => {
       socket.emit('join', team.name)
       isReady = false
       $('#ready').text('click to ready-up')
-      
+      $('#screen').focus()
     })
     return button
   }
