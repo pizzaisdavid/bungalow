@@ -23,7 +23,7 @@ const Player = require('./game/player')
 var board
 var teams
 var game
-var previousGames
+var previousGames = []
 
 mongoClient.connect('mongodb://localhost:27017/bungalow', (err, db) => {
   if (err) {

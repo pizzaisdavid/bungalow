@@ -91,11 +91,14 @@ class Game {
   tick () {
     if (this.isGameOver()) {
       // TODO NEXT this.setupPregameLobby()
-      this.db.collection('games').insertOne({
-        date: new Date(),
-        whoWon: this.winner,
-        playerCount: Object.keys(this.players).length
-      })
+      if (this.db) {
+        this.db.collection('games').insertOne({
+          date: new Date(),
+          whoWon: this.winner,
+          playerCount: Object.keys(this.players).length
+        })
+      }
+
       return
     }
     for (var id in this.commands) {

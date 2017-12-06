@@ -19,12 +19,17 @@ canvas {
   text-align: center;
 }
 
+#right {
+  float: right;
+  resize: none;  
+}
+
 #feed {
   float: right;
   resize: none;  
 }
 
 #leaderboard {
-  float: right;
+  float: left;
   resize: none;  
 }
