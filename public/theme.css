@@ -25,11 +25,11 @@ canvas {
 }
 
 #feed {
-  float: right;
+  float: left;
   resize: none;  
 }
 
 #leaderboard {
-  float: left;
+  float: right;
   resize: none;  
 }
