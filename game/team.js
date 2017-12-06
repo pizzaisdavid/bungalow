@@ -55,12 +55,14 @@ class Team {
   }
 
   areEnoughPlayersReady() {
+    if(this.players.count === 0) return true;
     var readyPlayers = 0
-    this.ready.map( (aBool) => {
+    Object.keys(this.ready).map( (aBool) => {
       if(aBool)
         readyPlayers++
     })
-    var 
+    var enoughPlayers = (readyPlayers / this.players.count) > 0.5
+    return enoughPlayers
   }
 }
 
