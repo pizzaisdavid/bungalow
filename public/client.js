@@ -196,11 +196,11 @@ $(document).ready(() => {
 
     function processCommand (code) {
       const KEYBOARD_CODES = {
-        32: 'SPACE_BAR',
+        86: 'SPACE_BAR',
         37: 'LEFT',
         38: 'UP',
         39: 'RIGHT',
-        40: 'DOWN'
+        40: 'DOWN',
       }
       try {
         return KEYBOARD_CODES[code]
