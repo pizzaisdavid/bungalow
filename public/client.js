@@ -201,6 +201,10 @@ $(document).ready(() => {
         38: 'UP',
         39: 'RIGHT',
         40: 'DOWN',
+        65: 'LEFT',
+        83: 'DOWN',
+        68: 'RIGHT',
+        87: 'UP'
       }
       try {
         return KEYBOARD_CODES[code]
