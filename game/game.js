@@ -227,24 +227,27 @@ class Game {
 
   stomp(aShape) {
     console.log('stomping')
-    var smashed = this.board.controllables.filter((c) => { return c.isAlive && aShape.isTouchingAny(c.shapes) } )
-    smashed.map((c) => { 
-      console.log('SMASH')
-      var ownerId = c.ownerId
-      c.smash()
-      if (ownerId) {
-        var aPlayer = this.players[ownerId]
-        var team = this.teams[aPlayer.teamName]
-        var aControllable = team.findOpenControllable()
-        aPlayer.assignControllable(aControllable)
+    var killCount = 0
+    for (let i = 0; i < this.board.controllables.length; i++) {
+      var c = this.board.controllables[i]
+      if (c.isAlive && aShape.isTouchingAny(c.shapes)) {
+        console.log('SMASH')
+        var ownerId = c.ownerId
+        c.smash()
+        killCount++
+        if (ownerId) {
+          var aPlayer = this.players[ownerId]
+          var team = this.teams[aPlayer.teamName]
+          var aControllable = team.findOpenControllable()
+          aPlayer.assignControllable(aControllable)
+        }
+        this.events.push({
+          message: `💀 ${c.ownerName} smashed!`,
+          type: 'kill',
+          whoDied: c.ownerName
+        })
       }
-      this.events.push({
-        message: `💀 ${c.ownerName} smashed!`,
-        type: 'kill',
-        whoDied: c.ownerName
-      })
-    })
-    var killCount = smashed.length
+    }
     if (killCount === 2) {
       this.events.push({
         message: `💠 double kill`,
