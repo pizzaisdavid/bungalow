@@ -71,14 +71,14 @@ io.on('connection', (socket) => {
 board = new GameBoard(300, 150)
 teams = {
   'Houses': new Team('Houses', board.createHouses(12)),
-  'Giants': new Team('Giants', board.createGiants(2))
+  'Giants': new Team('Giants', board.createGiants(6))
 }
 game = new Game(teams, board)
 setInterval(() => {
   if (game.isPreGameLobby && game.areEnoughPlayersReady()) {
     board = new GameBoard(300, 150)    
     teams['Houses'].controllables = board.createHouses(12)
-    teams['Giants'].controllables = board.createGiants(2)
+    teams['Giants'].controllables = board.createGiants(6)
     game.start(board, teams)
   }
   game.tick()    

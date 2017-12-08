@@ -65,7 +65,7 @@ class Game {
     this.board = new GameBoard(300, 150)
     this.teams = {
       'Houses': new Team('Houses', this.board.createHouses(12)),
-      'Giants': new Team('Giants', this.board.createGiants(2))
+      'Giants': new Team('Giants', this.board.createGiants(6))
     }
     this.setupSpectators()
   }
