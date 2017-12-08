@@ -5,7 +5,7 @@ $(document).ready(() => {
   var context = canvas.getContext('2d')
   var commands = new Set()
   var id = ''
-  var showHitBoxes = false
+  var showHitBoxes = true
   var isReady = false
 
   setupReadyButton()
