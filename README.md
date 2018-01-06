@@ -1,6 +1,6 @@
 # There goes the Neighborhood
 
-![screenshot](https://github.com/pizzaisdavid/bungalow/blob/master/notes/thanks.PNG)
+![screenshot](https://github.com/pizzaisdavid/bungalow/blob/master/notes/journey.gif)
 
 ## how to run
 Node.js 8.8.1 is recommended
