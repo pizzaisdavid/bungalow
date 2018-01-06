@@ -1,5 +1,7 @@
 # There goes the Neighborhood
 
+![screenshot](https://github.com/pizzaisdavid/bungalow/blob/master/notes/thanks.PNG)
+
 ## Houses
 * movement (mult-input)
   - slow to backup
