@@ -8,7 +8,7 @@ class Team {
     this.ready = {}
   }
 
-  hasAliveControllables() {
+  hasAliveControllables () {
     for (var i = 0; i < this.controllables.length; i++) {
       var c = this.controllables[i]
       if (c.isAlive) {
@@ -18,7 +18,7 @@ class Team {
     return false
   }
 
-  reassignControllables() {
+  reassignControllables () {
     for (var i = 0; i < this.players.length; i++) {
       var player = this.players[i]
       player.assignControllable(this.findOpenControllable())
@@ -57,12 +57,12 @@ class Team {
     }
   }
 
-  setReadyStatus(aPlayer, status) {
+  setReadyStatus (aPlayer, status) {
     this.ready[aPlayer.id] = status
   }
 
-  areEnoughPlayersReady() {
-    if(this.players.length === 0) return true;
+  areEnoughPlayersReady () {
+    if (this.players.length === 0) return true
     var readyPlayers = 0
     for (var player in this.ready) {
       var status = this.ready[player]

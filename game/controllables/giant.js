@@ -61,7 +61,7 @@ class Giant {
         break
       case 'SPACE_BAR':
         if (this.isRaising === false) {
-          this.space(aGameBoard)          
+          this.space(aGameBoard)
         }
         break
       default:
@@ -70,7 +70,7 @@ class Giant {
     }
   }
 
-  tick(aGame) {
+  tick (aGame) {
     if (this.isStomping) {
       this.currentControl.z -= 15
       if (this.currentControl.z < 0) {
@@ -126,13 +126,13 @@ class Giant {
     }
   }
 
-  raise() {
+  raise () {
     this.israising = true
   }
 
   smash () {
     // TODO: haha smash your own foot!
-  } 
+  }
 
   swap (aGameBoard) {
     this.cooldowns['SPACE_BAR'] = aGameBoard.time()

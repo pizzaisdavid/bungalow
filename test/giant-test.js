@@ -50,8 +50,8 @@ describe('giant: ', () => {
     })
   })
 
-  class DummyShape{
-    constructor(width, height){
+  class DummyShape {
+    constructor (width, height) {
       this.x = width - 40
       this.y = height - 40
     }

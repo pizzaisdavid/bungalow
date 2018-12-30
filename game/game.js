@@ -6,10 +6,10 @@ class Game {
   constructor (teams, board) {
     this.GAME_TIME_LIMIT_IN_MILLISECONDS = 30000
     this.startTimestamp = 'game over'
-    this.isPreGameLobby = true;
+    this.isPreGameLobby = true
     this.SPECTATORS_TEAM_NAME = 'spectators'
     console.log('Hi, Clickty-Clack.')
-    this.events = []            
+    this.events = []
     this.teams = teams
     this.board = board
     this.players = {}
@@ -44,7 +44,7 @@ class Game {
   }
 
   start (board, teams) {
-    this.teams = teams    
+    this.teams = teams
     this.setupSpectators()
     this.teams['Houses'].reassignControllables()
     this.teams['Giants'].reassignControllables()
@@ -58,7 +58,7 @@ class Game {
     this.teams['Giants'].ready = {}
   }
 
-  runPregameLobby() {
+  runPregameLobby () {
     this.startTimestamp = ''
     this.winner = ''
     this.isPreGameLobby = true
@@ -138,7 +138,7 @@ class Game {
   processCommands (player, commands) {
     commands.map((c) => {
       console.log(c)
-     player.do(this.board, c)
+      player.do(this.board, c)
     })
   }
 
@@ -149,21 +149,21 @@ class Game {
     })
   }
 
-  queueEventJoinTeam(aTeamName, aPlayer) {
+  queueEventJoinTeam (aTeamName, aPlayer) {
     this.events.push({
       message: `📣 ${aPlayer.name} switched from ${aPlayer.teamName} to ${aTeamName}`,
       type: 'joinTeam'
     })
   }
 
-  queueEventTerminatePlayer(aPlayer) {
+  queueEventTerminatePlayer (aPlayer) {
     this.events.push({
       message: `👋 ${aPlayer.name} quit`,
       type: 'terminatePlayer'
     })
   }
 
-  queueEventReadyStatus(aPlayer, status) {
+  queueEventReadyStatus (aPlayer, status) {
     var message
     if (status) {
       message = `👍 ${aPlayer.name} is ready`
@@ -176,7 +176,7 @@ class Game {
     })
   }
 
-  queueEventWin(aWinnerString) {
+  queueEventWin (aWinnerString) {
     var aTeam = this.teams[aWinnerString]
     var aListOfPlayers = aTeam.players
     var aListOfNames = aListOfPlayers.map((player) => {
@@ -188,14 +188,14 @@ class Game {
     })
   }
 
-  areEnoughPlayersReady() {
+  areEnoughPlayersReady () {
     if (this.teams['Houses'].players.length === 0 && this.teams['Giants'].players.length === 0) {
       return false
     }
     return this.teams['Houses'].areEnoughPlayersReady() && this.teams['Giants'].areEnoughPlayersReady()
   }
 
-  getRemainingTime() {
+  getRemainingTime () {
     if (this.startTimestamp === '') {
       return ''
     }
@@ -203,7 +203,7 @@ class Game {
     return whenTheGameEnds - new Date().getTime()
   }
 
-  isGameOver() {
+  isGameOver () {
     if (this.isPreGameLobby) {
       return false
     }
@@ -211,21 +211,21 @@ class Game {
       this.winner = 'Giants'
       this.queueEventWin(this.winner)
       return true
-    }  
+    }
     if (this.getRemainingTime() < 0) {
       this.winner = 'Houses'
-      this.queueEventWin(this.winner)      
+      this.queueEventWin(this.winner)
       return true
     }
     return false
   }
 
-  setReadyStatus(aPlayer, status) {
+  setReadyStatus (aPlayer, status) {
     this.queueEventReadyStatus(aPlayer, status)
     this.teams[aPlayer.teamName].setReadyStatus(aPlayer, status)
   }
 
-  stomp(aShape) {
+  stomp (aShape) {
     console.log('stomping')
     var killCount = 0
     for (let i = 0; i < this.board.controllables.length; i++) {
@@ -251,20 +251,20 @@ class Game {
     if (killCount === 2) {
       this.events.push({
         message: `💠 double kill`,
-        type: 'kill',
+        type: 'kill'
       })
     } else if (killCount === 3) {
       this.events.push({
         message: `❇️ triple kill`,
-        type: 'kill',
+        type: 'kill'
       })
     } else if (killCount > 3) {
       this.events.push({
         message: `✴️ multi-kill`,
-        type: 'kill',
+        type: 'kill'
       })
     }
-  } 
+  }
 }
 
 module.exports = Game

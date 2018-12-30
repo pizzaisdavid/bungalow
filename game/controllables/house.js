@@ -63,7 +63,7 @@ class House {
 
   do (aGameBoard, command) {
     if (this.isAlive === false) {
-      return;
+      return
     }
     switch (command) {
       case 'LEFT':
@@ -121,7 +121,7 @@ class House {
   }
 
   tick (aGame) {
-    
+
   }
 }
 
@@ -145,7 +145,7 @@ class NullHouse {
   }
 
   tick (aGame) {
-    
+
   }
 
   toString () {

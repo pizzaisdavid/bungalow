@@ -11,13 +11,13 @@ class GameBoard {
     this._events = []
   }
 
-  get events() {
+  get events () {
     var events = this._events
     this._events = []
     return events
   }
 
-  set events(e) {
+  set events (e) {
     this._events = e
   }
 

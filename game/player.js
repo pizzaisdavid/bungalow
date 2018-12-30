@@ -22,7 +22,7 @@ class Player {
     this.controllable.abandon()
   }
 
-  tick(aGame) {
+  tick (aGame) {
     this.controllable.tick(aGame)
   }
 

@@ -51,7 +51,6 @@ io.on('connection', (socket) => {
   })
 })
 
-
 board = new GameBoard(300, 150)
 teams = {
   'Houses': new Team('Houses', board.createHouses(12)),
@@ -60,17 +59,16 @@ teams = {
 game = new Game(teams, board)
 setInterval(() => {
   if (game.isPreGameLobby && game.areEnoughPlayersReady()) {
-    board = new GameBoard(300, 150)    
+    board = new GameBoard(300, 150)
     teams['Houses'].controllables = board.createHouses(12)
     teams['Giants'].controllables = board.createGiants(1)
     game.start(board, teams)
   }
-  game.tick()    
+  game.tick()
   io.emit('poll', game.state)
 }, 33)
 
-
-const port = 3000;
+const port = 3000
 server.listen(port, () => {
-  console.log(`Game is running at ${port}`);
+  console.log(`Game is running at ${port}`)
 })
