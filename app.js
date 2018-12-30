@@ -62,7 +62,7 @@ setInterval(() => {
   if (game.isPreGameLobby && game.areEnoughPlayersReady()) {
     board = new GameBoard(300, 150)    
     teams['Houses'].controllables = board.createHouses(12)
-    teams['Giants'].controllables = board.createGiants(2)
+    teams['Giants'].controllables = board.createGiants(1)
     game.start(board, teams)
   }
   game.tick()    
