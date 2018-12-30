@@ -16,12 +16,10 @@ $(document).ready(() => {
     var teams = initialize.state.teams
     var events = initialize.state.events
     var player = initialize.player
-    var games = initialize.games
     clearFeed()
     updatePlayerName(player.name)    
     updateFeed(events)
     initializeTeams(teams)
-    showPreviousGames(games)
   })
 
   loadSprites((sprites) => {
@@ -355,16 +353,6 @@ $(document).ready(() => {
     }
     $('#time-remaining').text(aTimeLimit.remaining)
     $('#is-pregame-lobby').text(aTimeLimit.isPregameLobby)
-  }
-
-  function showPreviousGames(aListOfGames) {
-    var gameDisplay = $('#games')
-    for (var i = 0; i < aListOfGames.length; i++) {
-      var event = aListOfGames[i]
-      var value = gameDisplay.text()
-      value += (`Date: ${event.date} Who won: ${event.whoWon} Player count: ${event.playerCount} \n`)
-      gameDisplay.text(value)
-    }
   }
 
   function resetReadyButton() {
