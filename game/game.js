@@ -16,10 +16,6 @@ class Game {
     this.commands = {}
     this.winner = ''
     this.setupSpectators()
-    this.db = null
-    mongoClient.connect('mongodb://localhost:27017/bungalow', (err, db) => {
-      this.db = db
-    })
   }
 
   setupSpectators () {
@@ -110,13 +106,6 @@ class Game {
 
   tick () {
     if (this.isGameOver()) {
-      if (this.db) {
-        this.db.collection('games').insertOne({
-          date: new Date(),
-          whoWon: this.winner,
-          playerCount: Object.keys(this.players).length
-        })
-      }
       this.runPregameLobby()
       return
     }
